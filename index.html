@@ -41,27 +41,26 @@
       background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
-      padding: 30px 20px 100px 20px;
+      padding: 40px 15px 120px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      box-sizing: border-box;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* WASHI TAPES (Z-INDEX SUPERIOR PARA QUE NUNCA SE TAPEN) */
+    /* WASHI TAPES */
     .washi {
       position: absolute;
-      height: 26px;
+      height: 24px;
       opacity: 0.9;
       box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-      z-index: 50 !important; /* Siempre arriba */
-      pointer-events: none;
+      z-index: 10;
     }
 
     .washi-leaves {
-      width: 100px;
+      width: 90px;
       background: #dcfce7;
       background-image: radial-gradient(#15803d 20%, transparent 20%);
       background-size: 8px 8px;
@@ -70,13 +69,13 @@
     }
 
     .washi-hearts {
-      width: 90px;
+      width: 80px;
       background: #ffe4e6;
     }
     .washi-hearts::before {
-      content: "♥  ♥  ♥  ♥";
+      content: "♥  ♥  ♥";
       color: #e11d48;
-      font-size: 10px;
+      font-size: 9px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -84,13 +83,13 @@
     }
 
     .washi-flowers {
-      width: 95px;
+      width: 85px;
       background: #fef08a;
       border-left: 2px dashed rgba(0,0,0,0.1);
     }
     .washi-flowers::before {
-      content: "🌸 🌼 🌸 🌼";
-      font-size: 10px;
+      content: "🌸 🌼 🌸";
+      font-size: 9px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -101,19 +100,19 @@
     header {
       position: relative;
       background: #fcfbf7;
-      padding: 20px 30px;
+      padding: 25px 20px 18px 20px;
       border: 1px dashed #a8a29e;
       box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
       max-width: 650px;
-      width: 100%;
+      width: 90%;
       text-align: center;
       transform: rotate(-1deg);
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
 
     h1 {
       font-family: 'Reenie Beanie', cursive;
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       color: var(--accent-pink);
       margin: 0;
       line-height: 1;
@@ -123,10 +122,10 @@
       display: inline-block;
       background: #ffe4e6;
       color: #9f1239;
-      font-size: 0.85rem;
-      padding: 5px 14px;
+      font-size: 0.9rem;
+      padding: 6px 16px;
       border-radius: 12px;
-      margin-top: 8px;
+      margin-top: 10px;
       border: 1px dashed #f43f5e;
       letter-spacing: 1px;
       cursor: pointer;
@@ -142,107 +141,139 @@
 
     .subtitle {
       font-family: 'Caveat', cursive;
-      font-size: 1.35rem;
-      color: #57534e;
-      margin-top: 8px;
-    }
-
-    /* CONTENEDOR HORIZONTAL EN GRILLA / MURAL */
-    .mural-grid {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 30px;
-      width: 100%;
-      max-width: 1100px;
-    }
-
-    /* TARJETAS INTERACTIVAS: MODO POST-IT (INICIAL) QUE SE TRANSFORMAN EN SOBRE AL PASAR EL CURSOR */
-    .interactive-card {
-      position: relative;
-      width: 220px;
-      min-height: 200px;
-      background: #fef9c3; /* Post-it Amarillo */
-      border: 1px solid #fef08a;
-      border-radius: 4px;
-      padding: 20px;
-      box-shadow: 4px 6px 12px rgba(0,0,0,0.15);
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform-origin: top center;
-    }
-
-    /* Rotaciones orgánicas distintas para cada Post-it */
-    .interactive-card:nth-child(1) { transform: rotate(-3deg); }
-    .interactive-card:nth-child(2) { transform: rotate(2deg); }
-    .interactive-card:nth-child(3) { transform: rotate(-2.5deg); }
-
-    /* ESTADO AL PASAR EL CURSOR O TOCAR (HOVER / TOUCH): SE TRANSFORMA EN SOBRE AIR MAIL SANAS */
-    .interactive-card:hover {
-      width: 310px;
-      min-height: 240px;
-      background: var(--card-bg);
-      border: 10px solid transparent;
-      border-image: repeating-linear-gradient(
-        -45deg,
-        #dc2626 0, #dc2626 15px,
-        #fff 15px, #fff 25px,
-        #2563eb 25px, #2563eb 40px,
-        #fff 40px, #fff 50px
-      ) 10;
-      box-shadow: 8px 16px 28px rgba(0,0,0,0.22);
-      transform: scale(1.08) rotate(0deg);
-      z-index: 20;
-    }
-
-    /* Elementos dentro del Sobre */
-    .postit-header {
-      font-family: 'Caveat', cursive;
       font-size: 1.5rem;
-      color: #854d0e;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .interactive-card:hover .postit-header {
-      color: #dc2626;
-    }
-
-    .stamp {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      border: 2px dashed #dc2626;
-      color: #dc2626;
-      padding: 3px 6px;
-      font-size: 0.65rem;
-      font-weight: bold;
-      transform: rotate(8deg);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .interactive-card:hover .stamp {
-      opacity: 0.85;
-    }
-
-    .letter-text {
-      font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
-      line-height: 1.35;
-      color: #1c1917;
+      color: #57534e;
       margin-top: 10px;
     }
 
-    .click-hint {
+    /* CONTENEDOR GRILLA DE ENTRADAS LADO A LADO */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 950px;
+      width: 100%;
+      align-items: start;
+    }
+
+    /* ENTRADA TIPO 1: SOBRE AIR MAIL / POST-IT CORTO (MANUSCRITO) */
+    .post-card {
+      position: relative;
+      background: var(--card-bg);
+      padding: 20px;
+      border: 8px solid transparent;
+      border-image: repeating-linear-gradient(
+        -45deg,
+        #dc2626 0, #dc2626 12px,
+        #fff 12px, #fff 20px,
+        #2563eb 20px, #2563eb 32px,
+        #fff 32px, #fff 40px
+      ) 8;
+      box-shadow: 4px 6px 15px rgba(0,0,0,0.15);
+      transform: rotate(0.8deg);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      cursor: pointer;
+      min-height: 180px;
+    }
+
+    /* Efecto de agrandarse en Hover sin tapar el Washi */
+    .post-card:hover {
+      transform: scale(1.06) rotate(0deg);
+      box-shadow: 8px 15px 25px rgba(0,0,0,0.22);
+      z-index: 20;
+    }
+
+    .post-date {
       font-family: 'Special Elite', cursive;
-      font-size: 0.7rem;
-      color: #a8a29e;
-      text-align: right;
-      margin-top: 15px;
+      font-size: 0.75rem;
+      color: #78716c;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
       display: block;
+    }
+
+    .stamp-mini {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 1px dashed #dc2626;
+      color: #dc2626;
+      padding: 2px 6px;
+      font-size: 0.6rem;
+      font-weight: bold;
+      transform: rotate(6deg);
+      opacity: 0.8;
+    }
+
+    .letter-text-short {
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      line-height: 1.35;
+      color: #1c1917;
+      margin-top: 8px;
+    }
+
+    /* ENTRADA TIPO 2: HOJA DE LIBRETA CON LÍNEAS (POESÍA / MÁQUINA DE ESCRIBIR) */
+    .notebook-paper {
+      position: relative;
+      background: #fbf8f1;
+      /* Líneas horizontales de libreta */
+      background-image: linear-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 100% 28px;
+      padding: 35px 25px 25px 30px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 5px 8px 18px rgba(0,0,0,0.18);
+      /* Ocupa el doble de espacio horizontal en grillas anchas */
+      grid-column: span 2;
+      transform: rotate(-0.5deg);
+      line-height: 28px; /* Sincroniza con las líneas */
+    }
+
+    @media (max-width: 650px) {
+      .notebook-paper {
+        grid-column: span 1; /* En pantallas pequeñas se adapta a 1 columna */
+      }
+    }
+
+    /* Pin / Chinche Metálico 📌 */
+    .pin {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b);
+      border-radius: 50%;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.3), inset -1px -1px 2px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+    .pin::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 7px;
+      width: 4px;
+      height: 6px;
+      background: #475569;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .poetry-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 1.2rem;
+      color: #1e293b;
+      margin: 0 0 5px 0;
+      text-decoration: underline;
+    }
+
+    .poetry-text {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.95rem;
+      color: #334155;
+      margin: 0;
+      white-space: pre-line;
     }
 
     /* ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO */
@@ -264,7 +295,7 @@
       padding: 10px 18px;
       border-radius: 25px;
       font-family: 'Special Elite', cursive;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       cursor: pointer;
       transition: all 0.2s ease;
@@ -280,7 +311,7 @@
       color: #c2410c;
       padding: 2px 8px;
       border-radius: 12px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: bold;
       border: 1px dashed #f97316;
     }
@@ -299,25 +330,538 @@
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ESQUINA INFERIOR DERECHA: REPRODUCTOR SPOTIFY EN RECTÁNGULO COMPACTO (SINO CD) */
-    .compact-spotify-widget {
+    /* ESQUINA INFERIOR DERECHA: REPRODUCTOR SPOTIFY MINI COMPACTO */
+    .mini-spotify-widget {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1000;
-      width: 280px;
-      height: 80px;
-      background: #18181b;
+      background: #fefce8;
+      border: 1px solid #fef08a;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      overflow: hidden;
-      border: 1px solid #27272a;
+      padding: 6px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      width: 280px;
     }
 
-    .spotify-compact-player {
-      width: 100%;
-      height: 100%;
+    .spotify-mini-player {
+      border-radius: 8px;
       border: none;
+      width: 100%;
+      height: 80px; /* Tamaño compacto compacto que solo muestra el nombre de la canción */
+    }
+
+    /* OVERLAY GUIÑO MSN */
+    #msnWinkOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      pointer-events: none;
+    }
+
+    .wink-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 4px solid #f43f5e;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wink-heart {
+      font-size: 80px;
+      animation: pulse 0.6s infinite alternate;
+    }
+
+    .wink-text {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 3.5rem;
+      color: #e11d48;
+      margin: 10px 0 0 0;
+      text-shadow: 2px 2px 0px #ffe4e6;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay Guiño MSN -->
+  <div id="msnWinkOverlay">
+    <div class="wink-box">
+      <div class="wink-heart">💖</div>
+      <div class="wink-text">I LOVE YOU!</div>
+    </div>
+  </div>
+
+  <!-- Encabezado -->
+  <header>
+    <div class="washi washi-flowers" style="top: -12px; left: 8%; transform: rotate(-3deg);"></div>
+    <div class="washi washi-hearts" style="top: -12px; left: 45%; transform: rotate(1deg);"></div>
+    <div class="washi washi-leaves" style="top: -12px; right: 8%; transform: rotate(2deg);"></div>
+
+    <h1>Para Rocío 💌</h1>
+    
+    <div class="tag-title" id="msnTrigger">
+      ✨ CARTA DE AMOR INTERACTIVA
+    </div>
+
+    <div class="subtitle">
+      Un rinconcito interactivo entre Puerto Natales y Viña del Mar
+    </div>
+  </header>
+
+  <!-- Grilla de Entradas -->
+  <main class="journal-grid">
+
+    <!-- ENTRADA 1: SOBRE CORTO AIR MAIL -->
+    <article class="post-card">
+      <div class="washi washi-leaves" style="top: -14px; left: 15px; transform: rotate(-2deg);"></div>
+      <span class="post-date">10 DE SEPTIEMBRE, 2026</span>
+      <div class="stamp-mini">AIR MAIL</div>
+      
+      <p class="letter-text-short">
+        "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
+      </p>
+    </article>
+
+    <!-- ENTRADA 2: SOBRE CORTO AIR MAIL -->
+    <article class="post-card">
+      <div class="washi washi-hearts" style="top: -14px; right: 15px; transform: rotate(3deg);"></div>
+      <span class="post-date">10 DE SEPTIEMBRE, 2026</span>
+      <div class="stamp-mini">AIR MAIL</div>
+      
+      <p class="letter-text-short">
+        Pensando en ti mientras el viento de Natales sopla afuera. ¡Acuérdate de tomar agüita y abrigarte bien hoy! 🌊🌿
+      </p>
+    </article>
+
+    <!-- ENTRADA 3: HOJA DE LIBRETA CON LÍNEAS (TAMAÑO 2 POST-IT + PIN 📌) -->
+    <article class="notebook-paper">
+      <div class="pin"></div>
+      <span class="post-date">10 DE SEPTIEMBRE, 2026 — POESÍA</span>
+      <h2 class="poetry-title">Poema 19 — Pablo Neruda</h2>
+      
+      <p class="poetry-text">
+Es la mañana llena de tempestad
+en el corazón del verano.
+
+Como pañuelos blancos de adiós viajan las nubes,
+el viento las sacude con sus viaj¡Entendido! Vamos a reestructurar y actualizar el código para incorporar todos estos detalles específicos.
+
+Aquí tienes el desglose de los cambios aplicados:
+
+1. **Dos tipos de entradas organizadas:**
+   * **Entradas Cortas (Mensajes Diarios):** Se muestran inicialmente como Post-it plegados y al pasar el cursor (o tocar en celular) se expanden suavemente revelando el sobre tipo *Air Mail* y la letra manuscrita, **manteniendo los washi tapes visibles por encima**.
+   * **Entradas Largas (Poesía / Hojas de Libreta):** Tienen el diseño de una hoja con líneas azules arrancada de una libreta, asegurada en la parte superior con un **pin/chincheta metálica** redonda en lugar de cinta. Usan la tipografía estilo máquina de escribir (*Special Elite*), tienen el doble de ancho que un Post-it y una estructura rectangular limpia con fecha.
+2. **Disposición Visual:** Las tarjetas breves se organizan una al lado de la otra en una cuadrícula tipo tablón de corcho o escritorio de recortes.
+3. **Reproductor de Spotify Compacto:** Se eliminó el disco CD y se alojó un reproductor compacto e integrado en la **esquina inferior derecha** donde se visualiza el nombre del tema y los controles directos sin ocupar espacio extra.
+4. **Fechas Incluidas:** Cada entrada tiene su indicador de fecha del día de creación.
+
+---
+
+### Código Completo Actualizado (`index.html`)
+
+Copia este código y reemplázalo en tu archivo `index.html` en GitHub:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una carta de amor interactiva 💌</title>
+  
+  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+  <link href="[https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Reenie+Beanie&family=Special+Elite&display=swap](https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Reenie+Beanie&family=Special+Elite&display=swap)" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-kraft: #c8a37e;
+      --card-bg: #fffefb;
+      --accent-pink: #e11d48;
+    }
+
+    @keyframes msnShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      10% { transform: translate(-8px, -5px) rotate(-1deg); }
+      20% { transform: translate(8px, 5px) rotate(1deg); }
+      30% { transform: translate(-8px, 5px) rotate(0deg); }
+      40% { transform: translate(8px, -5px) rotate(1deg); }
+      50% { transform: translate(-5px, -2px) rotate(-1deg); }
+      60% { transform: translate(5px, 2px) rotate(0deg); }
+      70% { transform: translate(-2px, 2px) rotate(0deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .shake-screen {
+      animation: msnShake 0.6s ease-in-out;
+    }
+
+    body {
+      font-family: 'Special Elite', cursive;
+      background-color: var(--bg-kraft);
+      background-image: 
+        radial-gradient(#b08863 1px, transparent 0),
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 18px 18px, 100% 4px;
+      color: #292524;
+      margin: 0;
+      padding: 30px 15px 140px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* WASHI TAPES */
+    .washi {
+      position: absolute;
+      height: 26px;
+      opacity: 0.9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      z-index: 20; /* Siempre por encima del contenido */
+      pointer-events: none;
+    }
+
+    .washi-leaves {
+      width: 100px;
+      background: #dcfce7;
+      background-image: radial-gradient(#15803d 20%, transparent 20%);
+      background-size: 8px 8px;
+      border-left: 2px dashed rgba(0,0,0,0.1);
+      border-right: 2px dashed rgba(0,0,0,0.1);
+    }
+
+    .washi-hearts {
+      width: 90px;
+      background: #ffe4e6;
+    }
+    .washi-hearts::before {
+      content: "♥  ♥  ♥";
+      color: #e11d48;
+      font-size: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .washi-flowers {
+      width: 95px;
+      background: #fef08a;
+      border-left: 2px dashed rgba(0,0,0,0.1);
+    }
+    .washi-flowers::before {
+      content: "🌸 🌼 🌸";
+      font-size: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* ENCABEZADO */
+    header {
+      position: relative;
+      background: #fcfbf7;
+      padding: 25px 20px;
+      border: 1px dashed #a8a29e;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
+      max-width: 650px;
+      width: 90%;
+      text-align: center;
+      transform: rotate(-1deg);
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-family: 'Reenie Beanie', cursive;
+      font-size: 3.5rem;
+      color: var(--accent-pink);
+      margin: 0;
+      line-height: 1;
+    }
+
+    .tag-title {
+      display: inline-block;
+      background: #ffe4e6;
+      color: #9f1239;
+      font-size: 0.88rem;
+      padding: 6px 16px;
+      border-radius: 12px;
+      margin-top: 10px;
+      border: 1px dashed #f43f5e;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .tag-title:hover {
+      background: #f43f5e;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.45rem;
+      color: #57534e;
+      margin-top: 10px;
+    }
+
+    /* CUADRÍCULA DE ENTRADAS (SIDE BY SIDE) */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 950px;
+      width: 100%;
+      align-items: start;
+    }
+
+    /* ENTRADA TIPO 1: POST-IT QUE SE EXPANDE A SOBRE AIR MAIL */
+    .postit-wrapper {
+      position: relative;
+      min-height: 220px;
+    }
+
+    .postit-card {
+      position: relative;
+      background: #fef9c3;
+      padding: 20px;
+      border-radius: 2px;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.15);
+      transform: rotate(-1.5deg);
+      transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .postit-card .entry-date {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.75rem;
+      color: #854d0e;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .postit-card .postit-preview {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #713f12;
+      margin: 0;
+    }
+
+    .postit-card .airmail-full-content {
+      display: none;
+      font-family: 'Caveat', cursive;
+      font-size: 1.65rem;
+      line-height: 1.4;
+      color: #1c1917;
+      margin-top: 15px;
+    }
+
+    /* Estado expandido (Hover / Touch) */
+    .postit-wrapper:hover .postit-card,
+    .postit-wrapper:focus-within .postit-card {
+      background: #fffefb;
+      transform: rotate(0deg) scale(1.04);
+      box-shadow: 8px 15px 25px rgba(0,0,0,0.22);
+      border: 10px solid transparent;
+      border-image: repeating-linear-gradient(
+        -45deg,
+        #dc2626 0, #dc2626 12px,
+        #fff 12px, #fff 20px,
+        #2563eb 20px, #2563eb 32px,
+        #fff 32px, #fff 40px
+      ) 10;
+      z-index: 10;
+    }
+
+    .postit-wrapper:hover .postit-preview {
+      display: none;
+    }
+
+    .postit-wrapper:hover .airmail-full-content {
+      display: block;
+    }
+
+    .stamp-mini {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 1px dashed #dc2626;
+      color: #dc2626;
+      padding: 2px 6px;
+      font-size: 0.6rem;
+      font-weight: bold;
+      transform: rotate(6deg);
+      opacity: 0.8;
+    }
+
+    /* ENTRADA TIPO 2: HOJA DE LIBRETA CON LÍNEAS + PIN (OCUPA 2 POST-IT / SPAN 2) */
+    .notebook-card {
+      grid-column: span 1;
+      position: relative;
+      background: #fcfbf7;
+      /* Líneas de cuaderno azuladas */
+      background-image: linear-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 100% 28px;
+      padding: 35px 25px 25px 35px;
+      border-left: 2px solid #fca5a5; /* Margen rojo de libreta */
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
+      transform: rotate(0.8deg);
+      font-family: 'Special Elite', cursive;
+      font-size: 0.92rem;
+      line-height: 28px;
+      color: #1f2937;
+    }
+
+    @media (min-width: 640px) {
+      .notebook-card {
+        grid-column: span 2; /* Ocupa el tamaño de 2 Post-it en pantallas medianas/grandes */
+      }
+    }
+
+    /* Pin / Chincheta metálica */
+    .pin {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b);
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      z-index: 15;
+    }
+    .pin::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 5px;
+      height: 5px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+    }
+
+    .notebook-card .entry-date {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .notebook-card h3 {
+      font-size: 1.2rem;
+      margin: 0 0 10px 0;
+      color: #111827;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .notebook-card p {
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    /* BOTÓN TE EXTRAÑO */
+    .miss-you-container {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .btn-miss-you {
+      background: #f97316;
+      color: white;
+      border: 2px solid #c2410c;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-miss-you:hover {
+      background: #ea580c;
+      transform: scale(1.05);
+    }
+
+    .miss-counter {
+      background: #fffdf9;
+      color: #c2410c;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border: 1px dashed #f97316;
+    }
+
+    .falling-emoji {
+      position: fixed;
+      top: -50px;
+      font-size: 28px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: fallDown 3s linear forwards;
+    }
+
+    @keyframes fallDown {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* REPRODUCTOR SPOTIFY PEQUEÑO (ESQUINA INFERIOR DERECHA) */
+    .spotify-mini-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 250px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .spotify-mini-widget iframe {
+      border: none;
+      width: 100%;
+      height: 80px; /* Tamaño compacto compacto que muestra el título */
+      display: block;
     }
 
     /* OVERLAY GUIÑO MSN */
@@ -382,7 +926,7 @@
 
   <!-- ENCABEZADO -->
   <header>
-    <div class="washi washi-flowers" style="top: -14px; left: 8%; transform: rotate(-4deg);"></div>
+    <div class="washi washi-flowers" style="top: -14px; left: 10%; transform: rotate(-4deg);"></div>
     <div class="washi washi-hearts" style="top: -14px; left: 45%; transform: rotate(1deg);"></div>
     <div class="washi washi-leaves" style="top: -14px; right: 8%; transform: rotate(3deg);"></div>
 
@@ -397,48 +941,67 @@
     </div>
   </header>
 
-  <!-- MURAL CON SOBRES/POST-ITS LADO A LADO -->
-  <main class="mural-grid">
+  <!-- CUADRÍCULA DE ENTRADAS DEL DIARIO -->
+  <main class="journal-grid">
 
-    <!-- CARTA/POST-IT 1 -->
-    <article class="interactive-card">
+    <!-- ENTRADA 1: POST-IT BREVE QUE SE CONVIERTE EN SOBRE AIR MAIL -->
+    <div class="postit-wrapper">
       <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
-      <div class="stamp">PAR AVION / AIR MAIL</div>
-      
-      <div class="postit-header">📌 Nota #1</div>
-      <p class="letter-text" id="letterContent1">
-        "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón..."
-      </p>
-      <span class="click-hint">✨ Pasa el cursor o toca</span>
-    </article>
+      <div class="washi washi-hearts" style="bottom: -10px; right: 15px; transform: rotate(2deg);"></div>
 
-    <!-- CARTA/POST-IT 2 -->
-    <article class="interactive-card">
-      <div class="washi washi-hearts" style="top: -12px; right: 15px; transform: rotate(2deg);"></div>
-      <div class="stamp">AIR MAIL</div>
-      
-      <div class="postit-header">📌 Nota #2</div>
-      <p class="letter-text">
-        "Te dejo nuestra lista de canciones sonar de fondo mientras lees estos recuerditos..." 🎵
-      </p>
-      <span class="click-hint">✨ Pasa el cursor o toca</span>
-    </article>
+      <article class="postit-card" tabindex="0">
+        <span class="entry-date">📅 10 de Septiembre, 2026</span>
+        <p class="postit-preview">📌 Pensándote desde el sur... (Pasa el cursor)</p>
+        
+        <div class="airmail-full-content">
+          <div class="stamp-mini">AIR MAIL</div>
+          "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
+        </div>
+      </article>
+    </div>
 
-    <!-- CARTA/POST-IT 3 -->
-    <article class="interactive-card">
-      <div class="washi washi-flowers" style="top: -12px; left: 20px; transform: rotate(-1deg);"></div>
-      <div class="stamp">SPECIAL DELIVERY</div>
-      
-      <div class="postit-header">📌 Nota #3</div>
-      <p class="letter-text">
-        "Un recordatorio rápido desde Natales: abrígate mucho y no te olvides de lo mucho que te amo." 🧡
+    <!-- ENTRADA 2: POST-IT BREVE -->
+    <div class="postit-wrapper">
+      <div class="washi washi-flowers" style="top: -12px; right: 20px; transform: rotate(4deg);"></div>
+
+      <article class="postit-card" tabindex="0">
+        <span class="entry-date">📅 10 de Septiembre, 2026</span>
+        <p class="postit-preview">📌 Un recordatorio diario 🌸</p>
+        
+        <div class="airmail-full-content">
+          <div class="stamp-mini">PAR AVION</div>
+          Acuérdate de tomar agüita, abrigarte bien cuando salgas a caminar al mar en Viña y recordar lo mucho que te amo. 💖
+        </div>
+      </article>
+    </div>
+
+    <!-- ENTRADA 3: HOJA DE LIBRETA CON LÍNEAS Y PIN (POESÍA - POEMA 19 DE PABLO NERUDA) -->
+    <article class="notebook-card">
+      <div class="pin"></div>
+      <span class="entry-date">📅 Poesía Anexada — 10 de Septiembre, 2026</span>
+      <h3>Poema 19 — Pablo Neruda</h3>
+      <p>
+        Aquí te amo.
+        En los oscuros pinos se desenreda el viento.
+        Fosforece la luna sobre las aguas errantes.
+        Caminan unos días iguales persiguiéndose.
+
+        Se desciñe la niebla en danzantes figuras.
+        Una gaviota de plata se descuelga del ocaso.
+        A veces una vela. Altas, altas estrellas.
+
+        O la cruz negra de un barco.
+        Solo.
+        A veces amanece, y hasta mi alma está húmeda.
+        Suena, resuena el mar lejano.
+        Este es un puerto.
+        Aquí te amo.
       </p>
-      <span class="click-hint">✨ Pasa el cursor o toca</span>
     </article>
 
   </main>
 
-  <!-- ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO -->
+  <!-- ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO CON CONTADOR -->
   <div class="miss-you-container">
     <span class="miss-counter" id="missCounter">Veces extrañada: 0</span>
     <button class="btn-miss-you" id="btnMissYou">
@@ -446,18 +1009,16 @@
     </button>
   </div>
 
-  <!-- ESQUINA INFERIOR DERECHA: SPOTIFY RECTANGULAR COMPACTO (MOSTRANDO NOMBRE DE CANCIÓN) -->
-  <div class="compact-spotify-widget">
-    <iframe class="spotify-compact-player" 
-            src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
-            allowfullscreen="" 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+  <!-- ESQUINA INFERIOR DERECHA: REPRODUCTOR SPOTIFY COMPACTO -->
+  <div class="spotify-mini-widget">
+    <iframe src="[https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0](https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0)" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
             loading="lazy">
     </iframe>
   </div>
 
   <script>
-    // 1. Guiño MSN
+    // 1. Guiño MSN Messenger
     const msnTrigger = document.getElementById('msnTrigger');
     const overlay = document.getElementById('msnWinkOverlay');
 
@@ -469,7 +1030,7 @@
       setTimeout(() => { overlay.style.display = 'none'; }, 2500);
     });
 
-    // 2. Botón Te Extraño
+    // 2. Botón "Te Extraño" con contador y lluvia animada
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
     
