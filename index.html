@@ -16,7 +16,6 @@
       --accent-pink: #e11d48;
     }
 
-    /* Animación de Temblor estilo MSN Nudge */
     @keyframes msnShake {
       0% { transform: translate(0, 0) rotate(0deg); }
       10% { transform: translate(-8px, -5px) rotate(-1deg); }
@@ -72,7 +71,6 @@
     .washi-hearts {
       width: 95px;
       background: #ffe4e6;
-      border-left: 3px iden rgba(0,0,0,0.1);
     }
     .washi-hearts::before {
       content: "♥  ♥  ♥  ♥";
@@ -148,7 +146,6 @@
       margin-top: 12px;
     }
 
-    /* CONTENEDOR PRINCIPAL */
     .container {
       display: flex;
       flex-direction: column;
@@ -157,7 +154,7 @@
       width: 90%;
     }
 
-    /* POST SOBRE AIR MAIL */
+    /* POST CARTA AIR MAIL */
     .airmail-card {
       position: relative;
       background: var(--card-bg);
@@ -205,7 +202,7 @@
       display: block;
     }
 
-    /* --- ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO + CONTADOR --- */
+    /* BOTÓN TE EXTRAÑO */
     .miss-you-container {
       position: fixed;
       bottom: 20px;
@@ -228,18 +225,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       cursor: pointer;
       transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .btn-miss-you:hover {
       background: #ea580c;
       transform: scale(1.05);
-    }
-
-    .btn-miss-you:active {
-      transform: scale(0.95);
     }
 
     .miss-counter {
@@ -252,7 +242,6 @@
       border: 1px dashed #f97316;
     }
 
-    /* LLUVIA DE EMOJIS (PINGÜINOS Y CORAZONES NARANJAS) */
     .falling-emoji {
       position: fixed;
       top: -50px;
@@ -263,116 +252,55 @@
     }
 
     @keyframes fallDown {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(105vh) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    /* --- ESQUINA INFERIOR DERECHA: REPRODUCTOR CD GIRATORIO RETRO --- */
-    .cd-player-widget {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: #fefcf8;
-      border: 2px solid #d6d3d1;
-      border-radius: 16px;
-      padding: 12px 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      width: 170px;
-    }
-
-    /* El CD Giratorio */
-    .cd-disc {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 12%, #fff 13%, #e2e8f0 18%, #94a3b8 20%, #475569 100%);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    /* REPRODUCTOR CD / SPOTIFY VISIBLE */
+    .music-widget-card {
       position: relative;
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      padding: 20px;
+      box-shadow: 5px 10px 20px rgba(0,0,0,0.15);
+      transform: rotate(-1.5deg);
+      border-radius: 12px;
+    }
+
+    .music-header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      animation: cdRotate 5s linear infinite;
-      animation-play-state: running; /* Corre mientras suena */
-      overflow: hidden;
+      justify-content: space-between;
+      margin-bottom: 15px;
     }
 
-    .cd-disc.paused {
-      animation-play-state: paused;
+    .music-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #854d0e;
+      margin: 0;
     }
 
-    /* Portada de la canción dentro del CD */
-    .cd-cover {
-      width: 45px;
-      height: 45px;
+    /* CD Giratorio */
+    .cd-mini {
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background-image: url('https://picsum.photos/200'); /* Imagen de portada por defecto */
-      background-size: cover;
-      background-position: center;
-      border: 2px solid #ffffff;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+      background: radial-gradient(circle, #000 12%, #e2e8f0 13%, #94a3b8 25%, #1e293b 100%);
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      animation: cdSpin 4s linear infinite;
     }
 
-    .cd-hole {
-      width: 12px;
-      height: 12px;
-      background: #fefcf8;
-      border-radius: 50%;
-      position: absolute;
-      border: 1px solid #cbd5e1;
-    }
-
-    @keyframes cdRotate {
+    @keyframes cdSpin {
       100% { transform: rotate(360deg); }
     }
 
-    /* Botones del reproductor CD */
-    .cd-controls {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      align-items: center;
+    .spotify-player {
+      border-radius: 12px;
+      border: none;
       width: 100%;
-    }
-
-    .cd-btn {
-      background: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .cd-btn:hover {
-      background: #e5e7eb;
-      transform: scale(1.08);
-    }
-
-    .cd-btn.active {
-      background: #f97316;
-      color: white;
-      border-color: #c2410c;
-    }
-
-    /* Reproductor Spotify oculto/integrado */
-    .hidden-spotify {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
+      height: 152px;
     }
 
     /* OVERLAY GUIÑO MSN */
@@ -427,7 +355,6 @@
 </head>
 <body>
 
-  <!-- Overlay para el Guiño MSN -->
   <div id="msnWinkOverlay">
     <div class="wink-box">
       <div class="wink-heart">💖</div>
@@ -435,7 +362,6 @@
     </div>
   </div>
 
-  <!-- ENCABEZADO -->
   <header>
     <div class="washi washi-flowers" style="top: -14px; left: 10%; transform: rotate(-4deg);"></div>
     <div class="washi washi-hearts" style="top: -14px; left: 45%; transform: rotate(1deg);"></div>
@@ -454,7 +380,6 @@
 
   <main class="container">
 
-    <!-- CARTA AIR MAIL -->
     <article class="airmail-card" id="loveLetter">
       <div class="washi washi-leaves" style="top: -15px; left: 20px; transform: rotate(-3deg);"></div>
       <div class="washi washi-hearts" style="bottom: -12px; right: 30px; transform: rotate(2deg);"></div>
@@ -468,9 +393,26 @@
       <span class="click-hint">✨ Haz clic en el sobre para leer más</span>
     </article>
 
+    <!-- TARJETA CON TU PLAYLIST REAL DE SPOTIFY -->
+    <article class="music-widget-card">
+      <div class="washi washi-flowers" style="top: -14px; left: 35%; transform: rotate(-2deg);"></div>
+      
+      <div class="music-header">
+        <h2 class="music-title">Nuestra Banda Sonora 🎵</h2>
+        <div class="cd-mini"></div>
+      </div>
+
+      <!-- PLAYLIST DE SPOTIFY INTEGRADA -->
+      <iframe class="spotify-player" 
+              src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator" 
+              allowfullscreen="" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy">
+      </iframe>
+    </article>
+
   </main>
 
-  <!-- ESQUINA INFERIOR IZQUIERDA: BOTÓN "TE EXTRAÑO" CON CONTADOR -->
   <div class="miss-you-container">
     <span class="miss-counter" id="missCounter">Veces extrañada: 0</span>
     <button class="btn-miss-you" id="btnMissYou">
@@ -478,32 +420,8 @@
     </button>
   </div>
 
-  <!-- ESQUINA INFERIOR DERECHA: REPRODUCTOR CD GIRATORIO CON BOTONES -->
-  <div class="cd-player-widget">
-    <!-- Disco CD con arte de portada -->
-    <div class="cd-disc" id="cdDisc">
-      <div class="cd-cover" id="cdCover"></div>
-      <div class="cd-hole"></div>
-    </div>
-
-    <!-- Controles Típicos de Reproductor -->
-    <div class="cd-controls">
-      <button class="cd-btn" id="btnShuffle" title="Aleatorio">🔀</button>
-      <button class="cd-btn" id="btnPlay" title="Play/Pause">▶️</button>
-      <button class="cd-btn" id="btnStop" title="Stop">⏹️</button>
-      <button class="cd-btn" id="btnRepeat" title="Repetir">🔁</button>
-    </div>
-
-    <!-- Frame de Spotify Oculto cargando la Playlist -->
-    <!-- ⚠️ Reemplaza la ID de tu playlist abajo si es distinta ⚠️ -->
-    <iframe class="hidden-spotify" id="spotifyIframe"
-            src="https://open.spotify.com/playlist/2L3j5IWob51VmtJyS1qdoz?si=HIZo1pNQQfaDDimlcIDmrA&utm_source=copy-link&pi=r36_d89iRSGE5" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
-  </div>
-
   <script>
-    // 1. Interacción Carta Air Mail
+    // 1. Interacción Carta
     const letter = document.getElementById('loveLetter');
     const content = document.getElementById('letterContent');
     let isOpened = false;
@@ -518,7 +436,7 @@
       }
     });
 
-    // 2. Guiño MSN Messenger
+    // 2. Guiño MSN
     const msnTrigger = document.getElementById('msnTrigger');
     const overlay = document.getElementById('msnWinkOverlay');
 
@@ -526,20 +444,14 @@
       document.body.classList.add('shake-screen');
       overlay.style.display = 'flex';
 
-      setTimeout(() => {
-        document.body.classList.remove('shake-screen');
-      }, 600);
-
-      setTimeout(() => {
-        overlay.style.display = 'none';
-      }, 2500);
+      setTimeout(() => { document.body.classList.remove('shake-screen'); }, 600);
+      setTimeout(() => { overlay.style.display = 'none'; }, 2500);
     });
 
-    // 3. Botón "Te Extraño" + Contador + Lluvia de Pingüinos y Corazones Naranjas
+    // 3. Botón Te Extraño
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
     
-    // Carga clics anteriores guardados en el navegador
     let count = parseInt(localStorage.getItem('missYouCount')) || 0;
     missCounter.textContent = `Veces extrañada: ${count}`;
 
@@ -548,7 +460,6 @@
       localStorage.setItem('missYouCount', count);
       missCounter.textContent = `Veces extrañada: ${count}`;
 
-      // Lanzar lluvia de emojis (🐧 y 🧡)
       const emojis = ['🐧', '🧡', '🐧', '🧡', '✨'];
       for (let i = 0; i < 18; i++) {
         setTimeout(() => {
@@ -562,39 +473,6 @@
           setTimeout(() => { emoji.remove(); }, 3500);
         }, i * 120);
       }
-    });
-
-    // 4. Lógica de Control del CD Giratorio
-    const cdDisc = document.getElementById('cdDisc');
-    const btnPlay = document.getElementById('btnPlay');
-    const btnStop = document.getElementById('btnStop');
-    const btnShuffle = document.getElementById('btnShuffle');
-    const btnRepeat = document.getElementById('btnRepeat');
-    let isPlaying = true;
-
-    btnPlay.addEventListener('click', () => {
-      isPlaying = !isPlaying;
-      if (isPlaying) {
-        cdDisc.classList.remove('paused');
-        btnPlay.textContent = '⏸️';
-      } else {
-        cdDisc.classList.add('paused');
-        btnPlay.textContent = '▶️';
-      }
-    });
-
-    btnStop.addEventListener('click', () => {
-      isPlaying = false;
-      cdDisc.classList.add('paused');
-      btnPlay.textContent = '▶️';
-    });
-
-    btnShuffle.addEventListener('click', () => {
-      btnShuffle.classList.toggle('active');
-    });
-
-    btnRepeat.addEventListener('click', () => {
-      btnRepeat.classList.toggle('active');
     });
   </script>
 
