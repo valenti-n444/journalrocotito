@@ -3,153 +3,196 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rocotito's Journal 🏔️🌊</title>
+  <title>Una carta de amor interactiva 💌</title>
+  
+  <!-- Tipografías de texto manuscrito y recortes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Reenie+Beanie&family=Special+Elite&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #faf4ed;
-      --card-bg: #ffffff;
-      --accent: #d97706;
-      --text: #44403c;
-      --pink: #f43f5e;
+      --bg-paper: #eaddca;
+      --card-bg: #fffdf9;
+      --accent-pink: #e11d48;
+      --tape: rgba(220, 200, 165, 0.7);
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: 'Special Elite', cursive;
+      /* Fondo estilo collage: papel arrugado con trama de cuadrícula */
+      background-color: var(--bg-paper);
+      background-image: 
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #292524;
       margin: 0;
-      padding: 20px;
+      padding: 40px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
+    /* Cinta adhesiva superior (Washi Tape) */
+    .washi-tape {
+      width: 110px;
+      height: 28px;
+      background-color: var(--tape);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      z-index: 10;
+    }
+
+    /* Encabezado estilo carta recortada */
     header {
-      text-align: center;
-      margin-bottom: 30px;
+      position: relative;
+      background: #fcfbf7;
+      padding: 25px 20px;
+      border: 1px dashed #a8a29e;
+      box-shadow: 3px 6px 12px rgba(0,0,0,0.08);
       max-width: 600px;
+      width: 90%;
+      text-align: center;
+      transform: rotate(-1deg);
+      margin-bottom: 40px;
     }
 
     h1 {
-      color: var(--pink);
-      margin-bottom: 10px;
+      font-family: 'Reenie Beanie', cursive;
+      font-size: 3.2rem;
+      color: var(--accent-pink);
+      margin: 0;
+      line-height: 1;
     }
 
-    .distance-tag {
-      background: #fecdd3;
-      color: #9f1239;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
+    .tag-title {
       display: inline-block;
-      margin-bottom: 15px;
-    }
-
-    .love-phrase {
-      font-size: 0.95rem;
-      color: #57534e;
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    .journal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 900px;
-      width: 100%;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      border: 1px solid #f1f5f9;
-      position: relative;
-    }
-
-    .polaroid {
-      background: #fff;
-      padding: 12px 12px 25px 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transform: rotate(-2deg);
-      margin-bottom: 15px;
-    }
-
-    .polaroid img {
-      width: 100%;
-      border-radius: 4px;
-    }
-
-    .date {
-      font-size: 0.8rem;
-      color: #78716c;
-      text-transform: uppercase;
+      background: #ffe4e6;
+      color: #9f1239;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-top: 8px;
+      border: 1px dashed #f43f5e;
       letter-spacing: 1px;
     }
 
-    .note {
-      background: #fef3c7;
-      border-left: 4px solid var(--accent);
-      padding: 10px 15px;
-      border-radius: 4px;
-      font-style: italic;
+    .subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: #57534e;
       margin-top: 10px;
     }
 
-    iframe {
-      border-radius: 12px;
-      margin-top: 10px;
+    /* Contenedor tipo collage / libreta de recortes */
+    .scrapbook-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 650px;
+      width: 100%;
+    }
+
+    /* Carta interactiva principal */
+    .interactive-letter {
+      background: #fefcf8;
+      border: 1px solid #e7e5e4;
+      padding: 30px;
+      box-shadow: 4px 8px 15px rgba(0,0,0,0.07);
+      position: relative;
+      transform: rotate(0.8deg);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .interactive-letter:hover {
+      transform: rotate(0deg) scale(1.01);
+      box-shadow: 6px 12px 20px rgba(0,0,0,0.1);
+    }
+
+    .stamp {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      border: 2px dashed #dc2626;
+      color: #dc2626;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transform: rotate(12deg);
+      opacity: 0.8;
+    }
+
+    .letter-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      line-height: 1.4;
+      color: #1c1917;
+      margin-top: 15px;
+    }
+
+    .click-hint {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.75rem;
+      color: #a8a29e;
+      text-align: right;
+      margin-top: 20px;
+      display: block;
     }
   </style>
 </head>
 <body>
 
+  <!-- Encabezado / Recorte -->
   <header>
-    <h1>Rocotito's Journal 💌</h1>
-    <div class="distance-tag">Puerto Natales 📍 ──── 📍 Viña del Mar</div>
-    <p class="love-phrase">
-      Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este rinconcito del internet.
-    </p>
+    <div class="washi-tape"></div>
+    <h1>Para Rocío 💌</h1>
+    <div class="tag-title">CARTA DE AMOR INTERACTIVA</div>
+    <div class="subtitle">
+      Un rinconcito interactivo entre Puerto Natales y Viña del Mar
+    </div>
   </header>
 
-  <main class="journal-grid">
+  <!-- Contenedor del Collage -->
+  <main class="scrapbook-container">
 
-    <!-- Entrada 1: Carta -->
-    <article class="card">
-      <span class="date">10 de Septiembre, 2026</span>
-      <h2>Pensando en ti desde el sur</h2>
-      <p>Hoy el viento en Natales estuvo fuerte, pero me mantuve calientita pensando en ti. Te dejé una canción abajo que me recordó a nosotras.</p>
+    <!-- Carta de Amor Interactiva -->
+    <article class="interactive-letter" id="loveLetter">
+      <div class="washi-tape"></div>
+      <div class="stamp">AIR MAIL</div>
       
-      <div class="note">
-        📌 Nota rápida: Acuérdate de tomar agüita y abrigarte cuando salgas al mar.
-      </div>
-    </article>
+      <p class="letter-text" id="letterContent">
+        "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
+      </p>
 
-    <!-- Entrada 2: Foto -->
-    <article class="card">
-      <div class="polaroid">
-        <img src="https://picsum.photos/400/300" alt="Un paisaje hermoso">
-      </div>
-      <span class="date">Un pedacito de mi día</span>
-      <p>Te envío un pedacito de la vista de hoy para que me sientas más cerca.</p>
-    </article>
-
-    <!-- Entrada 3: Música -->
-    <article class="card">
-      <span class="date">Canción del día 🎵</span>
-      <h2>Nuestra banda sonora</h2>
-      <p>Escucha esto mientras lees la entrada de arriba:</p>
-      
-      <iframe src="https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=generator" 
-              width="100%" height="152" frameBorder="0" allowfullscreen="" 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-      </iframe>
+      <span class="click-hint">✨ Haz clic en la carta para interactuar</span>
     </article>
 
   </main>
+
+  <script>
+    // Pequeño toque interactivo: Cambia el mensaje de la carta al hacerle clic
+    const letter = document.getElementById('loveLetter');
+    const content = document.getElementById('letterContent');
+    
+    let isOpened = false;
+
+    letter.addEventListener('click', () => {
+      if (!isOpened) {
+        content.innerHTML = "Cada detalle de este código lo voy armando pensando en ti. Esta es la primera hojita de nuestro diario digital... 🌿✨";
+        isOpened = true;
+      } else {
+        content.innerHTML = '"Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."';
+        isOpened = false;
+      }
+    });
+  </script>
 
 </body>
 </html>
