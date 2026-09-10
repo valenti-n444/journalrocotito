@@ -12,7 +12,6 @@
   <style>
     :root {
       --bg-kraft: #c8a37e;
-      --card-bg: #fffefb;
       --accent-pink: #e11d48;
     }
 
@@ -41,26 +40,26 @@
       background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
-      padding: 40px 15px 120px 15px;
+      padding: 30px 20px 120px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      box-sizing: border-box;
       overflow-x: hidden;
-      position: relative;
     }
 
     /* WASHI TAPES */
     .washi {
       position: absolute;
-      height: 26px;
+      height: 24px;
       opacity: 0.85;
       box-shadow: 0 1px 4px rgba(0,0,0,0.15);
       z-index: 10;
     }
 
     .washi-leaves {
-      width: 110px;
+      width: 100px;
       background: #dcfce7;
       background-image: radial-gradient(#15803d 20%, transparent 20%);
       background-size: 8px 8px;
@@ -69,11 +68,11 @@
     }
 
     .washi-hearts {
-      width: 95px;
+      width: 90px;
       background: #ffe4e6;
     }
     .washi-hearts::before {
-      content: "♥  ♥  ♥  ♥";
+      content: "♥  ♥  ♥";
       color: #e11d48;
       font-size: 10px;
       display: flex;
@@ -83,12 +82,12 @@
     }
 
     .washi-flowers {
-      width: 100px;
+      width: 95px;
       background: #fef08a;
       border-left: 2px dashed rgba(0,0,0,0.1);
     }
     .washi-flowers::before {
-      content: "🌸 🌼 🌸 🌼";
+      content: "🌸 🌼 🌸";
       font-size: 10px;
       display: flex;
       justify-content: center;
@@ -100,19 +99,19 @@
     header {
       position: relative;
       background: #fcfbf7;
-      padding: 30px 20px 20px 20px;
+      padding: 20px 15px;
       border: 1px dashed #a8a29e;
       box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
-      max-width: 600px;
-      width: 90%;
+      max-width: 650px;
+      width: 100%;
       text-align: center;
-      transform: rotate(-1deg);
+      transform: rotate(-0.5deg);
       margin-bottom: 30px;
     }
 
     h1 {
       font-family: 'Reenie Beanie', cursive;
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       color: var(--accent-pink);
       margin: 0;
       line-height: 1;
@@ -122,10 +121,10 @@
       display: inline-block;
       background: #ffe4e6;
       color: #9f1239;
-      font-size: 0.9rem;
-      padding: 6px 16px;
+      font-size: 0.85rem;
+      padding: 5px 14px;
       border-radius: 12px;
-      margin-top: 10px;
+      margin-top: 8px;
       border: 1px dashed #f43f5e;
       letter-spacing: 1px;
       cursor: pointer;
@@ -141,68 +140,90 @@
 
     .subtitle {
       font-family: 'Caveat', cursive;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #57534e;
-      margin-top: 12px;
+      margin-top: 8px;
     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 35px;
-      max-width: 600px;
-      width: 90%;
+    /* CONTENEDOR EN GRID (POST-ITS UNO AL LADO DEL OTRO) */
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      width: 100%;
+      align-items: start;
     }
 
-    /* POST CARTA AIR MAIL */
-    .airmail-card {
+    /* ESTADO BASE: POST-IT */
+    .postit-card {
       position: relative;
-      background: var(--card-bg);
-      padding: 25px;
-      border: 12px solid transparent;
-      border-image: repeating-linear-gradient(
-        -45deg,
-        #dc2626 0, #dc2626 15px,
-        #fff 15px, #fff 25px,
-        #2563eb 25px, #2563eb 40px,
-        #fff 40px, #fff 50px
-      ) 12;
-      box-shadow: 5px 10px 20px rgba(0,0,0,0.18);
-      transform: rotate(1deg);
+      background: #fef9c3; /* Color Post-it amarillo por defecto */
+      padding: 20px;
+      min-height: 180px;
+      border-radius: 2px;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.15);
       cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid #fef08a;
     }
+
+    /* Inclinaciones aleatorias como notas en corcho */
+    .postit-card:nth-child(1) { transform: rotate(-2deg); background: #fef9c3; }
+    .postit-card:nth-child(2) { transform: rotate(2.5deg); background: #ffe4e6; }
+    .postit-card:nth-child(3) { transform: rotate(-1.5deg); background: #dcfce7; }
 
     .stamp {
+      display: none; /* Oculto en vista Post-it */
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 10px;
+      right: 10px;
       border: 2px dashed #dc2626;
       color: #dc2626;
-      padding: 4px 8px;
-      font-size: 0.7rem;
+      padding: 3px 6px;
+      font-size: 0.65rem;
       font-weight: bold;
       transform: rotate(8deg);
       opacity: 0.85;
     }
 
-    .letter-text {
+    .card-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.7rem;
-      line-height: 1.4;
+      font-size: 1.6rem;
+      margin: 0 0 10px 0;
       color: #1c1917;
-      margin-top: 10px;
     }
 
-    .click-hint {
-      font-family: 'Special Elite', cursive;
-      font-size: 0.75rem;
-      color: #a8a29e;
-      text-align: right;
-      margin-top: 15px;
-      display: block;
+    .card-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      line-height: 1.3;
+      color: #292524;
+      margin: 0;
     }
 
-    /* BOTÓN TE EXTRAÑO */
+    /* ESTADO HOVER / TOUCH: TRANSICIÓN A SOBRE AIR MAIL AGRANDADO */
+    .postit-card:hover, .postit-card:focus-within {
+      transform: scale(1.08) rotate(0deg) translateY(-5px);
+      z-index: 50;
+      background: #fffefb !important;
+      padding: 22px;
+      border: 10px solid transparent;
+      border-image: repeating-linear-gradient(
+        -45deg,
+        #dc2626 0, #dc2626 12px,
+        #fff 12px, #fff 20px,
+        #2563eb 20px, #2563eb 32px,
+        #fff 32px, #fff 40px
+      ) 10;
+      box-shadow: 10px 18px 30px rgba(0,0,0,0.25);
+    }
+
+    .postit-card:hover .stamp, .postit-card:focus-within .stamp {
+      display: block; /* Muestra el sello al convertirse en sobre */
+    }
+
+    /* ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO */
     .miss-you-container {
       position: fixed;
       bottom: 20px;
@@ -218,10 +239,10 @@
       background: #f97316;
       color: white;
       border: 2px solid #c2410c;
-      padding: 10px 18px;
+      padding: 9px 16px;
       border-radius: 25px;
       font-family: 'Special Elite', cursive;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       cursor: pointer;
       transition: all 0.2s ease;
@@ -237,7 +258,7 @@
       color: #c2410c;
       padding: 2px 8px;
       border-radius: 12px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: bold;
       border: 1px dashed #f97316;
     }
@@ -256,51 +277,25 @@
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    /* REPRODUCTOR CD / SPOTIFY VISIBLE */
-    .music-widget-card {
-      position: relative;
-      background: #fefce8;
-      border: 1px solid #fef08a;
-      padding: 20px;
-      box-shadow: 5px 10px 20px rgba(0,0,0,0.15);
-      transform: rotate(-1.5deg);
-      border-radius: 12px;
+    /* ESQUINA INFERIOR DERECHA: REPRODUCTOR SPOTIFY CUADRADO COMPACTO */
+    .spotify-mini-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 200px;
+      height: 180px;
+      background: #18181b;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      border: 2px solid #27272a;
+      overflow: hidden;
     }
 
-    .music-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-
-    .music-title {
-      font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
-      color: #854d0e;
-      margin: 0;
-    }
-
-    /* CD Giratorio */
-    .cd-mini {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 12%, #e2e8f0 13%, #94a3b8 25%, #1e293b 100%);
-      border: 2px solid #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      animation: cdSpin 4s linear infinite;
-    }
-
-    @keyframes cdSpin {
-      100% { transform: rotate(360deg); }
-    }
-
-    .spotify-player {
-      border-radius: 12px;
-      border: none;
+    .spotify-mini-widget iframe {
       width: 100%;
-      height: 152px;
+      height: 100%;
+      border: none;
     }
 
     /* OVERLAY GUIÑO MSN */
@@ -323,34 +318,23 @@
       background: rgba(255, 255, 255, 0.95);
       border: 4px solid #f43f5e;
       border-radius: 20px;
-      padding: 30px;
+      padding: 25px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .wink-heart {
-      font-size: 80px;
-      animation: pulse 0.6s infinite alternate;
-    }
-
+    .wink-heart { font-size: 70px; animation: pulse 0.6s infinite alternate; }
     .wink-text {
       font-family: 'Permanent Marker', cursive;
-      font-size: 3.5rem;
+      font-size: 3rem;
       color: #e11d48;
-      margin: 10px 0 0 0;
+      margin: 5px 0 0 0;
       text-shadow: 2px 2px 0px #ffe4e6;
     }
 
-    @keyframes popIn {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.2); }
-    }
+    @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
   </style>
 </head>
 <body>
@@ -362,10 +346,11 @@
     </div>
   </div>
 
+  <!-- ENCABEZADO -->
   <header>
-    <div class="washi washi-flowers" style="top: -14px; left: 10%; transform: rotate(-4deg);"></div>
-    <div class="washi washi-hearts" style="top: -14px; left: 45%; transform: rotate(1deg);"></div>
-    <div class="washi washi-leaves" style="top: -14px; right: 8%; transform: rotate(3deg);"></div>
+    <div class="washi washi-flowers" style="top: -12px; left: 8%; transform: rotate(-4deg);"></div>
+    <div class="washi washi-hearts" style="top: -12px; left: 45%; transform: rotate(1deg);"></div>
+    <div class="washi washi-leaves" style="top: -12px; right: 8%; transform: rotate(3deg);"></div>
 
     <h1>Para Rocío 💌</h1>
     
@@ -378,41 +363,42 @@
     </div>
   </header>
 
-  <main class="container">
+  <!-- TABLERO GRID DE POST-ITS / SOBRES -->
+  <main class="board-grid">
 
-    <article class="airmail-card" id="loveLetter">
-      <div class="washi washi-leaves" style="top: -15px; left: 20px; transform: rotate(-3deg);"></div>
-      <div class="washi washi-hearts" style="bottom: -12px; right: 30px; transform: rotate(2deg);"></div>
-
+    <!-- Carta 1 -->
+    <article class="postit-card" tabindex="0">
+      <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-2deg);"></div>
       <div class="stamp">PAR AVION / AIR MAIL</div>
-      
-      <p class="letter-text" id="letterContent">
+      <h2 class="card-title">Distancia 📍</h2>
+      <p class="card-text">
         "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
       </p>
-
-      <span class="click-hint">✨ Haz clic en el sobre para leer más</span>
     </article>
 
-    <!-- TARJETA CON TU PLAYLIST REAL DE SPOTIFY -->
-    <article class="music-widget-card">
-      <div class="washi washi-flowers" style="top: -14px; left: 35%; transform: rotate(-2deg);"></div>
-      
-      <div class="music-header">
-        <h2 class="music-title">Nuestra Banda Sonora 🎵</h2>
-        <div class="cd-mini"></div>
-      </div>
+    <!-- Carta 2 -->
+    <article class="postit-card" tabindex="0">
+      <div class="washi washi-hearts" style="top: -12px; right: 15px; transform: rotate(3deg);"></div>
+      <div class="stamp">AIR MAIL</div>
+      <h2 class="card-title">Pensamiento del día 🌿</h2>
+      <p class="card-text">
+        "Cada línea de código que voy armando la pienso con cariño para que sientas que caminas un ratito conmigo por el sur..."
+      </p>
+    </article>
 
-      <!-- PLAYLIST DE SPOTIFY INTEGRADA -->
-      <iframe class="spotify-player" 
-              src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator" 
-              allowfullscreen="" 
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-              loading="lazy">
-      </iframe>
+    <!-- Carta 3 -->
+    <article class="postit-card" tabindex="0">
+      <div class="washi washi-flowers" style="top: -12px; left: 20px; transform: rotate(-1deg);"></div>
+      <div class="stamp">SPECIAL DELIVERY</div>
+      <h2 class="card-title">Nota rápida 📌</h2>
+      <p class="card-text">
+        Acuérdate de tomar agüita, abrigarte cuando salgas al mar y escuchar la playlist que te dejé abajo a la derecha. 🌊
+      </p>
     </article>
 
   </main>
 
+  <!-- BOTÓN TE EXTRAÑO (ESQUINA INFERIOR IZQUIERDA) -->
   <div class="miss-you-container">
     <span class="miss-counter" id="missCounter">Veces extrañada: 0</span>
     <button class="btn-miss-you" id="btnMissYou">
@@ -420,23 +406,17 @@
     </button>
   </div>
 
+  <!-- REPRODUCTOR SPOTIFY CUADRADO COMPACTO (ESQUINA INFERIOR DERECHA) -->
+  <div class="spotify-mini-widget">
+    <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+    </iframe>
+  </div>
+
   <script>
-    // 1. Interacción Carta
-    const letter = document.getElementById('loveLetter');
-    const content = document.getElementById('letterContent');
-    let isOpened = false;
-
-    letter.addEventListener('click', () => {
-      if (!isOpened) {
-        content.innerHTML = "Cada detalle de este código lo voy armando pensando en ti. Esta es la primera hojita de nuestro diario digital... 🌿✨";
-        isOpened = true;
-      } else {
-        content.innerHTML = '"Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."';
-        isOpened = false;
-      }
-    });
-
-    // 2. Guiño MSN
+    // 1. Guiño MSN
     const msnTrigger = document.getElementById('msnTrigger');
     const overlay = document.getElementById('msnWinkOverlay');
 
@@ -448,7 +428,7 @@
       setTimeout(() => { overlay.style.display = 'none'; }, 2500);
     });
 
-    // 3. Botón Te Extraño
+    // 2. Botón Te Extraño
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
     
