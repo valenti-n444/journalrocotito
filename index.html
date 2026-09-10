@@ -5,27 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Una carta de amor interactiva 💌</title>
   
-  <!-- Tipografías de texto manuscrito y recortes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Reenie+Beanie&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-paper: #eaddca;
-      --card-bg: #fffdf9;
-      --accent-pink: #e11d48;
-      --tape: rgba(220, 200, 165, 0.7);
+      --bg-kraft: #d2b48c;
+      --card-bg: #fffefb;
+      --accent-pink: #be123c;
     }
 
     body {
       font-family: 'Special Elite', cursive;
-      /* Fondo estilo collage: papel arrugado con trama de cuadrícula */
-      background-color: var(--bg-paper);
+      /* Fondo Papel Kraft Café con textura de fibras */
+      background-color: var(--bg-kraft);
       background-image: 
-        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-      background-size: 20px 20px;
+        radial-gradient(#b8976c 1px, transparent 1px),
+        linear-gradient(0deg, rgba(0,0,0,0.03) 50%, transparent 50%);
+      background-size: 16px 16px, 100% 4px;
       color: #292524;
       margin: 0;
       padding: 40px 15px;
@@ -35,36 +33,60 @@
       min-height: 100vh;
     }
 
-    /* Cinta adhesiva superior (Washi Tape) */
+    /* Estilos de Washi Tapes Decorativos (Flores, Hojitas, Corazones) */
     .washi-tape {
-      width: 110px;
-      height: 28px;
-      background-color: var(--tape);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-1deg);
+      height: 26px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
       z-index: 10;
+      opacity: 0.85;
     }
 
-    /* Encabezado estilo carta recortada */
+    /* Tape de Hojitas 🌿 */
+    .tape-leaves {
+      background-color: #dcfce7;
+      background-image: radial-gradient(#16a34a 20%, transparent 20%);
+      background-size: 8px 8px;
+      border: 1px dashed #86efac;
+    }
+
+    /* Tape de Corazones ❤️ */
+    .tape-hearts {
+      background-color: #ffe4e6;
+      background-image: radial-gradient(#e11d48 25%, transparent 25%);
+      background-size: 10px 10px;
+      border: 1px dashed #f43f5e;
+    }
+
+    /* Tape de Flores 🌸 */
+    .tape-flowers {
+      background-color: #fef08a;
+      background-image: radial-gradient(#ca8a04 30%, transparent 30%);
+      background-size: 9px 9px;
+      border: 1px dashed #fde047;
+    }
+
+    /* Encabezado */
     header {
       position: relative;
-      background: #fcfbf7;
+      background: #fdfbf7;
       padding: 25px 20px;
       border: 1px dashed #a8a29e;
-      box-shadow: 3px 6px 12px rgba(0,0,0,0.08);
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.12);
       max-width: 600px;
       width: 90%;
       text-align: center;
-      transform: rotate(-1deg);
+      transform: rotate(-1.5deg);
       margin-bottom: 40px;
     }
 
+    /* Varios washitapes cruzados en el encabezado */
+    header .tape-1 { top: -14px; left: 15%; width: 90px; transform: rotate(-4deg); }
+    header .tape-2 { top: -12px; right: 12%; width: 100px; transform: rotate(3deg); }
+
     h1 {
       font-family: 'Reenie Beanie', cursive;
-      font-size: 3.2rem;
+      font-size: 3.4rem;
       color: var(--accent-pink);
       margin: 0;
       line-height: 1;
@@ -89,30 +111,43 @@
       margin-top: 10px;
     }
 
-    /* Contenedor tipo collage / libreta de recortes */
     .scrapbook-container {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 35px;
       max-width: 650px;
       width: 100%;
     }
 
-    /* Carta interactiva principal */
+    /* Carta estilo Sobre Par Avion (Líneas rojas y azules) */
     .interactive-letter {
-      background: #fefcf8;
-      border: 1px solid #e7e5e4;
-      padding: 30px;
-      box-shadow: 4px 8px 15px rgba(0,0,0,0.07);
+      background: var(--card-bg);
+      padding: 30px 25px;
+      box-shadow: 6px 10px 20px rgba(0,0,0,0.15);
       position: relative;
-      transform: rotate(0.8deg);
+      transform: rotate(1deg);
       transition: all 0.3s ease;
       cursor: pointer;
+
+      /* Borde de líneas diagonales rojas y azules de correo aéreo */
+      border: 12px solid transparent;
+      border-image: repeating-linear-gradient(
+        -45deg,
+        #dc2626 0, #dc2626 15px,
+        #ffffff 15px, #ffffff 25px,
+        #2563eb 25px, #2563eb 40px,
+        #ffffff 40px, #ffffff 50px
+      ) 20;
     }
+
+    /* Washitapes en la carta */
+    .interactive-letter .tape-1 { top: -15px; left: -10px; width: 85px; transform: rotate(-12deg); }
+    .interactive-letter .tape-2 { bottom: -12px; right: 10px; width: 95px; transform: rotate(6deg); }
+    .interactive-letter .tape-3 { top: 10px; right: -15px; width: 70px; transform: rotate(45deg); }
 
     .interactive-letter:hover {
       transform: rotate(0deg) scale(1.01);
-      box-shadow: 6px 12px 20px rgba(0,0,0,0.1);
+      box-shadow: 8px 15px 25px rgba(0,0,0,0.2);
     }
 
     .stamp {
@@ -121,26 +156,26 @@
       right: 15px;
       border: 2px dashed #dc2626;
       color: #dc2626;
-      padding: 5px 10px;
+      padding: 4px 8px;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transform: rotate(12deg);
-      opacity: 0.8;
+      transform: rotate(8deg);
+      background: #fff;
     }
 
     .letter-text {
       font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       line-height: 1.4;
       color: #1c1917;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .click-hint {
       font-family: 'Special Elite', cursive;
       font-size: 0.75rem;
-      color: #a8a29e;
+      color: #78716c;
       text-align: right;
       margin-top: 20px;
       display: block;
@@ -149,9 +184,11 @@
 </head>
 <body>
 
-  <!-- Encabezado / Recorte -->
+  <!-- Encabezado con múltiples washitapes -->
   <header>
-    <div class="washi-tape"></div>
+    <div class="washi-tape tape-leaves tape-1"></div>
+    <div class="washi-tape tape-hearts tape-2"></div>
+
     <h1>Para Rocío 💌</h1>
     <div class="tag-title">CARTA DE AMOR INTERACTIVA</div>
     <div class="subtitle">
@@ -159,13 +196,16 @@
     </div>
   </header>
 
-  <!-- Contenedor del Collage -->
+  <!-- Contenedor del Journal -->
   <main class="scrapbook-container">
 
-    <!-- Carta de Amor Interactiva -->
+    <!-- Carta Sobre de Correo Aéreo con bordes azul/rojo y varios tapes -->
     <article class="interactive-letter" id="loveLetter">
-      <div class="washi-tape"></div>
-      <div class="stamp">AIR MAIL</div>
+      <div class="washi-tape tape-hearts tape-1"></div>
+      <div class="washi-tape tape-flowers tape-2"></div>
+      <div class="washi-tape tape-leaves tape-3"></div>
+
+      <div class="stamp">PAR AVION / AIR MAIL</div>
       
       <p class="letter-text" id="letterContent">
         "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
@@ -177,7 +217,6 @@
   </main>
 
   <script>
-    // Pequeño toque interactivo: Cambia el mensaje de la carta al hacerle clic
     const letter = document.getElementById('loveLetter');
     const content = document.getElementById('letterContent');
     
