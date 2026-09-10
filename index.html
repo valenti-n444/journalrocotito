@@ -7,23 +7,41 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Reenie+Beanie&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Permanent+Marker&family=Reenie+Beanie&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-kraft: #d2b48c;
+      /* Fondo café tipo Papel Kraft */
+      --bg-kraft: #c8a37e;
       --card-bg: #fffefb;
-      --accent-pink: #be123c;
+      --accent-pink: #e11d48;
+    }
+
+    /* Animación de Temblor estilo MSN Nudge/Guiño */
+    @keyframes msnShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      10% { transform: translate(-8px, -5px) rotate(-1deg); }
+      20% { transform: translate(8px, 5px) rotate(1deg); }
+      30% { transform: translate(-8px, 5px) rotate(0deg); }
+      40% { transform: translate(8px, -5px) rotate(1deg); }
+      50% { transform: translate(-5px, -2px) rotate(-1deg); }
+      60% { transform: translate(5px, 2px) rotate(0deg); }
+      70% { transform: translate(-2px, 2px) rotate(0deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .shake-screen {
+      animation: msnShake 0.6s ease-in-out;
     }
 
     body {
       font-family: 'Special Elite', cursive;
-      /* Fondo Papel Kraft Café con textura de fibras */
+      /* Textura de papel Kraft */
       background-color: var(--bg-kraft);
       background-image: 
-        radial-gradient(#b8976c 1px, transparent 1px),
-        linear-gradient(0deg, rgba(0,0,0,0.03) 50%, transparent 50%);
-      background-size: 16px 16px, 100% 4px;
+        radial-gradient(#b08863 1px, transparent 0),
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
       padding: 40px 15px;
@@ -31,123 +49,129 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Estilos de Washi Tapes Decorativos (Flores, Hojitas, Corazones) */
-    .washi-tape {
+    /* ESTILOS DE WASHI TAPES DIVERSOS */
+    .washi {
       position: absolute;
       height: 26px;
+      opacity: 0.85;
       box-shadow: 0 1px 4px rgba(0,0,0,0.15);
       z-index: 10;
-      opacity: 0.85;
     }
 
-    /* Tape de Hojitas 🌿 */
-    .tape-leaves {
-      background-color: #dcfce7;
-      background-image: radial-gradient(#16a34a 20%, transparent 20%);
+    /* Washi 1: Hojitas verdes */
+    .washi-leaves {
+      width: 110px;
+      background: #dcfce7;
+      background-image: radial-gradient(#15803d 20%, transparent 20%);
       background-size: 8px 8px;
-      border: 1px dashed #86efac;
+      border-left: 2px dashed rgba(0,0,0,0.1);
+      border-right: 2px dashed rgba(0,0,0,0.1);
     }
 
-    /* Tape de Corazones ❤️ */
-    .tape-hearts {
-      background-color: #ffe4e6;
-      background-image: radial-gradient(#e11d48 25%, transparent 25%);
-      background-size: 10px 10px;
-      border: 1px dashed #f43f5e;
+    /* Washi 2: Corazones rosas */
+    .washi-hearts {
+      width: 95px;
+      background: #ffe4e6;
+      border-left: 3px iden rgba(0,0,0,0.1);
+    }
+    .washi-hearts::before {
+      content: "♥  ♥  ♥  ♥";
+      color: #e11d48;
+      font-size: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
     }
 
-    /* Tape de Flores 🌸 */
-    .tape-flowers {
-      background-color: #fef08a;
-      background-image: radial-gradient(#ca8a04 30%, transparent 30%);
-      background-size: 9px 9px;
-      border: 1px dashed #fde047;
+    /* Washi 3: Flores amarillas */
+    .washi-flowers {
+      width: 100px;
+      background: #fef08a;
+      border-left: 2px dashed rgba(0,0,0,0.1);
+    }
+    .washi-flowers::before {
+      content: "🌸 🌼 🌸 🌼";
+      font-size: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
     }
 
-    /* Encabezado */
+    /* ENCABEZADO */
     header {
       position: relative;
-      background: #fdfbf7;
-      padding: 25px 20px;
+      background: #fcfbf7;
+      padding: 30px 20px 20px 20px;
       border: 1px dashed #a8a29e;
-      box-shadow: 4px 8px 18px rgba(0,0,0,0.12);
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
       max-width: 600px;
       width: 90%;
       text-align: center;
-      transform: rotate(-1.5deg);
+      transform: rotate(-1deg);
       margin-bottom: 40px;
     }
 
-    /* Varios washitapes cruzados en el encabezado */
-    header .tape-1 { top: -14px; left: 15%; width: 90px; transform: rotate(-4deg); }
-    header .tape-2 { top: -12px; right: 12%; width: 100px; transform: rotate(3deg); }
-
     h1 {
       font-family: 'Reenie Beanie', cursive;
-      font-size: 3.4rem;
+      font-size: 3.5rem;
       color: var(--accent-pink);
       margin: 0;
       line-height: 1;
     }
 
+    /* Etiqueta clicable estilo MSN Wink */
     .tag-title {
       display: inline-block;
       background: #ffe4e6;
       color: #9f1239;
-      font-size: 0.85rem;
-      padding: 4px 12px;
+      font-size: 0.9rem;
+      padding: 6px 16px;
       border-radius: 12px;
-      margin-top: 8px;
+      margin-top: 10px;
       border: 1px dashed #f43f5e;
       letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .tag-title:hover {
+      background: #f43f5e;
+      color: white;
+      transform: scale(1.05);
     }
 
     .subtitle {
       font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: #57534e;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
-    .scrapbook-container {
-      display: flex;
-      flex-direction: column;
-      gap: 35px;
-      max-width: 650px;
-      width: 100%;
-    }
-
-    /* Carta estilo Sobre Par Avion (Líneas rojas y azules) */
-    .interactive-letter {
-      background: var(--card-bg);
-      padding: 30px 25px;
-      box-shadow: 6px 10px 20px rgba(0,0,0,0.15);
+    /* POST ESTILO SOBRE DE CARTA AIR MAIL CON LÍNEAS ROJAS Y AZULES */
+    .airmail-card {
       position: relative;
-      transform: rotate(1deg);
-      transition: all 0.3s ease;
-      cursor: pointer;
-
-      /* Borde de líneas diagonales rojas y azules de correo aéreo */
+      background: var(--card-bg);
+      /* Bordes con líneas rojas y azules de sobre aéreo */
+      padding: 25px;
       border: 12px solid transparent;
       border-image: repeating-linear-gradient(
         -45deg,
         #dc2626 0, #dc2626 15px,
-        #ffffff 15px, #ffffff 25px,
+        #fff 15px, #fff 25px,
         #2563eb 25px, #2563eb 40px,
-        #ffffff 40px, #ffffff 50px
-      ) 20;
-    }
-
-    /* Washitapes en la carta */
-    .interactive-letter .tape-1 { top: -15px; left: -10px; width: 85px; transform: rotate(-12deg); }
-    .interactive-letter .tape-2 { bottom: -12px; right: 10px; width: 95px; transform: rotate(6deg); }
-    .interactive-letter .tape-3 { top: 10px; right: -15px; width: 70px; transform: rotate(45deg); }
-
-    .interactive-letter:hover {
-      transform: rotate(0deg) scale(1.01);
-      box-shadow: 8px 15px 25px rgba(0,0,0,0.2);
+        #fff 40px, #fff 50px
+      ) 12;
+      box-shadow: 5px 10px 20px rgba(0,0,0,0.18);
+      max-width: 600px;
+      width: 90%;
+      transform: rotate(1deg);
+      cursor: pointer;
     }
 
     .stamp {
@@ -157,69 +181,129 @@
       border: 2px dashed #dc2626;
       color: #dc2626;
       padding: 4px 8px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-size: 0.7rem;
+      font-weight: bold;
       transform: rotate(8deg);
-      background: #fff;
+      opacity: 0.85;
     }
 
     .letter-text {
       font-family: 'Caveat', cursive;
-      font-size: 1.65rem;
+      font-size: 1.7rem;
       line-height: 1.4;
       color: #1c1917;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .click-hint {
       font-family: 'Special Elite', cursive;
       font-size: 0.75rem;
-      color: #78716c;
+      color: #a8a29e;
       text-align: right;
-      margin-top: 20px;
+      margin-top: 15px;
       display: block;
+    }
+
+    /* EL GUIÑO / WINK DE MSN "I LOVE YOU" */
+    #msnWinkOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      pointer-events: none;
+    }
+
+    .wink-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 4px solid #f43f5e;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .wink-heart {
+      font-size: 80px;
+      animation: pulse 0.6s infinite alternate;
+    }
+
+    .wink-text {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 3.5rem;
+      color: #e11d48;
+      margin: 10px 0 0 0;
+      text-shadow: 2px 2px 0px #ffe4e6;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Encabezado con múltiples washitapes -->
+  <!-- Overlay para el Guiño MSN -->
+  <div id="msnWinkOverlay">
+    <div class="wink-box">
+      <div class="wink-heart">💖</div>
+      <div class="wink-text">I LOVE YOU!</div>
+    </div>
+  </div>
+
+  <!-- ENCABEZADO CON VARIOS WASHI TAPES -->
   <header>
-    <div class="washi-tape tape-leaves tape-1"></div>
-    <div class="washi-tape tape-hearts tape-2"></div>
+    <!-- Washi tape de flores izquierda -->
+    <div class="washi washi-flowers" style="top: -14px; left: 10%; transform: rotate(-4deg);"></div>
+    <!-- Washi tape de corazones centro -->
+    <div class="washi washi-hearts" style="top: -14px; left: 45%; transform: rotate(1deg);"></div>
+    <!-- Washi tape de hojitas derecha -->
+    <div class="washi washi-leaves" style="top: -14px; right: 8%; transform: rotate(3deg);"></div>
 
     <h1>Para Rocío 💌</h1>
-    <div class="tag-title">CARTA DE AMOR INTERACTIVA</div>
+    
+    <!-- Al hacer clic aquí se activa el guiño estilo MSN -->
+    <div class="tag-title" id="msnTrigger">
+      ✨ CARTA DE AMOR INTERACTIVA (¡Haz clic aquí!)
+    </div>
+
     <div class="subtitle">
       Un rinconcito interactivo entre Puerto Natales y Viña del Mar
     </div>
   </header>
 
-  <!-- Contenedor del Journal -->
-  <main class="scrapbook-container">
+  <!-- POST SOBRE DE CARTA AIR MAIL -->
+  <article class="airmail-card" id="loveLetter">
+    <!-- Washis decorativos en el post -->
+    <div class="washi washi-leaves" style="top: -15px; left: 20px; transform: rotate(-3deg);"></div>
+    <div class="washi washi-hearts" style="bottom: -12px; right: 30px; transform: rotate(2deg);"></div>
 
-    <!-- Carta Sobre de Correo Aéreo con bordes azul/rojo y varios tapes -->
-    <article class="interactive-letter" id="loveLetter">
-      <div class="washi-tape tape-hearts tape-1"></div>
-      <div class="washi-tape tape-flowers tape-2"></div>
-      <div class="washi-tape tape-leaves tape-3"></div>
+    <div class="stamp">PAR AVION / AIR MAIL</div>
+    
+    <p class="letter-text" id="letterContent">
+      "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
+    </p>
 
-      <div class="stamp">PAR AVION / AIR MAIL</div>
-      
-      <p class="letter-text" id="letterContent">
-        "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
-      </p>
-
-      <span class="click-hint">✨ Haz clic en la carta para interactuar</span>
-    </article>
-
-  </main>
+    <span class="click-hint">✨ Haz clic en el sobre para leer más</span>
+  </article>
 
   <script>
+    // 1. Interacción de abrir la carta
     const letter = document.getElementById('loveLetter');
     const content = document.getElementById('letterContent');
-    
     let isOpened = false;
 
     letter.addEventListener('click', () => {
@@ -230,6 +314,26 @@
         content.innerHTML = '"Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."';
         isOpened = false;
       }
+    });
+
+    // 2. Guiño estilo MSN Messenger al hacer clic en el título
+    const msnTrigger = document.getElementById('msnTrigger');
+    const overlay = document.getElementById('msnWinkOverlay');
+
+    msnTrigger.addEventListener('click', () => {
+      // Hace temblar la pantalla
+      document.body.classList.add('shake-screen');
+      // Muestra el corazón gigante I LOVE YOU
+      overlay.style.display = 'flex';
+
+      setTimeout(() => {
+        document.body.classList.remove('shake-screen');
+      }, 600);
+
+      // Desaparece el guiño después de 2.5 segundos
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 2500);
     });
   </script>
 
