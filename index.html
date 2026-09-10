@@ -11,13 +11,12 @@
 
   <style>
     :root {
-      /* Fondo café tipo Papel Kraft */
       --bg-kraft: #c8a37e;
       --card-bg: #fffefb;
       --accent-pink: #e11d48;
     }
 
-    /* Animación de Temblor estilo MSN Nudge/Guiño */
+    /* Animación de Temblor estilo MSN Nudge */
     @keyframes msnShake {
       0% { transform: translate(0, 0) rotate(0deg); }
       10% { transform: translate(-8px, -5px) rotate(-1deg); }
@@ -36,7 +35,6 @@
 
     body {
       font-family: 'Special Elite', cursive;
-      /* Textura de papel Kraft */
       background-color: var(--bg-kraft);
       background-image: 
         radial-gradient(#b08863 1px, transparent 0),
@@ -44,15 +42,16 @@
       background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
-      padding: 40px 15px;
+      padding: 40px 15px 120px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* ESTILOS DE WASHI TAPES DIVERSOS */
+    /* WASHI TAPES */
     .washi {
       position: absolute;
       height: 26px;
@@ -61,7 +60,6 @@
       z-index: 10;
     }
 
-    /* Washi 1: Hojitas verdes */
     .washi-leaves {
       width: 110px;
       background: #dcfce7;
@@ -71,7 +69,6 @@
       border-right: 2px dashed rgba(0,0,0,0.1);
     }
 
-    /* Washi 2: Corazones rosas */
     .washi-hearts {
       width: 95px;
       background: #ffe4e6;
@@ -87,7 +84,6 @@
       height: 100%;
     }
 
-    /* Washi 3: Flores amarillas */
     .washi-flowers {
       width: 100px;
       background: #fef08a;
@@ -113,7 +109,7 @@
       width: 90%;
       text-align: center;
       transform: rotate(-1deg);
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     h1 {
@@ -124,7 +120,6 @@
       line-height: 1;
     }
 
-    /* Etiqueta clicable estilo MSN Wink */
     .tag-title {
       display: inline-block;
       background: #ffe4e6;
@@ -153,11 +148,19 @@
       margin-top: 12px;
     }
 
-    /* POST ESTILO SOBRE DE CARTA AIR MAIL CON LÍNEAS ROJAS Y AZULES */
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    /* POST SOBRE AIR MAIL */
     .airmail-card {
       position: relative;
       background: var(--card-bg);
-      /* Bordes con líneas rojas y azules de sobre aéreo */
       padding: 25px;
       border: 12px solid transparent;
       border-image: repeating-linear-gradient(
@@ -168,8 +171,6 @@
         #fff 40px, #fff 50px
       ) 12;
       box-shadow: 5px 10px 20px rgba(0,0,0,0.18);
-      max-width: 600px;
-      width: 90%;
       transform: rotate(1deg);
       cursor: pointer;
     }
@@ -204,7 +205,177 @@
       display: block;
     }
 
-    /* EL GUIÑO / WINK DE MSN "I LOVE YOU" */
+    /* --- ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO + CONTADOR --- */
+    .miss-you-container {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .btn-miss-you {
+      background: #f97316;
+      color: white;
+      border: 2px solid #c2410c;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-miss-you:hover {
+      background: #ea580c;
+      transform: scale(1.05);
+    }
+
+    .btn-miss-you:active {
+      transform: scale(0.95);
+    }
+
+    .miss-counter {
+      background: #fffdf9;
+      color: #c2410c;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      border: 1px dashed #f97316;
+    }
+
+    /* LLUVIA DE EMOJIS (PINGÜINOS Y CORAZONES NARANJAS) */
+    .falling-emoji {
+      position: fixed;
+      top: -50px;
+      font-size: 28px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: fallDown 3s linear forwards;
+    }
+
+    @keyframes fallDown {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* --- ESQUINA INFERIOR DERECHA: REPRODUCTOR CD GIRATORIO RETRO --- */
+    .cd-player-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #fefcf8;
+      border: 2px solid #d6d3d1;
+      border-radius: 16px;
+      padding: 12px 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 170px;
+    }
+
+    /* El CD Giratorio */
+    .cd-disc {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #000 12%, #fff 13%, #e2e8f0 18%, #94a3b8 20%, #475569 100%);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: cdRotate 5s linear infinite;
+      animation-play-state: running; /* Corre mientras suena */
+      overflow: hidden;
+    }
+
+    .cd-disc.paused {
+      animation-play-state: paused;
+    }
+
+    /* Portada de la canción dentro del CD */
+    .cd-cover {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-image: url('https://picsum.photos/200'); /* Imagen de portada por defecto */
+      background-size: cover;
+      background-position: center;
+      border: 2px solid #ffffff;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    .cd-hole {
+      width: 12px;
+      height: 12px;
+      background: #fefcf8;
+      border-radius: 50%;
+      position: absolute;
+      border: 1px solid #cbd5e1;
+    }
+
+    @keyframes cdRotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Botones del reproductor CD */
+    .cd-controls {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .cd-btn {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .cd-btn:hover {
+      background: #e5e7eb;
+      transform: scale(1.08);
+    }
+
+    .cd-btn.active {
+      background: #f97316;
+      color: white;
+      border-color: #c2410c;
+    }
+
+    /* Reproductor Spotify oculto/integrado */
+    .hidden-spotify {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* OVERLAY GUIÑO MSN */
     #msnWinkOverlay {
       display: none;
       position: fixed;
@@ -264,20 +435,16 @@
     </div>
   </div>
 
-  <!-- ENCABEZADO CON VARIOS WASHI TAPES -->
+  <!-- ENCABEZADO -->
   <header>
-    <!-- Washi tape de flores izquierda -->
     <div class="washi washi-flowers" style="top: -14px; left: 10%; transform: rotate(-4deg);"></div>
-    <!-- Washi tape de corazones centro -->
     <div class="washi washi-hearts" style="top: -14px; left: 45%; transform: rotate(1deg);"></div>
-    <!-- Washi tape de hojitas derecha -->
     <div class="washi washi-leaves" style="top: -14px; right: 8%; transform: rotate(3deg);"></div>
 
     <h1>Para Rocío 💌</h1>
     
-    <!-- Al hacer clic aquí se activa el guiño estilo MSN -->
     <div class="tag-title" id="msnTrigger">
-      ✨ CARTA DE AMOR INTERACTIVA (¡Haz clic aquí!)
+      ✨ CARTA DE AMOR INTERACTIVA
     </div>
 
     <div class="subtitle">
@@ -285,23 +452,58 @@
     </div>
   </header>
 
-  <!-- POST SOBRE DE CARTA AIR MAIL -->
-  <article class="airmail-card" id="loveLetter">
-    <!-- Washis decorativos en el post -->
-    <div class="washi washi-leaves" style="top: -15px; left: 20px; transform: rotate(-3deg);"></div>
-    <div class="washi washi-hearts" style="bottom: -12px; right: 30px; transform: rotate(2deg);"></div>
+  <main class="container">
 
-    <div class="stamp">PAR AVION / AIR MAIL</div>
-    
-    <p class="letter-text" id="letterContent">
-      "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
-    </p>
+    <!-- CARTA AIR MAIL -->
+    <article class="airmail-card" id="loveLetter">
+      <div class="washi washi-leaves" style="top: -15px; left: 20px; transform: rotate(-3deg);"></div>
+      <div class="washi washi-hearts" style="bottom: -12px; right: 30px; transform: rotate(2deg);"></div>
 
-    <span class="click-hint">✨ Haz clic en el sobre para leer más</span>
-  </article>
+      <div class="stamp">PAR AVION / AIR MAIL</div>
+      
+      <p class="letter-text" id="letterContent">
+        "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
+      </p>
+
+      <span class="click-hint">✨ Haz clic en el sobre para leer más</span>
+    </article>
+
+  </main>
+
+  <!-- ESQUINA INFERIOR IZQUIERDA: BOTÓN "TE EXTRAÑO" CON CONTADOR -->
+  <div class="miss-you-container">
+    <span class="miss-counter" id="missCounter">Veces extrañada: 0</span>
+    <button class="btn-miss-you" id="btnMissYou">
+      Te extraño 🧡
+    </button>
+  </div>
+
+  <!-- ESQUINA INFERIOR DERECHA: REPRODUCTOR CD GIRATORIO CON BOTONES -->
+  <div class="cd-player-widget">
+    <!-- Disco CD con arte de portada -->
+    <div class="cd-disc" id="cdDisc">
+      <div class="cd-cover" id="cdCover"></div>
+      <div class="cd-hole"></div>
+    </div>
+
+    <!-- Controles Típicos de Reproductor -->
+    <div class="cd-controls">
+      <button class="cd-btn" id="btnShuffle" title="Aleatorio">🔀</button>
+      <button class="cd-btn" id="btnPlay" title="Play/Pause">▶️</button>
+      <button class="cd-btn" id="btnStop" title="Stop">⏹️</button>
+      <button class="cd-btn" id="btnRepeat" title="Repetir">🔁</button>
+    </div>
+
+    <!-- Frame de Spotify Oculto cargando la Playlist -->
+    <!-- ⚠️ Reemplaza la ID de tu playlist abajo si es distinta ⚠️ -->
+    <iframe class="hidden-spotify" id="spotifyIframe"
+            src="https://open.spotify.com/playlist/2L3j5IWob51VmtJyS1qdoz?si=HIZo1pNQQfaDDimlcIDmrA&utm_source=copy-link&pi=r36_d89iRSGE5" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
 
   <script>
-    // 1. Interacción de abrir la carta
+    // 1. Interacción Carta Air Mail
     const letter = document.getElementById('loveLetter');
     const content = document.getElementById('letterContent');
     let isOpened = false;
@@ -316,24 +518,83 @@
       }
     });
 
-    // 2. Guiño estilo MSN Messenger al hacer clic en el título
+    // 2. Guiño MSN Messenger
     const msnTrigger = document.getElementById('msnTrigger');
     const overlay = document.getElementById('msnWinkOverlay');
 
     msnTrigger.addEventListener('click', () => {
-      // Hace temblar la pantalla
       document.body.classList.add('shake-screen');
-      // Muestra el corazón gigante I LOVE YOU
       overlay.style.display = 'flex';
 
       setTimeout(() => {
         document.body.classList.remove('shake-screen');
       }, 600);
 
-      // Desaparece el guiño después de 2.5 segundos
       setTimeout(() => {
         overlay.style.display = 'none';
       }, 2500);
+    });
+
+    // 3. Botón "Te Extraño" + Contador + Lluvia de Pingüinos y Corazones Naranjas
+    const btnMissYou = document.getElementById('btnMissYou');
+    const missCounter = document.getElementById('missCounter');
+    
+    // Carga clics anteriores guardados en el navegador
+    let count = parseInt(localStorage.getItem('missYouCount')) || 0;
+    missCounter.textContent = `Veces extrañada: ${count}`;
+
+    btnMissYou.addEventListener('click', () => {
+      count++;
+      localStorage.setItem('missYouCount', count);
+      missCounter.textContent = `Veces extrañada: ${count}`;
+
+      // Lanzar lluvia de emojis (🐧 y 🧡)
+      const emojis = ['🐧', '🧡', '🐧', '🧡', '✨'];
+      for (let i = 0; i < 18; i++) {
+        setTimeout(() => {
+          const emoji = document.createElement('div');
+          emoji.classList.add('falling-emoji');
+          emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          emoji.style.left = Math.random() * 95 + 'vw';
+          emoji.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+          document.body.appendChild(emoji);
+
+          setTimeout(() => { emoji.remove(); }, 3500);
+        }, i * 120);
+      }
+    });
+
+    // 4. Lógica de Control del CD Giratorio
+    const cdDisc = document.getElementById('cdDisc');
+    const btnPlay = document.getElementById('btnPlay');
+    const btnStop = document.getElementById('btnStop');
+    const btnShuffle = document.getElementById('btnShuffle');
+    const btnRepeat = document.getElementById('btnRepeat');
+    let isPlaying = true;
+
+    btnPlay.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        cdDisc.classList.remove('paused');
+        btnPlay.textContent = '⏸️';
+      } else {
+        cdDisc.classList.add('paused');
+        btnPlay.textContent = '▶️';
+      }
+    });
+
+    btnStop.addEventListener('click', () => {
+      isPlaying = false;
+      cdDisc.classList.add('paused');
+      btnPlay.textContent = '▶️';
+    });
+
+    btnShuffle.addEventListener('click', () => {
+      btnShuffle.classList.toggle('active');
+    });
+
+    btnRepeat.addEventListener('click', () => {
+      btnRepeat.classList.toggle('active');
     });
   </script>
 
