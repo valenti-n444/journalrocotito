@@ -50,7 +50,7 @@
       position: relative;
     }
 
-    /* WASHI TAPES (EXCLUSIVO PARA NOTAS / POST-ITS) */
+    /* WASHI TAPES (SOLO NOTAS CORTAS) */
     .washi {
       position: absolute;
       height: 26px;
@@ -108,7 +108,7 @@
       width: 90%;
       text-align: center;
       transform: rotate(-1deg);
-      margin-bottom: 35px;
+      margin-bottom: 40px;
     }
 
     h1 {
@@ -147,7 +147,7 @@
       margin-top: 10px;
     }
 
-    /* GRILLA DEL DIARIO (SIDE BY SIDE) */
+    /* GRILLA DE ENTRADAS DEL DIARIO */
     .journal-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -157,7 +157,7 @@
       align-items: start;
     }
 
-    /* ENTRADAS TIPO POST-IT CON NÚMERO Y WASHI TAPE */
+    /* POST-ITS QUE SE CONVIERTEN EN SOBRES AIR MAIL */
     .postit-wrapper {
       position: relative;
       min-height: 220px;
@@ -214,6 +214,7 @@
       margin-top: 12px;
     }
 
+    /* Expansión a sobre Air Mail */
     .postit-wrapper:hover .postit-card,
     .postit-wrapper:focus-within .postit-card {
       background: #fffefb;
@@ -251,15 +252,15 @@
       opacity: 0.8;
     }
 
-    /* ENTRADA TIPO HOJA DE LIBRETA CON LÍNEAS (IGUAL A LA IMAGEN) + PIN 📌 */
+    /* HOJA DE LIBRETA CON LÍNEAS (POESÍA CON PIN 📌 Y TROQUELADO SUPERIOR) */
     .notebook-card {
       grid-column: span 1;
       position: relative;
-      background: #fdfdfd;
-      /* Líneas de hoja de cuaderno */
+      background: #faf8f5;
+      /* Líneas horizontales de cuaderno */
       background-image: linear-gradient(#cbd5e1 1px, transparent 1px);
       background-size: 100% 28px;
-      padding: 20px 25px 25px 25px;
+      padding: 25px 25px 25px 25px;
       box-shadow: 4px 8px 18px rgba(0,0,0,0.18);
       transform: rotate(0.8deg);
       font-family: 'Special Elite', cursive;
@@ -268,54 +269,53 @@
       color: #334155;
       border: 1px solid #e2e8f0;
       border-top: none;
+      margin-top: 15px;
     }
 
-    /* Troquelado superior rasgado de libreta espiral (Exacto a la imagen) */
+    /* Dientes troquelados de espiral arriba */
     .notebook-card::before {
       content: "";
       position: absolute;
-      top: -16px;
-      left: 0;
-      width: 100%;
-      height: 16px;
-      background-color: #fdfdfd;
-      /* Dientes de hoja arrancada */
-      mask-image: radial-gradient(circle at 10px 0, transparent 6px, black 7px);
-      mask-size: 20px 16px;
-      mask-repeat: repeat-x;
-      -webkit-mask-image: radial-gradient(circle at 10px 0, transparent 6px, black 7px);
-      -webkit-mask-size: 20px 16px;
-      -webkit-mask-repeat: repeat-x;
+      top: -18px;
+      left: -1px;
+      right: -1px;
+      height: 18px;
+      background-color: #faf8f5;
+      background-image: radial-gradient(circle at 10px -2px, transparent 7px, #faf8f5 8px);
+      background-size: 20px 18px;
+      background-repeat: repeat-x;
+      border-top: none;
     }
 
     @media (min-width: 640px) {
       .notebook-card {
-        grid-column: span 2; /* Ocupa el doble de ancho en pantallas normales */
+        grid-column: span 2; /* Doble de ancho para poesía */
       }
     }
 
-    /* Header superior "DATE." como la imagen */
+    /* Header superior "DATE." */
     .notebook-date-header {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       gap: 10px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #64748b;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       border-bottom: 1px solid #94a3b8;
       padding-bottom: 2px;
+      letter-spacing: 1px;
     }
 
     /* Pin / Chincheta metálica roja */
     .pin {
       position: absolute;
-      top: -12px;
+      top: -24px;
       left: 50%;
       transform: translateX(-50%);
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b);
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle at 30% 30%, #f87171, #991b1b);
       border-radius: 50%;
       box-shadow: 0 4px 8px rgba(0,0,0,0.35);
       z-index: 25;
@@ -325,8 +325,8 @@
       position: absolute;
       top: 4px;
       left: 4px;
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       background: rgba(255,255,255,0.7);
       border-radius: 50%;
     }
@@ -498,7 +498,7 @@
   <!-- Grilla de Entradas -->
   <main class="journal-grid">
 
-    <!-- ENTRADA POST-IT #01 (CON NÚMERO, FECHA Y WASHI TAPE) -->
+    <!-- NOTA #01 (POST-IT CON NUMERO, FECHA Y WASHI TAPE) -->
     <div class="postit-wrapper">
       <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
       <div class="washi washi-hearts" style="bottom: -10px; right: 15px; transform: rotate(2deg);"></div>
@@ -515,7 +515,7 @@
       </article>
     </div>
 
-    <!-- ENTRADA POST-IT #02 (CON NÚMERO, FECHA Y WASHI TAPE) -->
+    <!-- NOTA #02 (POST-IT CON NUMERO, FECHA Y WASHI TAPE) -->
     <div class="postit-wrapper">
       <div class="washi washi-flowers" style="top: -12px; right: 20px; transform: rotate(4deg);"></div>
 
@@ -531,11 +531,10 @@
       </article>
     </div>
 
-    <!-- ENTRADA HOJA DE LIBRETA CON LÍNEAS (POESÍA CON PIN 📌, SIN NÚMERO, FECHA ESTILO "DATE.") -->
+    <!-- HOJA DE LIBRETA TROQUELADA CON PIN 📌 (POESÍA COMPLETA, SIN NÚMERO, CON DATE) -->
     <article class="notebook-card">
       <div class="pin"></div>
       
-      <!-- Header exacto estilo imagen con DATE. -->
       <div class="notebook-date-header">
         <span>DATE.</span> <u>10 de Septiembre, 2026</u>
       </div>
@@ -557,6 +556,24 @@
         Suena, resuena el mar lejano.
         Este es un puerto.
         Aquí te amo.
+
+        Aquí te amo y en vano te oculta el horizonte.
+        Te estoy amando aún entre estas frías cosas.
+        A veces van mis besos en esos barcos graves,
+        que corren por el mar hacia donde no llegan.
+
+        Ya me veo olvidado como estas viejas áncoras.
+        Son más tristes los muelles cuando atraca la tarde.
+        Se fatiga mi vida inútilmente hambrienta.
+        Amo lo que no tengo. Estás tú tan distante.
+
+        Mi hastío forcejea con las lentas crepúsculos.
+        Pero la noche llega y empieza a cantarme.
+        La luna hace girar su engranaje de sueño.
+
+        Me miran con tus ojos las estrellas más grandes.
+        Y como yo te amo, los pinos en el viento,
+        quieren cantar tu nombre con sus hojas de alambre.
       </p>
     </article>
 
