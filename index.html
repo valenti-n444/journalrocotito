@@ -12,7 +12,9 @@
   <style>
     :root {
       --bg-kraft: #c8a37e;
+      --card-bg: #fffefb;
       --accent-pink: #e11d48;
+      --postit-yellow: #fef08a;
     }
 
     @keyframes msnShake {
@@ -40,13 +42,14 @@
       background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
-      padding: 30px 20px 120px 20px;
+      padding: 30px 20px 100px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      box-sizing: border-box;
       overflow-x: hidden;
+      position: relative;
+      box-sizing: border-box;
     }
 
     /* WASHI TAPES */
@@ -59,16 +62,14 @@
     }
 
     .washi-leaves {
-      width: 100px;
+      width: 90px;
       background: #dcfce7;
       background-image: radial-gradient(#15803d 20%, transparent 20%);
       background-size: 8px 8px;
-      border-left: 2px dashed rgba(0,0,0,0.1);
-      border-right: 2px dashed rgba(0,0,0,0.1);
     }
 
     .washi-hearts {
-      width: 90px;
+      width: 85px;
       background: #ffe4e6;
     }
     .washi-hearts::before {
@@ -82,9 +83,8 @@
     }
 
     .washi-flowers {
-      width: 95px;
+      width: 90px;
       background: #fef08a;
-      border-left: 2px dashed rgba(0,0,0,0.1);
     }
     .washi-flowers::before {
       content: "🌸 🌼 🌸";
@@ -106,7 +106,7 @@
       width: 100%;
       text-align: center;
       transform: rotate(-0.5deg);
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     h1 {
@@ -140,74 +140,86 @@
 
     .subtitle {
       font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: #57534e;
       margin-top: 8px;
     }
 
-    /* CONTENEDOR EN GRID (POST-ITS UNO AL LADO DEL OTRO) */
-    .board-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-      max-width: 1000px;
+    /* RETÍCULA HORIZONTAL DE POST-ITS / NOTAS (EN VEZ DE SCROLL VERTICAL) */
+    .notes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      max-width: 1100px;
       width: 100%;
-      align-items: start;
+      padding: 10px;
     }
 
-    /* ESTADO BASE: POST-IT */
-    .postit-card {
+    /* ESTADO INICIAL: POST-IT COMPACTO */
+    .note-card {
       position: relative;
-      background: #fef9c3; /* Color Post-it amarillo por defecto */
-      padding: 20px;
+      width: 240px;
       min-height: 180px;
-      border-radius: 2px;
-      box-shadow: 4px 6px 12px rgba(0,0,0,0.15);
-      cursor: pointer;
+      background: var(--postit-yellow);
+      padding: 20px;
+      box-shadow: 3px 6px 12px rgba(0,0,0,0.15);
+      border: 1px solid #fde047;
+      transform: rotate(-2deg);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid #fef08a;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 2px;
     }
 
-    /* Inclinaciones aleatorias como notas en corcho */
-    .postit-card:nth-child(1) { transform: rotate(-2deg); background: #fef9c3; }
-    .postit-card:nth-child(2) { transform: rotate(2.5deg); background: #ffe4e6; }
-    .postit-card:nth-child(3) { transform: rotate(-1.5deg); background: #dcfce7; }
+    .note-card:nth-child(even) {
+      transform: rotate(2.5deg);
+    }
+
+    .postit-header {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #854d0e;
+      margin: 0 0 10px 0;
+      font-weight: bold;
+    }
+
+    .postit-preview {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #3f3f46;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
     .stamp {
-      display: none; /* Oculto en vista Post-it */
+      display: none; /* Oculto en modo Post-it */
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 15px;
       border: 2px dashed #dc2626;
       color: #dc2626;
-      padding: 3px 6px;
-      font-size: 0.65rem;
+      padding: 4px 8px;
+      font-size: 0.7rem;
       font-weight: bold;
       transform: rotate(8deg);
       opacity: 0.85;
     }
 
-    .card-title {
-      font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
-      margin: 0 0 10px 0;
-      color: #1c1917;
-    }
-
-    .card-text {
-      font-family: 'Caveat', cursive;
-      font-size: 1.35rem;
-      line-height: 1.3;
-      color: #292524;
-      margin: 0;
-    }
-
-    /* ESTADO HOVER / TOUCH: TRANSICIÓN A SOBRE AIR MAIL AGRANDADO */
-    .postit-card:hover, .postit-card:focus-within {
-      transform: scale(1.08) rotate(0deg) translateY(-5px);
+    /* HOVER / TOUCH: SE AGRANDA Y SE TRANSFORMA EN SOBRE AIR MAIL */
+    .note-card:hover {
+      width: 320px;
+      min-height: 220px;
+      background: var(--card-bg);
+      transform: rotate(0deg) scale(1.08);
       z-index: 50;
-      background: #fffefb !important;
-      padding: 22px;
+      box-shadow: 8px 16px 30px rgba(0,0,0,0.25);
+
+      /* Borde de sobre aéreo con líneas rojas y azules */
       border: 10px solid transparent;
       border-image: repeating-linear-gradient(
         -45deg,
@@ -216,14 +228,22 @@
         #2563eb 20px, #2563eb 32px,
         #fff 32px, #fff 40px
       ) 10;
-      box-shadow: 10px 18px 30px rgba(0,0,0,0.25);
     }
 
-    .postit-card:hover .stamp, .postit-card:focus-within .stamp {
-      display: block; /* Muestra el sello al convertirse en sobre */
+    .note-card:hover .postit-header {
+      color: #1c1917;
     }
 
-    /* ESQUINA INFERIOR IZQUIERDA: BOTÓN TE EXTRAÑO */
+    .note-card:hover .postit-preview {
+      -webkit-line-clamp: unset; /* Muestra el texto completo */
+      font-size: 1.5rem;
+    }
+
+    .note-card:hover .stamp {
+      display: block; /* Muestra el sello de Air Mail */
+    }
+
+    /* BOTÓN TE EXTRAÑO (INFERIOR IZQUIERDA) */
     .miss-you-container {
       position: fixed;
       bottom: 20px;
@@ -239,10 +259,10 @@
       background: #f97316;
       color: white;
       border: 2px solid #c2410c;
-      padding: 9px 16px;
+      padding: 10px 18px;
       border-radius: 25px;
       font-family: 'Special Elite', cursive;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       cursor: pointer;
       transition: all 0.2s ease;
@@ -258,7 +278,7 @@
       color: #c2410c;
       padding: 2px 8px;
       border-radius: 12px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: bold;
       border: 1px dashed #f97316;
     }
@@ -277,22 +297,27 @@
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ESQUINA INFERIOR DERECHA: REPRODUCTOR SPOTIFY CUADRADO COMPACTO */
-    .spotify-mini-widget {
+    /* REPRODUCTOR SPOTIFY CUADRADO COMPACTO (ESQUINA INFERIOR DERECHA) */
+    .spotify-compact-widget {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1000;
-      width: 200px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       background: #18181b;
-      border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      border: 2px solid #27272a;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
       overflow: hidden;
+      border: 2px solid #3f3f46;
+      transition: transform 0.2s;
     }
 
-    .spotify-mini-widget iframe {
+    .spotify-compact-widget:hover {
+      transform: scale(1.03);
+    }
+
+    .spotify-compact-iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -318,27 +343,39 @@
       background: rgba(255, 255, 255, 0.95);
       border: 4px solid #f43f5e;
       border-radius: 20px;
-      padding: 25px;
+      padding: 30px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .wink-heart { font-size: 70px; animation: pulse 0.6s infinite alternate; }
+    .wink-heart {
+      font-size: 80px;
+      animation: pulse 0.6s infinite alternate;
+    }
+
     .wink-text {
       font-family: 'Permanent Marker', cursive;
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: #e11d48;
-      margin: 5px 0 0 0;
+      margin: 10px 0 0 0;
       text-shadow: 2px 2px 0px #ffe4e6;
     }
 
-    @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Overlay para el Guiño MSN -->
   <div id="msnWinkOverlay">
     <div class="wink-box">
       <div class="wink-heart">💖</div>
@@ -348,9 +385,9 @@
 
   <!-- ENCABEZADO -->
   <header>
-    <div class="washi washi-flowers" style="top: -12px; left: 8%; transform: rotate(-4deg);"></div>
+    <div class="washi washi-flowers" style="top: -12px; left: 8%; transform: rotate(-3deg);"></div>
     <div class="washi washi-hearts" style="top: -12px; left: 45%; transform: rotate(1deg);"></div>
-    <div class="washi washi-leaves" style="top: -12px; right: 8%; transform: rotate(3deg);"></div>
+    <div class="washi washi-leaves" style="top: -12px; right: 8%; transform: rotate(2deg);"></div>
 
     <h1>Para Rocío 💌</h1>
     
@@ -363,36 +400,36 @@
     </div>
   </header>
 
-  <!-- TABLERO GRID DE POST-ITS / SOBRES -->
-  <main class="board-grid">
+  <!-- PARED DE POST-ITS / PARED DE NOTAS HORIZONTAL -->
+  <main class="notes-grid">
 
-    <!-- Carta 1 -->
-    <article class="postit-card" tabindex="0">
-      <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-2deg);"></div>
-      <div class="stamp">PAR AVION / AIR MAIL</div>
-      <h2 class="card-title">Distancia 📍</h2>
-      <p class="card-text">
+    <!-- Entrada 1 -->
+    <article class="note-card">
+      <div class="washi washi-leaves" style="top: -10px; left: 15px; transform: rotate(-2deg);"></div>
+      <div class="stamp">AIR MAIL</div>
+      <h3 class="postit-header">Para ti 📌</h3>
+      <p class="postit-preview">
         "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón y en este espacio hecho a mano para ti..."
       </p>
     </article>
 
-    <!-- Carta 2 -->
-    <article class="postit-card" tabindex="0">
-      <div class="washi washi-hearts" style="top: -12px; right: 15px; transform: rotate(3deg);"></div>
+    <!-- Entrada 2 -->
+    <article class="note-card">
+      <div class="washi washi-hearts" style="top: -10px; right: 15px; transform: rotate(3deg);"></div>
       <div class="stamp">AIR MAIL</div>
-      <h2 class="card-title">Pensamiento del día 🌿</h2>
-      <p class="card-text">
-        "Cada línea de código que voy armando la pienso con cariño para que sientas que caminas un ratito conmigo por el sur..."
+      <h3 class="postit-header">Bitácora 🌿</h3>
+      <p class="postit-preview">
+        Cada línea de código la voy escribiendo con mucho cariño para que tengamos un refugio digital nuestro.
       </p>
     </article>
 
-    <!-- Carta 3 -->
-    <article class="postit-card" tabindex="0">
-      <div class="washi washi-flowers" style="top: -12px; left: 20px; transform: rotate(-1deg);"></div>
-      <div class="stamp">SPECIAL DELIVERY</div>
-      <h2 class="card-title">Nota rápida 📌</h2>
-      <p class="card-text">
-        Acuérdate de tomar agüita, abrigarte cuando salgas al mar y escuchar la playlist que te dejé abajo a la derecha. 🌊
+    <!-- Entrada 3 -->
+    <article class="note-card">
+      <div class="washi washi-flowers" style="top: -10px; left: 25px; transform: rotate(-1deg);"></div>
+      <div class="stamp">AIR MAIL</div>
+      <h3 class="postit-header">Recordatorio 🌸</h3>
+      <p class="postit-preview">
+        Acuérdate de tomar agüita, abrigarte bien al salir al mar y pasar a escuchar la canción abajo.
       </p>
     </article>
 
@@ -406,9 +443,10 @@
     </button>
   </div>
 
-  <!-- REPRODUCTOR SPOTIFY CUADRADO COMPACTO (ESQUINA INFERIOR DERECHA) -->
-  <div class="spotify-mini-widget">
-    <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator" 
+  <!-- REPRODUCTOR SPOTIFY CUADRADO Y COMPACTO (ESQUINA INFERIOR DERECHA) -->
+  <div class="spotify-compact-widget">
+    <iframe class="spotify-compact-iframe" 
+            src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allowfullscreen="" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
             loading="lazy">
