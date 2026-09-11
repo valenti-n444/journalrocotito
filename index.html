@@ -259,6 +259,50 @@
     }
     .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; object-fit: cover; }
 
+    /* ESTILO LIBRO DE RECETARIO CON PASO DE PÁGINAS */
+    .recipe-book-wrapper {
+      position: relative;
+      background: #fdfbf7;
+      border: 3px double #b45309;
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-width: 650px;
+      margin: 0 auto;
+      font-family: 'Caveat', cursive;
+      min-height: 320px;
+    }
+
+    .recipe-page {
+      display: none;
+      animation: fadeInPage 0.4s ease-in-out;
+    }
+
+    .recipe-page.active { display: block; }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateX(15px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .recipe-nav-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      border-top: 1px dashed #d97706;
+      padding-top: 10px;
+    }
+
+    .recipe-btn {
+      background: #f59e0b;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      font-family: 'Special Elite', cursive;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
     .post-actions {
       display: flex;
       justify-content: space-between;
@@ -543,7 +587,6 @@
 </head>
 <body>
 
-  <!-- Overlay Guiño MSN -->
   <div id="msnWinkOverlay">
     <div class="wink-box">
       <div class="wink-heart">💖</div>
@@ -551,7 +594,6 @@
     </div>
   </div>
 
-  <!-- MODAL PUBLICAR -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-box">
       <button class="btn-close" onclick="closeModal()">✕</button>
@@ -584,7 +626,7 @@
 
         <div class="form-group">
           <label>Título / Mensaje corto:</label>
-          <input type="text" id="pubTitle" placeholder="Ej: Pensándote en Viña / Foto del día..." required>
+          <input type="text" id="pubTitle" placeholder="Ej: Pensándote en Viña / Receta de Sushi..." required>
         </div>
 
         <div class="form-group" id="fileGroup" style="display:none;">
@@ -602,7 +644,6 @@
     </div>
   </div>
 
-  <!-- ENCABEZADO -->
   <header>
     <div class="washi washi-flowers" style="top: -12px; left: 8%; transform: rotate(-4deg);"></div>
 
@@ -622,7 +663,6 @@
     </div>
   </header>
 
-  <!-- CONTADORES -->
   <div class="counter-widget">
     <div class="washi washi-hearts" style="top: -10px; right: 20px; transform: rotate(3deg); height: 18px; width: 60px;"></div>
     <div class="widget-title">⏳ Nuestro Tiempo Transcurrido</div>
@@ -642,28 +682,34 @@
     </div>
   </div>
 
-  <!-- PESTAÑAS -->
   <nav class="tabs-nav">
     <button class="tab-btn active" onclick="openTab('portada', this)">🏠 Portada (Feed)</button>
     <button class="tab-btn" onclick="openTab('literatura', this)">💌 Post & Literatura</button>
     <button class="tab-btn" onclick="openTab('fotos', this)">📸 Álbum de Fotos</button>
     <button class="tab-btn" onclick="openTab('juegos', this)">🎮 Mini Juegos & Score</button>
     <button class="tab-btn" onclick="openTab('musica', this)">🎵 Rincón Musical</button>
-    <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario</button>
+    <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario 📖</button>
   </nav>
 
-  <!-- CONTENIDO -->
   <section id="portada" class="tab-content active"><main class="journal-grid" id="mainFeed"></main></section>
   <section id="musica" class="tab-content"><div class="journal-grid" id="musicaFeed"></div></section>
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
-  <section id="recetario" class="tab-content"><div class="journal-grid" id="recetarioFeed"></div></section>
 
-  <!-- JUEGOS -->
+  <!-- SECCIÓN RECETARIO ESTILO LIBRO INTERACTIVO -->
+  <section id="recetario" class="tab-content">
+    <div class="recipe-book-wrapper" id="recipeBook">
+      <div id="recipePagesContainer"></div>
+      <div class="recipe-nav-btns">
+        <button class="recipe-btn" onclick="changeRecipePage(-1)">◀ Anterior</button>
+        <span id="recipePageNum" style="font-size: 1.2rem; align-self: center;">Página 1</span>
+        <button class="recipe-btn" onclick="changeRecipePage(1)">Siguiente ▶</button>
+      </div>
+    </div>
+  </section>
+
   <section id="juegos" class="tab-content">
     <div class="games-wrapper">
-      
-      <!-- SCORESHEET -->
       <div class="game-section">
         <h2 class="game-title">🏆 Tablón de Puntos (ScoreSheet)</h2>
         <table class="scoresheet-table">
@@ -690,7 +736,6 @@
         </table>
       </div>
 
-      <!-- RULETA -->
       <div class="game-section">
         <h2 class="game-title">🔮 Ruleta de Citas & Decisiones</h2>
         <p style="font-size:0.8rem; color:#64748b; margin:0;">¿Indecisas? ¡Giren la ruleta para decidir!</p>
@@ -708,7 +753,6 @@
         </div>
       </div>
 
-      <!-- MEMORIA -->
       <div class="game-section">
         <h2 class="game-title">🧠 Juego de Memoria de Parejas</h2>
         <p style="font-size:0.8rem; color:#64748b; margin:0;">Encuentra los 6 pares iguales</p>
@@ -716,7 +760,6 @@
         <button class="btn-submit" onclick="resetMemoryGame()" style="max-width:200px; margin: 10px auto 0 auto;">🔄 Reiniciar Memoria</button>
       </div>
 
-      <!-- AHORCADO -->
       <div class="game-section">
         <h2 class="game-title">🔤 Ahorcado de Frases Especiales</h2>
         <div class="word-display" id="hangmanWord">_ _ _ _ _</div>
@@ -725,7 +768,6 @@
         <button class="btn-submit" onclick="initHangman()" style="max-width:200px; margin: 15px auto 0 auto;">✨ Siguiente Frase</button>
       </div>
 
-      <!-- GATO -->
       <div class="game-section">
         <h2 class="game-title">🎮 Tres en Raya (Gato)</h2>
         <div class="tic-tac-toe-grid" id="tttGrid">
@@ -745,14 +787,12 @@
     </div>
   </section>
 
-  <!-- REPRODUCTOR SPOTIFY -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
     </iframe>
   </div>
 
-  <!-- BOTÓN TE EXTRAÑO -->
   <div class="miss-you-container">
     <span class="miss-counter" id="missCounter">Veces extrañada: 0</span>
     <button class="btn-miss-you" id="btnMissYou">Te extraño 🧡</button>
@@ -761,7 +801,6 @@
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
 
-    // BASE DE POSTS FIJOS
     const defaultPosts = [
       {
         fecha: '11/09/2026',
@@ -783,6 +822,13 @@
         tipo: 'nota',
         titulo: '3100 km pero te llevo conmigo...',
         contenido: 'No importa la distancia ni el viento del sur, cada día te pienso un poquito más.'
+      },
+      {
+        fecha: '11/09/2026',
+        autor: 'Val',
+        tipo: 'receta',
+        titulo: 'Rolls Dragon Nikkei 🍣',
+        contenido: 'Ingredientes: Arroz de sushi, alga nori, palta, salmón y salsa unagi.\n\nPasos:\n1. Preparar el arroz con vinagre de arroz.\n2. Extender sobre el nori con relleno de salmón y palta.\n3. Enrollar firmemente y cubrir con láminas suaves de palta por fuera.'
       }
     ];
 
@@ -799,6 +845,7 @@
     function toggleFileInput() {
       const type = document.getElementById('pubType').value;
       document.getElementById('fileGroup').style.display = (type === 'foto') ? 'flex' : 'none';
+      document.getElementById('textGroup').style.display = (type === 'foto') ? 'none' : 'flex';
     }
 
     function getYouTubeEmbedUrl(url) {
@@ -811,7 +858,7 @@
     }
 
     function generateKey(titulo) {
-      return titulo.replace(/\s+/g, '_').toLowerCase();
+      return 'p_' + encodeURIComponent(titulo.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase());
     }
 
     async function deletePost(titulo, autor) {
@@ -826,8 +873,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'delete', titulo: titulo, autor: autor })
           });
-          alert('✨ Post borrado exitosamente.');
-          // Filtrar localmente inmediatamente
+          alert('✨ Post eliminado.');
           window.allPosts = window.allPosts.filter(p => p.titulo !== titulo);
           renderAllFeeds(window.allPosts);
         } catch (e) { alert('Error al borrar: ' + e); }
@@ -840,6 +886,8 @@
       const comments = JSON.parse(localStorage.getItem('comments_' + postKey)) || [];
 
       let mediaHtml = '';
+      const safeTitle = post.titulo.replace(/'/g, "\\'");
+
       if (post.tipo === 'musica') {
         const embedUrl = getYouTubeEmbedUrl(post.contenido);
         const parts = post.contenido.split('\n\n');
@@ -847,7 +895,7 @@
         mediaHtml = `
           <div class="media-card">
             <div class="washi washi-flowers" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
-            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">🎵 ${post.titulo}</h3>
@@ -859,7 +907,7 @@
         mediaHtml = `
           <div class="media-card">
             <div class="washi washi-leaves" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
-            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">📸 ${post.titulo}</h3>
@@ -870,7 +918,7 @@
         mediaHtml = `
           <article class="notebook-card">
             <div class="pin"></div>
-            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
             <div class="notebook-date-header">
               <span>De: ${post.autor}</span>
               <span><u>${post.fecha}</u></span>
@@ -884,7 +932,7 @@
           <div class="postit-wrapper">
             <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
             <article class="postit-card" tabindex="0">
-              <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
+              <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
               <span class="author-badge">${post.autor}</span>
               <span class="note-number">Post #${index + 1}</span>
               <span class="entry-date">${post.fecha}</span>
@@ -942,12 +990,61 @@
       input.value = '';
     }
 
+    // LÓGICA DEL RECETARIO EN LIBRO
+    let currentRecipePage = 0;
+    let recipePostsList = [];
+
+    function renderRecipeBook(recipes) {
+      recipePostsList = recipes;
+      const container = document.getElementById('recipePagesContainer');
+      if (recipes.length === 0) {
+        container.innerHTML = `<div class="recipe-page active"><h2 style="text-align:center;">📖 Recetario Vacio</h2><p style="text-align:center;">Agrega tu primera receta con la clave 1308 ✨</p></div>`;
+        return;
+      }
+
+      container.innerHTML = recipes.map((recipe, idx) => `
+        <div class="recipe-page ${idx === 0 ? 'active' : ''}">
+          <span class="delete-btn" onclick="deletePost('${recipe.titulo.replace(/'/g, "\\'")}', '${recipe.autor}')">🗑️</span>
+          <h2 style="font-size:2.2rem; color:#9f1239; margin-top:0;">🍳 ${recipe.titulo}</h2>
+          <p style="font-size:0.9rem; color:#78716c;"><b>De:</b> ${recipe.autor} | <b>Fecha:</b> ${recipe.fecha}</p>
+          <div style="font-size:1.45rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipe.contenido}</div>
+        </div>
+      `).join('');
+
+      currentRecipePage = 0;
+      updateRecipeControls();
+    }
+
+    function changeRecipePage(delta) {
+      if (recipePostsList.length === 0) return;
+      const pages = document.querySelectorAll('.recipe-page');
+      pages[currentRecipePage].classList.remove('active');
+
+      currentRecipePage += delta;
+      if (currentRecipePage < 0) currentRecipePage = 0;
+      if (currentRecipePage >= pages.length) currentRecipePage = pages.length - 1;
+
+      pages[currentRecipePage].classList.add('active');
+      updateRecipeControls();
+    }
+
+    function updateRecipeControls() {
+      const pageNumSpan = document.getElementById('recipePageNum');
+      if (recipePostsList.length === 0) {
+        pageNumSpan.textContent = 'Página 0 de 0';
+      } else {
+        pageNumSpan.textContent = `Página ${currentRecipePage + 1} de ${recipePostsList.length}`;
+      }
+    }
+
     function renderAllFeeds(posts) {
       document.getElementById('mainFeed').innerHTML = posts.slice(0, 10).map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('musicaFeed').innerHTML = posts.filter(p => p.tipo === 'musica').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('fotosFeed').innerHTML = posts.filter(p => p.tipo === 'foto').map((p, idx) => renderCard(p, idx)).join('');
-      document.getElementById('recetarioFeed').innerHTML = posts.filter(p => p.tipo === 'receta').map((p, idx) => renderCard(p, idx)).join('');
+      
+      const recipes = posts.filter(p => p.tipo === 'receta');
+      renderRecipeBook(recipes);
     }
 
     async function loadPosts() {
@@ -982,7 +1079,6 @@
       renderAllFeeds(posts);
     }
 
-    // PUBLICAR
     document.getElementById('publishForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const key = document.getElementById('pubKey').value;
@@ -1029,7 +1125,6 @@
       } catch (err) { alert('Error al publicar: ' + err); }
     }
 
-    // SCORESHEET
     function loadScores() {
       document.getElementById('scoreVal').textContent = localStorage.getItem('scoreVal') || 0;
       document.getElementById('scoreRocio').textContent = localStorage.getItem('scoreRocio') || 0;
@@ -1043,7 +1138,6 @@
     }
     loadScores();
 
-    // RULETA
     let currentRotation = 0;
     function spinRoulette() {
       const customInput = document.getElementById('customOptionsInput').value;
@@ -1066,7 +1160,6 @@
       }, 3000);
     }
 
-    // MEMORIA
     const memoryEmojis = ['🐧', '🧡', '🍷', '🍕', '✈️', '🎵'];
     let memoryCards = [];
     let flippedCards = [];
@@ -1114,7 +1207,6 @@
     }
     resetMemoryGame();
 
-    // AHORCADO
     const hangmanWords = ["BEST PART", "PATAGONIA", "NOVIAS", "NUESTROS DIAS", "POLOLEO"];
     let selectedWord = "";
     let guessedLetters = [];
@@ -1166,7 +1258,6 @@
     }
     initHangman();
 
-    // GATO
     let tttBoard = ['', '', '', '', '', '', '', '', ''];
     let tttTurn = '❌';
 
@@ -1184,7 +1275,6 @@
       document.querySelectorAll('.ttt-cell').forEach(c => c.textContent = '');
     }
 
-    // CONTADORES DE DÍAS
     function calculateDays() {
       const now = new Date();
       document.getElementById('daysTalking').textContent = Math.max(0, Math.floor((now - new Date('2014-03-01')) / (1000 * 60 * 60 * 24)));
@@ -1193,7 +1283,6 @@
     }
     calculateDays();
 
-    // CLIMA
     async function fetchWeather() {
       try {
         const resNat = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-51.7269&longitude=-72.5062&current_weather=true');
@@ -1207,7 +1296,6 @@
     }
     fetchWeather();
 
-    // MSN GUIÑO
     document.getElementById('msnTrigger').addEventListener('click', () => {
       document.body.classList.add('shake-screen');
       const overlay = document.getElementById('msnWinkOverlay');
@@ -1216,7 +1304,6 @@
       setTimeout(() => overlay.style.display = 'none', 2500);
     });
 
-    // TE EXTRAÑO
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
     let missCount = parseInt(localStorage.getItem('missYouCount_persistent')) || 0;
