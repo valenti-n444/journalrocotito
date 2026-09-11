@@ -225,7 +225,6 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
-    /* LIBRETA POESÍA */
     .notebook-card {
       grid-column: 1 / -1;
       position: relative;
@@ -254,7 +253,6 @@
     .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
 
-    /* HOJA DE LIBRO PARA RECETAS (EN FEED Y SECCIÓN RECETARIO) */
     .recipe-book-card {
       position: relative;
       background: #fdfbf7;
@@ -266,39 +264,105 @@
       background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0px, transparent 15px);
     }
 
-    /* POLAROID MEJORADA SIN CORTE DE IMÁGENES */
-    .media-card {
+    /* POLAROID DINÁMICA FLUIDA */
+    .polaroid-card {
       position: relative;
-      background: #fff;
-      padding: 15px 15px 25px 15px;
+      background: #ffffff;
+      padding: 12px 12px 20px 12px;
       box-shadow: 4px 8px 18px rgba(0,0,0,0.18);
-      transform: rotate(-0.8deg);
-      text-align: center;
+      transform: rotate(-0.5deg);
       border-radius: 4px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
 
-    .polaroid-img-container {
+    .polaroid-img-wrapper {
       width: 100%;
-      background: #111;
-      border-radius: 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      max-height: 450px;
-    }
-
-    .polaroid-img-container img {
-      width: 100%;
-      height: auto;
-      max-height: 450px;
-      object-fit: contain;
       display: block;
+      border-radius: 2px;
+      overflow: hidden;
     }
 
+    .polaroid-img-wrapper img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .media-card {
+      position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
+      transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
+    }
     .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; }
 
-    /* RECETARIO EN PÁGINAS */
+    /* ESTILO CINE / TICKET VINTAGE */
+    .cinema-ticket-card {
+      position: relative;
+      background: #1c1917;
+      color: #fef3c7;
+      border: 2px dashed #eab308;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 4px 10px 22px rgba(0,0,0,0.3);
+      font-family: 'Caveat', cursive;
+    }
+
+    .cinema-stars {
+      color: #f59e0b;
+      font-size: 1.4rem;
+      margin: 6px 0;
+    }
+
+    /* HIGHLIGHT CINE TOP */
+    .cinema-top-highlight {
+      background: #292524;
+      border: 2px double #eab308;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+
+    /* BOARDING PASS / WISHLIST */
+    .boarding-pass-card {
+      position: relative;
+      background: #f0fdf4;
+      border: 2px solid #16a34a;
+      border-left: 8px solid #15803d;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 4px 8px 16px rgba(0,0,0,0.12);
+      font-family: 'Special Elite', cursive;
+    }
+
+    .boarding-pass-card.completed {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      border-left-color: #64748b;
+      text-decoration: line-through;
+      opacity: 0.75;
+    }
+
+    .wishlist-sections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      width: 100%;
+    }
+
+    .wishlist-column-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: #9f1239;
+      border-bottom: 2px dashed #b45309;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
     .recipe-book-wrapper {
       position: relative;
       background: #fdfbf7;
@@ -384,12 +448,30 @@
       padding: 4px 8px;
       border-radius: 6px;
       margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .comment-delete-btn {
+      cursor: pointer;
+      font-size: 0.75rem;
+      opacity: 0.6;
+      margin-left: 8px;
+    }
+    .comment-delete-btn:hover { opacity: 1; color: #e11d48; }
 
     .comment-input-box {
       display: flex;
       gap: 4px;
       margin-top: 6px;
+    }
+
+    .comment-input-box select {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
     }
 
     .comment-input-box input {
@@ -638,8 +720,8 @@
         <div class="form-group">
           <label>¿Quién eres?</label>
           <select id="pubAuthor" required>
-            <option value="Val">Val</option>
-            <option value="Rocío">Rocío</option>
+            <option value="Val 🔮">Val 🔮</option>
+            <option value="Ro 🐧">Ro 🐧</option>
           </select>
         </div>
 
@@ -656,21 +738,34 @@
             <option value="foto">📸 Foto Polaroid</option>
             <option value="musica">🎵 Canción pegada (Link YouTube/Spotify)</option>
             <option value="receta">🍳 Receta especial</option>
+            <option value="cartelera">🎟️ Cartelera Cine/Serie</option>
+            <option value="wishlist">💫 Wishlist / Boarding Pass</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Título / Mensaje corto:</label>
-          <input type="text" id="pubTitle" placeholder="Ej: Pensándote en Viña / Receta de Sushi..." required>
+          <label>Título / Nombre del plan o peli:</label>
+          <input type="text" id="pubTitle" placeholder="Ej: Película para el finde / Viaje a las Torres..." required>
+        </div>
+
+        <div class="form-group" id="ratingGroup" style="display:none;">
+          <label>Calificación (Estrellas 1 al 5):</label>
+          <select id="pubRating">
+            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+            <option value="4">⭐⭐⭐⭐ (4/5)</option>
+            <option value="3">⭐⭐⭐ (3/5)</option>
+            <option value="2">⭐⭐ (2/5)</option>
+            <option value="1">⭐ (1/5)</option>
+          </select>
         </div>
 
         <div class="form-group" id="fileGroup" style="display:none;">
-          <label>📷 Seleccionar foto desde Galería/PC:</label>
+          <label>📷 Seleccionar foto/poster desde Galería/PC:</label>
           <input type="file" id="pubFile" accept="image/*">
         </div>
 
         <div class="form-group" id="textGroup">
-          <label>Contenido (Texto o Link de YouTube/Spotify):</label>
+          <label>Contenido / Reseña / Link de Tráiler:</label>
           <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje o pega el enlace..."></textarea>
         </div>
 
@@ -721,6 +816,8 @@
     <button class="tab-btn active" onclick="openTab('portada', this)">🏠 Portada (Feed)</button>
     <button class="tab-btn" onclick="openTab('literatura', this)">💌 Post & Literatura</button>
     <button class="tab-btn" onclick="openTab('fotos', this)">📸 Álbum de Fotos</button>
+    <button class="tab-btn" onclick="openTab('cartelera', this)">🎟️ Cartelera</button>
+    <button class="tab-btn" onclick="openTab('wishlist', this)">💫 Wishlist</button>
     <button class="tab-btn" onclick="openTab('juegos', this)">🎮 Mini Juegos & Score</button>
     <button class="tab-btn" onclick="openTab('musica', this)">🎵 Rincón Musical</button>
     <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario 📖</button>
@@ -730,6 +827,29 @@
   <section id="musica" class="tab-content"><div class="journal-grid" id="musicaFeed"></div></section>
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
+
+  <!-- CARTELERA DE CINE -->
+  <section id="cartelera" class="tab-content">
+    <div class="cinema-top-highlight" id="cinemaHighlight">
+      <h3 style="font-family:'Caveat', cursive; font-size:2rem; margin:0 0 6px 0; color:#eab308; text-align:center;">🌟 Favoritas de la Cartelera (5/5)</h3>
+      <div id="cinemaTopList" style="font-family:'Caveat', cursive; font-size:1.3rem; text-align:center; color:#fef3c7;">Cargando joyas del cine...</div>
+    </div>
+    <div class="journal-grid" id="carteleraFeed"></div>
+  </section>
+
+  <!-- WISHLIST -->
+  <section id="wishlist" class="tab-content">
+    <div class="wishlist-sections-grid">
+      <div>
+        <div class="wishlist-column-title">✈️ Pendientes por hacer</div>
+        <div id="wishlistPendingList" style="display:flex; flex-direction:column; gap:15px;"></div>
+      </div>
+      <div>
+        <div class="wishlist-column-title">✅ ¡Sueños Cumplidos!</div>
+        <div id="wishlistCompletedList" style="display:flex; flex-direction:column; gap:15px;"></div>
+      </div>
+    </div>
+  </section>
 
   <section id="recetario" class="tab-content">
     <div class="recipe-book-wrapper" id="recipeBook">
@@ -749,8 +869,8 @@
         <table class="scoresheet-table">
           <thead>
             <tr>
-              <th>Val 👑</th>
-              <th>Rocío 🌸</th>
+              <th>Val 🔮</th>
+              <th>Ro 🐧</th>
             </tr>
           </thead>
           <tbody>
@@ -761,9 +881,9 @@
                 <button class="scoresheet-btn" onclick="updateScore('val', 1)">+</button>
               </td>
               <td>
-                <button class="scoresheet-btn" onclick="updateScore('rocio', -1)">-</button>
-                <span id="scoreRocio" style="margin: 0 15px; font-weight:bold;">0</span>
-                <button class="scoresheet-btn" onclick="updateScore('rocio', 1)">+</button>
+                <button class="scoresheet-btn" onclick="updateScore('ro', -1)">-</button>
+                <span id="scoreRo" style="margin: 0 15px; font-weight:bold;">0</span>
+                <button class="scoresheet-btn" onclick="updateScore('ro', 1)">+</button>
               </td>
             </tr>
           </tbody>
@@ -838,17 +958,10 @@
     const defaultPosts = [
       {
         fecha: '11/09/2026',
-        autor: 'Val',
+        autor: 'Val 🔮',
         tipo: 'musica',
         titulo: 'Best Part — Daniel Caesar ft. H.E.R.',
         contenido: 'https://youtu.be/vBy7FaapGRo?si=V-h_kRIaC0Grk1SX\n\npara nunca olvidar bailar en la cocina 🧡'
-      },
-      {
-        fecha: '11/09/2026',
-        autor: 'Val',
-        tipo: 'receta',
-        titulo: 'Rolls Dragon Nikkei 🍣',
-        contenido: 'Ingredientes: Arroz de sushi, alga nori, palta, salmón y salsa unagi.\n\nPasos:\n1. Preparar el arroz con vinagre de arroz.\n2. Extender sobre el nori con relleno de salmón y palta.\n3. Enrollar firmemente y cubrir con láminas suaves de palta por fuera.'
       }
     ];
 
@@ -864,8 +977,8 @@
 
     function toggleFileInput() {
       const type = document.getElementById('pubType').value;
-      document.getElementById('fileGroup').style.display = (type === 'foto') ? 'flex' : 'none';
-      document.getElementById('textGroup').style.display = (type === 'foto') ? 'none' : 'flex';
+      document.getElementById('fileGroup').style.display = (type === 'foto' || type === 'cartelera') ? 'flex' : 'none';
+      document.getElementById('ratingGroup').style.display = (type === 'cartelera') ? 'flex' : 'none';
     }
 
     function getYouTubeEmbedUrl(url) {
@@ -893,11 +1006,27 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'delete', titulo: titulo, autor: autor })
           });
-          alert('✨ Post eliminado.');
+          alert('✨ Post eliminado completamente.');
           window.allPosts = window.allPosts.filter(p => p.titulo !== titulo);
           renderAllFeeds(window.allPosts);
         } catch (e) { alert('Error al borrar: ' + e); }
       }
+    }
+
+    function toggleWishlistStatus(postKey) {
+      let status = localStorage.getItem('wishlist_done_' + postKey) === 'true';
+      localStorage.setItem('wishlist_done_' + postKey, !status);
+      renderAllFeeds(window.allPosts);
+    }
+
+    function deleteComment(postKey, commentIndex) {
+      const key = prompt('🔑 Clave secreta (1308) para borrar el comentario:');
+      if (key !== '1308') { alert('❌ Clave incorrecta.'); return; }
+
+      let comments = JSON.parse(localStorage.getItem('comments_' + postKey)) || [];
+      comments.splice(commentIndex, 1);
+      localStorage.setItem('comments_' + postKey, JSON.stringify(comments));
+      renderAllFeeds(window.allPosts);
     }
 
     function renderCard(post, index) {
@@ -925,15 +1054,13 @@
         `;
       } else if (post.tipo === 'foto') {
         mediaHtml = `
-          <div class="media-card">
-            <div class="washi washi-leaves" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
+          <div class="polaroid-card">
             <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
-            <span class="author-badge">${post.autor}</span>
-            <span class="entry-date">${post.fecha}</span>
-            <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">📸 ${post.titulo}</h3>
-            <div class="polaroid-img-container">
+            <div class="polaroid-img-wrapper">
               <img src="${post.contenido}" alt="Foto Polaroid" />
             </div>
+            <p style="font-family:'Caveat', cursive; font-size:1.4rem; color:#1c1917; margin:10px 0 0 0; text-align:center;">📸 ${post.titulo}</p>
+            <span class="entry-date" style="text-align:center; margin-top:4px;">${post.fecha} | De: ${post.autor}</span>
           </div>
         `;
       } else if (post.tipo === 'poesia') {
@@ -957,6 +1084,36 @@
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2rem; color:#9f1239; margin-top:0;">📖 ${post.titulo}</h3>
             <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${post.contenido}</div>
+          </article>
+        `;
+      } else if (post.tipo === 'cartelera') {
+        const ratingStars = '⭐'.repeat(parseInt(post.rating || 5));
+        const isTrailer = post.contenido.includes('youtu');
+        mediaHtml = `
+          <article class="cinema-ticket-card">
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            <span class="author-badge">${post.autor}</span>
+            <span class="entry-date">${post.fecha}</span>
+            <h3 style="font-size:2.2rem; margin:0; color:#fef08a;">🎟️ ${post.titulo}</h3>
+            <div class="cinema-stars">${ratingStars}</div>
+            ${isTrailer ? `<iframe class="media-embed" src="${getYouTubeEmbedUrl(post.contenido)}" allowfullscreen></iframe>` : ''}
+            ${!isTrailer && post.contenido.startsWith('data:image') ? `<img src="${post.contenido}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
+            <p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>
+          </article>
+        `;
+      } else if (post.tipo === 'wishlist') {
+        const isDone = localStorage.getItem('wishlist_done_' + postKey) === 'true';
+        mediaHtml = `
+          <article class="boarding-pass-card ${isDone ? 'completed' : ''}">
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:0.75rem; color:#15803d; font-weight:bold;">BOARDING PASS</span>
+              <button onclick="toggleWishlistStatus('${postKey}')" style="background:#16a34a; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:0.7rem; cursor:pointer;">
+                ${isDone ? 'Marcar Pendiente' : '✓ Completado'}
+              </button>
+            </div>
+            <h3 style="font-size:1.5rem; margin:8px 0 4px 0; color:#14532d;">🛫 ${post.titulo}</h3>
+            <p style="font-size:1.1rem; margin:0; color:#374151;">${post.contenido}</p>
           </article>
         `;
       } else {
@@ -988,9 +1145,18 @@
           </div>
           <div class="comments-section">
             <div id="comment-list-${postKey}" class="comment-list">
-              ${comments.map(c => `<div class="comment-item"><b>${c.author}:</b> ${c.text}</div>`).join('')}
+              ${comments.map((c, cIdx) => `
+                <div class="comment-item">
+                  <span><b>${c.author}:</b> ${c.text}</span>
+                  <span class="comment-delete-btn" onclick="deleteComment('${postKey}', ${cIdx})">🗑️</span>
+                </div>
+              `).join('')}
             </div>
             <div class="comment-input-box">
+              <select id="comment-author-${postKey}">
+                <option value="Val 🔮">Val 🔮</option>
+                <option value="Ro 🐧">Ro 🐧</option>
+              </select>
               <input type="text" id="comment-input-${postKey}" placeholder="Escribe un comentario...">
               <button onclick="addComment('${postKey}')">Responder</button>
             </div>
@@ -1009,20 +1175,19 @@
 
     function addComment(postKey) {
       const input = document.getElementById('comment-input-' + postKey);
+      const authorSelect = document.getElementById('comment-author-' + postKey);
       if (!input) return;
       const text = input.value.trim();
       if (!text) return;
 
+      const author = authorSelect ? authorSelect.value : 'Val 🔮';
       let comments = JSON.parse(localStorage.getItem('comments_' + postKey)) || [];
-      comments.push({ author: 'Val/Rocío', text: text });
+      comments.push({ author: author, text: text });
       localStorage.setItem('comments_' + postKey, JSON.stringify(comments));
 
-      const list = document.getElementById('comment-list-' + postKey);
-      if (list) list.innerHTML += `<div class="comment-item"><b>Val/Rocío:</b> ${text}</div>`;
-      input.value = '';
+      renderAllFeeds(window.allPosts);
     }
 
-    // LÓGICA DEL RECETARIO EN LIBRO DE PÁGINAS
     let currentRecipePage = 0;
     let recipePostsList = [];
 
@@ -1075,6 +1240,21 @@
       document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('fotosFeed').innerHTML = posts.filter(p => p.tipo === 'foto').map((p, idx) => renderCard(p, idx)).join('');
       
+      const cinemaPosts = posts.filter(p => p.tipo === 'cartelera');
+      document.getElementById('carteleraFeed').innerHTML = cinemaPosts.map((p, idx) => renderCard(p, idx)).join('');
+      
+      const topCinema = cinemaPosts.filter(p => parseInt(p.rating || 5) === 5);
+      document.getElementById('cinemaTopList').innerHTML = topCinema.length > 0 
+        ? topCinema.map(m => `🎬 <b>${m.titulo}</b> (${m.autor})`).join(' — ')
+        : 'Aún no hay películas puntuadas con 5 estrellas.';
+
+      const wishlistPosts = posts.filter(p => p.tipo === 'wishlist');
+      const pending = wishlistPosts.filter(p => localStorage.getItem('wishlist_done_' + generateKey(p.titulo)) !== 'true');
+      const completed = wishlistPosts.filter(p => localStorage.getItem('wishlist_done_' + generateKey(p.titulo)) === 'true');
+
+      document.getElementById('wishlistPendingList').innerHTML = pending.map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('wishlistCompletedList').innerHTML = completed.map((p, idx) => renderCard(p, idx)).join('');
+
       const recipes = posts.filter(p => p.tipo === 'receta');
       renderRecipeBook(recipes);
     }
@@ -1096,10 +1276,11 @@
               uniqueTitles.add(title);
               fetchedPosts.push({
                 fecha: row[0] || '11/09/2026',
-                autor: row[1] || 'Val',
+                autor: row[1] || 'Val 🔮',
                 tipo: row[2] || 'nota',
                 titulo: title,
-                contenido: row[4] || ''
+                contenido: row[4] || '',
+                rating: row[5] || '5'
               });
             }
           }
@@ -1120,7 +1301,7 @@
       let content = document.getElementById('pubContent').value;
       const fileInput = document.getElementById('pubFile');
 
-      if (type === 'foto' && fileInput.files.length > 0) {
+      if ((type === 'foto' || type === 'cartelera') && fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const reader = new FileReader();
         reader.onload = async function(e) {
@@ -1140,6 +1321,7 @@
         tipo: type,
         titulo: document.getElementById('pubTitle').value,
         contenido: content,
+        rating: document.getElementById('pubRating').value || '5',
         numeroNota: Math.floor(Math.random() * 90) + 10
       };
 
@@ -1157,14 +1339,13 @@
       } catch (err) { alert('Error al publicar: ' + err); }
     }
 
-    // SCORESHEET & AUTOMATIZACIÓN EN JUEGOS
     function loadScores() {
       document.getElementById('scoreVal').textContent = localStorage.getItem('scoreVal') || 0;
-      document.getElementById('scoreRocio').textContent = localStorage.getItem('scoreRocio') || 0;
+      document.getElementById('scoreRo').textContent = localStorage.getItem('scoreRo') || 0;
     }
 
     function updateScore(user, delta) {
-      const key = user.toLowerCase() === 'val' ? 'scoreVal' : 'scoreRocio';
+      const key = user.toLowerCase() === 'val' ? 'scoreVal' : 'scoreRo';
       let current = parseInt(localStorage.getItem(key)) || 0;
       current = Math.max(0, current + delta);
       localStorage.setItem(key, current);
@@ -1172,8 +1353,8 @@
     }
 
     function awardWinner() {
-      const winner = prompt('🏆 ¡Juego terminado! ¿Quién ganó este punto? (Escribe Val o Rocío):');
-      if (winner && (winner.toLowerCase() === 'val' || winner.toLowerCase() === 'rocío' || winner.toLowerCase() === 'rocio')) {
+      const winner = prompt('🏆 ¡Juego terminado! ¿Quién ganó este punto? (Escribe Val o Ro):');
+      if (winner && (winner.toLowerCase() === 'val' || winner.toLowerCase() === 'ro')) {
         updateScore(winner, 1);
         alert(`🎉 ¡Punto otorgado a ${winner}! ScoreSheet actualizado.`);
       }
@@ -1202,7 +1383,7 @@
       }, 3000);
     }
 
-    const memoryEmojis = ['🐧', '🧡', '🍷', '🍕', '✈️', '🎵'];
+    const memoryEmojis = ['🐧', '🔮', '🍷', '🍕', '✈️', '🎵'];
     let memoryCards = [];
     let flippedCards = [];
     let matchedPairs = 0;
@@ -1373,7 +1554,7 @@
       localStorage.setItem('missYouCount_persistent', missCount);
       missCounter.textContent = `Veces extrañada: ${missCount}`;
 
-      const emojis = ['🐧', '🧡', '✨'];
+      const emojis = ['🐧', '🔮', '✨'];
       for (let i = 0; i < 15; i++) {
         setTimeout(() => {
           const emoji = document.createElement('div');
