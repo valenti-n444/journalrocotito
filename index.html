@@ -231,7 +231,7 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
-    /* LIBRETA POESÍA / HOJAS AMPLIAS Y COMPLETAS */
+    /* LIBRETA POESÍA */
     .notebook-card {
       grid-column: 1 / -1;
       position: relative;
@@ -260,14 +260,14 @@
     .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
 
-    /* POLAROID CON FOTO SUBIDA */
+    /* FOTO POLAROID Y MEDIA */
     .media-card {
       position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
       transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
     }
     .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; object-fit: cover; }
 
-    /* REACCIONES Y COMENTARIOS VINTAGE */
+    /* REACCIONES Y COMENTARIOS */
     .post-actions {
       display: flex;
       justify-content: space-between;
@@ -393,7 +393,6 @@
       cursor: pointer;
     }
 
-    /* GATO */
     .tic-tac-toe-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -415,11 +414,10 @@
       cursor: pointer;
     }
 
-    /* RULETA */
     .roulette-container {
       position: relative;
-      width: 260px;
-      height: 260px;
+      width: 240px;
+      height: 240px;
       margin: 15px auto;
     }
 
@@ -465,7 +463,6 @@
       min-height: 40px;
     }
 
-    /* JUEGO DE MEMORIA */
     .memory-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -492,7 +489,6 @@
       border-style: solid;
     }
 
-    /* AHORCADO */
     .word-display {
       font-family: 'Special Elite', cursive;
       font-size: 1.8rem;
@@ -533,7 +529,7 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* REPRODUCTOR SPOTIFY COMPACTO RESTAURADO */
+    /* SPOTIFY COMPACTO */
     .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 300px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; background: #000; }
     .spotify-mini-widget iframe { border: none; width: 100%; height: 152px; display: block; }
 
@@ -542,7 +538,7 @@
       header { flex-direction: column; gap: 10px; }
     }
 
-    /* MODAL PUBLICAR CON SUBIDA DE ARCHIVOS */
+    /* MODAL PUBLICAR */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center; }
     .modal-box { background: #fffefb; border: 2px dashed #b45309; border-radius: 12px; padding: 25px; max-width: 420px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; }
     .modal-title { font-family: 'Caveat', cursive; font-size: 2rem; color: #9f1239; margin: 0 0 15px 0; text-align: center; }
@@ -569,7 +565,7 @@
     </div>
   </div>
 
-  <!-- MODAL PUBLICAR CON SELECTOR DE FOTOS -->
+  <!-- MODAL PUBLICAR -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-box">
       <button class="btn-close" onclick="closeModal()">✕</button>
@@ -677,7 +673,7 @@
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
   <section id="recetario" class="tab-content"><div class="journal-grid" id="recetarioFeed"></div></section>
 
-  <!-- SECCIÓN MINI JUEGOS COMPLETA -->
+  <!-- SECCIÓN MINI JUEGOS -->
   <section id="juegos" class="tab-content">
     <div class="games-wrapper">
       
@@ -734,7 +730,7 @@
         <button class="btn-submit" onclick="resetMemoryGame()" style="max-width:200px; margin: 10px auto 0 auto;">🔄 Reiniciar Memoria</button>
       </div>
 
-      <!-- 4. AHORCADO DE FRASES -->
+      <!-- 4. AHORCADO -->
       <div class="game-section">
         <h2 class="game-title">🔤 Ahorcado de Frases Especiales</h2>
         <div class="word-display" id="hangmanWord">_ _ _ _ _</div>
@@ -763,7 +759,7 @@
     </div>
   </section>
 
-  <!-- REPRODUCTOR SPOTIFY RESTAURADO -->
+  <!-- REPRODUCTOR SPOTIFY -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
@@ -1021,7 +1017,7 @@
       } catch (err) { alert('Error al publicar: ' + err); }
     }
 
-    // --- SCORESHEET ---
+    // SCORESHEET
     function loadScores() {
       document.getElementById('scoreVal').textContent = localStorage.getItem('scoreVal') || 0;
       document.getElementById('scoreRocio').textContent = localStorage.getItem('scoreRocio') || 0;
@@ -1035,7 +1031,7 @@
     }
     loadScores();
 
-    // --- RULETA ---
+    // RULETA
     let currentRotation = 0;
     function spinRoulette() {
       const customInput = document.getElementById('customOptionsInput').value;
@@ -1058,7 +1054,7 @@
       }, 3000);
     }
 
-    // --- JUEGO DE MEMORIA ---
+    // MEMORIA
     const memoryEmojis = ['🐧', '🧡', '🍷', '🍕', '✈️', '🎵'];
     let memoryCards = [];
     let flippedCards = [];
@@ -1106,7 +1102,7 @@
     }
     resetMemoryGame();
 
-    // --- AHORCADO ---
+    // AHORCADO
     const hangmanWords = ["BEST PART", "PATAGONIA", "NOVIAS", "NUESTROS DIAS", "POLOLEO"];
     let selectedWord = "";
     let guessedLetters = [];
@@ -1158,7 +1154,7 @@
     }
     initHangman();
 
-    // --- TRES EN RAYA (GATO) ---
+    // TRES EN RAYA
     let tttBoard = ['', '', '', '', '', '', '', '', ''];
     let tttTurn = '❌';
 
