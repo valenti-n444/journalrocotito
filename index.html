@@ -208,7 +208,7 @@
     /* POST-IT */
     .postit-wrapper { position: relative; min-height: 200px; }
     .postit-card {
-      position: relative; background: #fef9c3; padding: 20px 18px; border-radius: 2px;
+      position: relative; background: #fef9c3; padding: 20px 18px 15px 18px; border-radius: 2px;
       box-shadow: 4px 6px 12px rgba(0,0,0,0.15); transform: rotate(-1.5deg); transition: all 0.35s ease;
       cursor: pointer; overflow: hidden; z-index: 5;
     }
@@ -253,6 +253,81 @@
       transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
     }
     .media-embed { width: 100%; height: 210px; border: none; border-radius: 4px; }
+
+    /* REACCIONES Y COMENTARIOS VINTAGE */
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed #cbd5e1;
+      font-size: 0.8rem;
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.82rem;
+      color: #e11d48;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .like-btn:hover { background: #ffe4e6; }
+
+    .comments-section {
+      margin-top: 10px;
+      text-align: left;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: #475569;
+    }
+
+    .comment-list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0;
+    }
+
+    .comment-item {
+      background: rgba(0,0,0,0.03);
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+    }
+
+    .comment-input-box {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .comment-input-box input {
+      flex: 1;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      padding: 2px 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .comment-input-box button {
+      background: #f97316;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.72rem;
+      padding: 0 8px;
+      cursor: pointer;
+    }
 
     /* BOTÓN TE EXTRAÑO */
     .miss-you-container { position: fixed; bottom: 15px; left: 15px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -325,6 +400,7 @@
             <option value="poesia">📖 Poesía / Hoja de libreta</option>
             <option value="foto">📸 Foto Polaroid</option>
             <option value="musica">🎵 Canción pegada (Link YouTube/Spotify)</option>
+            <option value="receta">🍳 Receta especial</option>
           </select>
         </div>
 
@@ -393,57 +469,25 @@
     <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario</button>
   </nav>
 
-  <!-- SECCIÓN PORTADA (FEED RECIENTE) -->
+  <!-- SECCIÓN PORTADA (FEED DE LOS 10 MÁS RECIENTES - DINÁMICO) -->
   <section id="portada" class="tab-content active">
     <main class="journal-grid" id="mainFeed">
-      
-      <div class="postit-wrapper">
-        <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
-        <article class="postit-card" tabindex="0">
-          <span class="author-badge">Val</span>
-          <span class="note-number">Nota #01</span>
-          <span class="entry-date">10 de Septiembre, 2026</span>
-          <p class="postit-preview">📌 Pensándote desde el sur...</p>
-          <div class="airmail-full-content">
-            <div class="stamp-mini">AIR MAIL</div>
-            "Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente, en mi corazón..."
-          </div>
-        </article>
-      </div>
-
-      <article class="notebook-card">
-        <div class="pin"></div>
-        <div class="notebook-date-header">
-          <span>De: Val</span>
-          <span><u>10 de Septiembre, 2026</u></span>
-        </div>
-        <h3>Poema 19 — Pablo Neruda</h3>
-        <p>Aquí te amo. En los oscuros pinos se desenreda el viento...</p>
-      </article>
-
+      <!-- Se llena dinámicamente con las entradas de la Google Sheet -->
     </main>
   </section>
 
   <!-- SECCIÓN RINCÓN MUSICAL -->
   <section id="musica" class="tab-content">
-    <div class="journal-grid">
-      <article class="media-card">
-        <div class="washi washi-flowers" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
-        <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">🎵 Canción Pegada del Momento</h3>
-        <iframe class="media-embed" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-        <p style="font-family:'Caveat', cursive; font-size:1.2rem; color:#57534e; margin-top:8px;">
-          "Esta canción la escuché hoy y me recordó a nuestro viaje juntas..."
-        </p>
-      </article>
-    </div>
+    <div class="journal-grid" id="musicaFeed"></div>
   </section>
 
-  <section id="literatura" class="tab-content"><p style="text-align:center;">Sección de Notas Cortas y Poesía Anexada ✨</p></section>
-  <section id="fotos" class="tab-content"><p style="text-align:center;">Galería de Polaroids 📸</p></section>
+  <!-- OTRAS PESTAÑAS -->
+  <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
+  <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
   <section id="juegos" class="tab-content"><p style="text-align:center;">Minijuegos & Tablón de Puntos 🎮</p></section>
-  <section id="recetario" class="tab-content"><p style="text-align:center;">Recetario del Amor 🍳</p></section>
+  <section id="recetario" class="tab-content"><div class="journal-grid" id="recetarioFeed"></div></section>
 
-  <!-- REPRODUCTOR SPOTIFY -->
+  <!-- REPRODUCTOR SPOTIFY COMPACTO -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
@@ -457,8 +501,35 @@
   </div>
 
   <script>
-    // URL DE TU GOOGLE APPS SCRIPT
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
+
+    // Muestra por defecto la canción de Best Part
+    const defaultPosts = [
+      {
+        fecha: '11/09/2026',
+        autor: 'Val',
+        tipo: 'musica',
+        titulo: 'Best Part — Daniel Caesar ft. H.E.R.',
+        contenido: 'https://youtu.be/vBy7FaapGRo?si=V-h_kRIaC0Grk1SX\n\npara nunca olvidar bailar en la cocina 🧡',
+        id: 'default_1'
+      },
+      {
+        fecha: '10/09/2026',
+        autor: 'Val',
+        tipo: 'nota',
+        titulo: 'Pensándote desde el sur...',
+        contenido: 'Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente y en mi corazón...',
+        id: 'default_2'
+      },
+      {
+        fecha: '10/09/2026',
+        autor: 'Val',
+        tipo: 'poesia',
+        titulo: 'Poema 19 — Pablo Neruda',
+        contenido: 'Aquí te amo.\nEn los oscuros pinos se desenreda el viento.\nFosforece la luna sobre las aguas errantes...',
+        id: 'default_3'
+      }
+    ];
 
     function openTab(tabId, element) {
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -470,21 +541,171 @@
     function openModal() { document.getElementById('publishModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('publishModal').style.display = 'none'; }
 
-    // Publicación a Google Sheet
+    // Función para obtener ID de YouTube limpio
+    function getYouTubeEmbedUrl(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return 'https://www.youtube.com/embed/' + match[2];
+      }
+      return url;
+    }
+
+    // Renderizado HTML de cada tarjeta
+    function renderCard(post, index) {
+      const likes = parseInt(localStorage.getItem('likes_' + (post.id || index))) || 0;
+      const comments = JSON.parse(localStorage.getItem('comments_' + (post.id || index))) || [];
+
+      let mediaHtml = '';
+      if (post.tipo === 'musica') {
+        const embedUrl = getYouTubeEmbedUrl(post.contenido);
+        const parts = post.contenido.split('\n\n');
+        const noteText = parts[1] || '';
+        mediaHtml = `
+          <div class="media-card">
+            <div class="washi washi-flowers" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
+            <span class="author-badge">${post.autor}</span>
+            <span class="entry-date">${post.fecha}</span>
+            <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">🎵 ${post.titulo}</h3>
+            <iframe class="media-embed" src="${embedUrl}" allowfullscreen></iframe>
+            ${noteText ? `<p style="font-family:'Caveat', cursive; font-size:1.3rem; color:#57534e; margin-top:8px;">"${noteText}"</p>` : ''}
+          </div>
+        `;
+      } else if (post.tipo === 'poesia') {
+        mediaHtml = `
+          <article class="notebook-card">
+            <div class="pin"></div>
+            <div class="notebook-date-header">
+              <span>De: ${post.autor}</span>
+              <span><u>${post.fecha}</u></span>
+            </div>
+            <h3>${post.titulo}</h3>
+            <p>${post.contenido}</p>
+          </article>
+        `;
+      } else {
+        mediaHtml = `
+          <div class="postit-wrapper">
+            <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
+            <article class="postit-card" tabindex="0">
+              <span class="author-badge">${post.autor}</span>
+              <span class="note-number">Post #${index + 1}</span>
+              <span class="entry-date">${post.fecha}</span>
+              <p class="postit-preview">📌 ${post.titulo}</p>
+              <div class="airmail-full-content">
+                <div class="stamp-mini">AIR MAIL</div>
+                "${post.contenido}"
+              </div>
+            </article>
+          </div>
+        `;
+      }
+
+      // Añadir la barra de likes y comentarios
+      const actionsHtml = `
+        <div style="width: 100%;">
+          ${mediaHtml}
+          <div class="post-actions">
+            <button class="like-btn" onclick="addLike('${post.id || index}')">
+              🧡 <span id="like-count-${post.id || index}">${likes}</span>
+            </button>
+          </div>
+          <div class="comments-section">
+            <div id="comment-list-${post.id || index}" class="comment-list">
+              ${comments.map(c => `<div class="comment-item"><b>${c.author}:</b> ${c.text}</div>`).join('')}
+            </div>
+            <div class="comment-input-box">
+              <input type="text" id="comment-input-${post.id || index}" placeholder="Escribe un comentario...">
+              <button onclick="addComment('${post.id || index}')">Responder</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      return actionsHtml;
+    }
+
+    // Likes y Comentarios
+    function addLike(id) {
+      let count = parseInt(localStorage.getItem('likes_' + id)) || 0;
+      count++;
+      localStorage.setItem('likes_' + id, count);
+      document.getElementById('like-count-' + id).textContent = count;
+    }
+
+    function addComment(id) {
+      const input = document.getElementById('comment-input-' + id);
+      const text = input.value.trim();
+      if (!text) return;
+
+      let comments = JSON.parse(localStorage.getItem('comments_' + id)) || [];
+      comments.push({ author: 'Val/Rocío', text: text });
+      localStorage.setItem('comments_' + id, JSON.stringify(comments));
+
+      const list = document.getElementById('comment-list-' + id);
+      list.innerHTML += `<div class="comment-item"><b>Val/Rocío:</b> ${text}</div>`;
+      input.value = '';
+    }
+
+    // Cargar posts desde la Google Sheet
+    async function loadPosts() {
+      let posts = [...defaultPosts];
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await res.json();
+        
+        // Convertir filas de Google Sheet en objetos si existen
+        if (data && data.length > 1) {
+          const sheetPosts = [];
+          for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            sheetPosts.push({
+              fecha: row[0] || '11/09/2026',
+              autor: row[1] || 'Val',
+              tipo: row[2] || 'nota',
+              titulo: row[3] || '',
+              contenido: row[4] || '',
+              id: 'sheet_' + i
+            });
+          }
+          posts = [...sheetPosts.reverse(), ...defaultPosts];
+        }
+      } catch (e) {
+        console.log('Cargando posts predeterminados...', e);
+      }
+
+      // Renderizar Portada (Top 10 más recientes de todo tipo)
+      const mainFeed = document.getElementById('mainFeed');
+      mainFeed.innerHTML = posts.slice(0, 10).map((p, idx) => renderCard(p, idx)).join('');
+
+      // Renderizar Pestaña Música
+      const musicaFeed = document.getElementById('musicaFeed');
+      musicaFeed.innerHTML = posts.filter(p => p.tipo === 'musica').map((p, idx) => renderCard(p, idx)).join('');
+
+      // Renderizar Pestaña Post & Literatura
+      const literaturaFeed = document.getElementById('literaturaFeed');
+      literaturaFeed.innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
+    }
+
+    // Publicación
     document.getElementById('publishForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const key = document.getElementById('pubKey').value;
       if (key !== '1308') {
-        alert('❌ Clave incorrecta. Recuerda que es el día y mes del pololeo (DDMM).');
+        alert('❌ Clave incorrecta. Recuerda que es la fecha especial (1308).');
         return;
       }
+
+      const type = document.getElementById('pubType').value;
+      let content = document.getElementById('pubContent').value;
 
       const postData = {
         fecha: new Date().toLocaleDateString('es-CL'),
         autor: document.getElementById('pubAuthor').value,
-        tipo: document.getElementById('pubType').value,
+        tipo: type,
         titulo: document.getElementById('pubTitle').value,
-        contenido: document.getElementById('pubContent').value,
+        contenido: content,
         numeroNota: Math.floor(Math.random() * 90) + 10
       };
 
@@ -495,24 +716,21 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
         });
-        alert('✨ ¡Publicado con éxito en Our Love Journal!');
+        alert('✨ ¡Publicado en vivo! Actualizando el diario...');
         closeModal();
         document.getElementById('publishForm').reset();
+        setTimeout(loadPosts, 1000);
       } catch (err) {
         alert('Error al publicar: ' + err);
       }
     });
 
-    // Contadores de días
+    // Contadores
     function calculateDays() {
       const now = new Date();
-      const startDateTalking = new Date('2014-03-01');
-      const startDateFirstDate = new Date('2026-08-07');
-      const startDateDating = new Date('2026-08-13');
-
-      document.getElementById('daysTalking').textContent = Math.max(0, Math.floor((now - startDateTalking) / (1000 * 60 * 60 * 24)));
-      document.getElementById('daysFirstDate').textContent = Math.max(0, Math.floor((now - startDateFirstDate) / (1000 * 60 * 60 * 24)));
-      document.getElementById('daysDating').textContent = Math.max(0, Math.floor((now - startDateDating) / (1000 * 60 * 60 * 24)));
+      document.getElementById('daysTalking').textContent = Math.max(0, Math.floor((now - new Date('2014-03-01')) / (1000 * 60 * 60 * 24)));
+      document.getElementById('daysFirstDate').textContent = Math.max(0, Math.floor((now - new Date('2026-08-07')) / (1000 * 60 * 60 * 24)));
+      document.getElementById('daysDating').textContent = Math.max(0, Math.floor((now - new Date('2026-08-13')) / (1000 * 60 * 60 * 24)));
     }
     calculateDays();
 
@@ -530,7 +748,7 @@
     }
     fetchWeather();
 
-    // MSN Wink
+    // MSN
     document.getElementById('msnTrigger').addEventListener('click', () => {
       document.body.classList.add('shake-screen');
       const overlay = document.getElementById('msnWinkOverlay');
@@ -539,7 +757,7 @@
       setTimeout(() => overlay.style.display = 'none', 2500);
     });
 
-    // Botón Te Extraño
+    // Te Extraño
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
     let count = parseInt(localStorage.getItem('missYouCount_persistent')) || 0;
@@ -563,6 +781,9 @@
         }, i * 120);
       }
     });
+
+    // Cargar todo al iniciar
+    loadPosts();
   </script>
 
 </body>
