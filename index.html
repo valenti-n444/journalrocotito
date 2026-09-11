@@ -49,7 +49,6 @@
       box-sizing: border-box;
     }
 
-    /* WASHI TAPES */
     .washi {
       position: absolute;
       height: 24px;
@@ -96,7 +95,6 @@
       height: 100%;
     }
 
-    /* ENCABEZADO */
     header {
       position: relative;
       background: #fcfbf7;
@@ -156,7 +154,6 @@
     .lock-icon { font-size: 32px; filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.2)); }
     .lock-text { font-family: 'Special Elite', cursive; font-size: 0.65rem; color: #9a3412; font-weight: bold; }
 
-    /* CONTADORES */
     .counter-widget {
       position: relative;
       background: #fefcf8;
@@ -187,7 +184,6 @@
     .counter-item { font-family: 'Caveat', cursive; font-size: 1.45rem; color: #9f1239; line-height: 1.1; }
     .counter-item span { display: block; font-family: 'Special Elite', cursive; font-size: 0.68rem; color: #57534e; }
 
-    /* PESTAÑAS */
     .tabs-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 850px; width: 100%; margin-bottom: 25px; }
     .tab-btn {
       background: #fef3c7; color: #78350f; border: 1px dashed #d97706; border-bottom: none;
@@ -201,10 +197,8 @@
     .tab-content { display: none; width: 100%; max-width: 850px; }
     .tab-content.active { display: block; }
 
-    /* GRILLA */
     .journal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; align-items: start; }
 
-    /* POST-IT */
     .postit-wrapper { position: relative; min-height: 200px; }
     .postit-card {
       position: relative; background: #fef9c3; padding: 20px 18px 15px 18px; border-radius: 2px;
@@ -213,7 +207,7 @@
     }
 
     .author-badge { font-family: 'Special Elite', cursive; font-size: 0.68rem; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; float: right; margin-left: 5px; }
-    .delete-btn { float: right; cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: opacity 0.2s; }
+    .delete-btn { float: right; cursor: pointer; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.2s; margin-left: 8px; }
     .delete-btn:hover { opacity: 1; color: #e11d48; }
 
     .note-number { font-family: 'Special Elite', cursive; font-size: 0.8rem; font-weight: bold; color: #b45309; background: #fef08a; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
@@ -231,7 +225,6 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
-    /* LIBRETA POESÍA */
     .notebook-card {
       grid-column: 1 / -1;
       position: relative;
@@ -260,14 +253,12 @@
     .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
 
-    /* FOTO POLAROID Y MEDIA */
     .media-card {
       position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
       transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
     }
     .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; object-fit: cover; }
 
-    /* REACCIONES Y COMENTARIOS */
     .post-actions {
       display: flex;
       justify-content: space-between;
@@ -342,7 +333,6 @@
       cursor: pointer;
     }
 
-    /* MINI JUEGOS Y SCORESHEET */
     .games-wrapper {
       display: flex;
       flex-direction: column;
@@ -521,7 +511,6 @@
       cursor: not-allowed;
     }
 
-    /* BOTÓN TE EXTRAÑO */
     .miss-you-container { position: fixed; bottom: 15px; left: 15px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
     .btn-miss-you { background: #f97316; color: white; border: 2px solid #c2410c; padding: 9px 15px; border-radius: 25px; font-family: 'Special Elite', cursive; font-size: 0.88rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); cursor: pointer; }
     .miss-counter { background: #fffdf9; color: #c2410c; padding: 2px 7px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; border: 1px dashed #f97316; }
@@ -529,7 +518,6 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* SPOTIFY COMPACTO */
     .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 300px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; background: #000; }
     .spotify-mini-widget iframe { border: none; width: 100%; height: 152px; display: block; }
 
@@ -538,7 +526,6 @@
       header { flex-direction: column; gap: 10px; }
     }
 
-    /* MODAL PUBLICAR */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center; }
     .modal-box { background: #fffefb; border: 2px dashed #b45309; border-radius: 12px; padding: 25px; max-width: 420px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; }
     .modal-title { font-family: 'Caveat', cursive; font-size: 2rem; color: #9f1239; margin: 0 0 15px 0; text-align: center; }
@@ -548,7 +535,6 @@
     .btn-submit { background: #e11d48; color: white; border: none; padding: 10px; border-radius: 8px; font-family: 'Special Elite', cursive; cursor: pointer; width: 100%; margin-top: 10px; }
     .btn-close { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
-    /* GUIÑO MSN */
     #msnWinkOverlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; pointer-events: none; }
     .wink-box { background: rgba(255,255,255,0.95); border: 4px solid #f43f5e; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .wink-heart { font-size: 65px; animation: pulse 0.6s infinite alternate; }
@@ -636,7 +622,7 @@
     </div>
   </header>
 
-  <!-- WIDGET DE CONTADORES -->
+  <!-- CONTADORES -->
   <div class="counter-widget">
     <div class="washi washi-hearts" style="top: -10px; right: 20px; transform: rotate(3deg); height: 18px; width: 60px;"></div>
     <div class="widget-title">⏳ Nuestro Tiempo Transcurrido</div>
@@ -666,18 +652,18 @@
     <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario</button>
   </nav>
 
-  <!-- SECCIONES DE CONTENIDO -->
+  <!-- CONTENIDO -->
   <section id="portada" class="tab-content active"><main class="journal-grid" id="mainFeed"></main></section>
   <section id="musica" class="tab-content"><div class="journal-grid" id="musicaFeed"></div></section>
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
   <section id="recetario" class="tab-content"><div class="journal-grid" id="recetarioFeed"></div></section>
 
-  <!-- SECCIÓN MINI JUEGOS -->
+  <!-- JUEGOS -->
   <section id="juegos" class="tab-content">
     <div class="games-wrapper">
       
-      <!-- 1. TABLÓN DE PUNTOS -->
+      <!-- SCORESHEET -->
       <div class="game-section">
         <h2 class="game-title">🏆 Tablón de Puntos (ScoreSheet)</h2>
         <table class="scoresheet-table">
@@ -704,7 +690,7 @@
         </table>
       </div>
 
-      <!-- 2. RULETA DE DECISIONES -->
+      <!-- RULETA -->
       <div class="game-section">
         <h2 class="game-title">🔮 Ruleta de Citas & Decisiones</h2>
         <p style="font-size:0.8rem; color:#64748b; margin:0;">¿Indecisas? ¡Giren la ruleta para decidir!</p>
@@ -722,7 +708,7 @@
         </div>
       </div>
 
-      <!-- 3. JUEGO DE MEMORIA -->
+      <!-- MEMORIA -->
       <div class="game-section">
         <h2 class="game-title">🧠 Juego de Memoria de Parejas</h2>
         <p style="font-size:0.8rem; color:#64748b; margin:0;">Encuentra los 6 pares iguales</p>
@@ -730,7 +716,7 @@
         <button class="btn-submit" onclick="resetMemoryGame()" style="max-width:200px; margin: 10px auto 0 auto;">🔄 Reiniciar Memoria</button>
       </div>
 
-      <!-- 4. AHORCADO -->
+      <!-- AHORCADO -->
       <div class="game-section">
         <h2 class="game-title">🔤 Ahorcado de Frases Especiales</h2>
         <div class="word-display" id="hangmanWord">_ _ _ _ _</div>
@@ -739,7 +725,7 @@
         <button class="btn-submit" onclick="initHangman()" style="max-width:200px; margin: 15px auto 0 auto;">✨ Siguiente Frase</button>
       </div>
 
-      <!-- 5. TRES EN RAYA -->
+      <!-- GATO -->
       <div class="game-section">
         <h2 class="game-title">🎮 Tres en Raya (Gato)</h2>
         <div class="tic-tac-toe-grid" id="tttGrid">
@@ -775,14 +761,28 @@
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
 
+    // BASE DE POSTS FIJOS
     const defaultPosts = [
       {
         fecha: '11/09/2026',
         autor: 'Val',
         tipo: 'musica',
         titulo: 'Best Part — Daniel Caesar ft. H.E.R.',
-        contenido: 'https://youtu.be/vBy7FaapGRo?si=V-h_kRIaC0Grk1SX\n\npara nunca olvidar bailar en la cocina 🧡',
-        id: 'default_1'
+        contenido: 'https://youtu.be/vBy7FaapGRo?si=V-h_kRIaC0Grk1SX\n\npara nunca olvidar bailar en la cocina 🧡'
+      },
+      {
+        fecha: '11/09/2026',
+        autor: 'Val',
+        tipo: 'poesia',
+        titulo: 'Poema 19 — Pablo Neruda',
+        contenido: 'Puedo escribir los versos más tristes esta noche.\nEscribir, por ejemplo: "La noche está estrellada, y titilan, azules, los astros, a lo lejos".\nEl viento de la noche gira en el cielo y canta...\n\n3.100 km nos separan entre Puerto Natales y Viña del Mar, pero la distancia no le quita la luz a lo que sentimos 🧡'
+      },
+      {
+        fecha: '11/09/2026',
+        autor: 'Val',
+        tipo: 'nota',
+        titulo: '3100 km pero te llevo conmigo...',
+        contenido: 'No importa la distancia ni el viento del sur, cada día te pienso un poquito más.'
       }
     ];
 
@@ -810,27 +810,34 @@
       return url;
     }
 
+    function generateKey(titulo) {
+      return titulo.replace(/\s+/g, '_').toLowerCase();
+    }
+
     async function deletePost(titulo, autor) {
       const key = prompt('🔑 Ingresa la clave secreta (1308) para eliminar este post:');
       if (key !== '1308') { alert('❌ Clave incorrecta.'); return; }
 
       if (confirm(`¿Segura que quieres eliminar "${titulo}"?`)) {
         try {
-          await fetch(GOOGLE_SCRIPT_URL, {
+          fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'delete', titulo: titulo, autor: autor })
           });
-          alert('✨ Post eliminado. Actualizando...');
-          setTimeout(loadPosts, 1000);
+          alert('✨ Post borrado exitosamente.');
+          // Filtrar localmente inmediatamente
+          window.allPosts = window.allPosts.filter(p => p.titulo !== titulo);
+          renderAllFeeds(window.allPosts);
         } catch (e) { alert('Error al borrar: ' + e); }
       }
     }
 
     function renderCard(post, index) {
-      const likes = parseInt(localStorage.getItem('likes_' + (post.id || index))) || 0;
-      const comments = JSON.parse(localStorage.getItem('comments_' + (post.id || index))) || [];
+      const postKey = generateKey(post.titulo);
+      const likes = parseInt(localStorage.getItem('likes_' + postKey)) || 0;
+      const comments = JSON.parse(localStorage.getItem('comments_' + postKey)) || [];
 
       let mediaHtml = '';
       if (post.tipo === 'musica') {
@@ -895,74 +902,47 @@
         <div style="width: 100%;">
           ${mediaHtml}
           <div class="post-actions">
-            <button class="like-btn" onclick="addLike('${post.id || index}')">
-              🧡 <span id="like-count-${post.id || index}">${likes}</span>
+            <button class="like-btn" onclick="addLike('${postKey}')">
+              🧡 <span id="like-count-${postKey}">${likes}</span>
             </button>
           </div>
           <div class="comments-section">
-            <div id="comment-list-${post.id || index}" class="comment-list">
+            <div id="comment-list-${postKey}" class="comment-list">
               ${comments.map(c => `<div class="comment-item"><b>${c.author}:</b> ${c.text}</div>`).join('')}
             </div>
             <div class="comment-input-box">
-              <input type="text" id="comment-input-${post.id || index}" placeholder="Escribe un comentario...">
-              <button onclick="addComment('${post.id || index}')">Responder</button>
+              <input type="text" id="comment-input-${postKey}" placeholder="Escribe un comentario...">
+              <button onclick="addComment('${postKey}')">Responder</button>
             </div>
           </div>
         </div>
       `;
     }
 
-    function addLike(id) {
-      let count = parseInt(localStorage.getItem('likes_' + id)) || 0;
+    function addLike(postKey) {
+      let count = parseInt(localStorage.getItem('likes_' + postKey)) || 0;
       count++;
-      localStorage.setItem('likes_' + id, count);
-      document.getElementById('like-count-' + id).textContent = count;
+      localStorage.setItem('likes_' + postKey, count);
+      const el = document.getElementById('like-count-' + postKey);
+      if (el) el.textContent = count;
     }
 
-    function addComment(id) {
-      const input = document.getElementById('comment-input-' + id);
+    function addComment(postKey) {
+      const input = document.getElementById('comment-input-' + postKey);
+      if (!input) return;
       const text = input.value.trim();
       if (!text) return;
 
-      let comments = JSON.parse(localStorage.getItem('comments_' + id)) || [];
+      let comments = JSON.parse(localStorage.getItem('comments_' + postKey)) || [];
       comments.push({ author: 'Val/Rocío', text: text });
-      localStorage.setItem('comments_' + id, JSON.stringify(comments));
+      localStorage.setItem('comments_' + postKey, JSON.stringify(comments));
 
-      const list = document.getElementById('comment-list-' + id);
-      list.innerHTML += `<div class="comment-item"><b>Val/Rocío:</b> ${text}</div>`;
+      const list = document.getElementById('comment-list-' + postKey);
+      if (list) list.innerHTML += `<div class="comment-item"><b>Val/Rocío:</b> ${text}</div>`;
       input.value = '';
     }
 
-    async function loadPosts() {
-      let posts = [];
-
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL);
-        const data = await res.json();
-        
-        if (data && data.length > 1) {
-          const uniqueTitles = new Set();
-          for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            const title = row[3] || '';
-            if (title && !uniqueTitles.has(title)) {
-              uniqueTitles.add(title);
-              posts.push({
-                fecha: row[0] || '11/09/2026',
-                autor: row[1] || 'Val',
-                tipo: row[2] || 'nota',
-                titulo: title,
-                contenido: row[4] || '',
-                id: 'sheet_' + i
-              });
-            }
-          }
-          posts.reverse();
-        }
-      } catch (e) { console.log('Cargando respaldo...', e); }
-
-      if (posts.length === 0) { posts = defaultPosts; }
-
+    function renderAllFeeds(posts) {
       document.getElementById('mainFeed').innerHTML = posts.slice(0, 10).map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('musicaFeed').innerHTML = posts.filter(p => p.tipo === 'musica').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
@@ -970,7 +950,39 @@
       document.getElementById('recetarioFeed').innerHTML = posts.filter(p => p.tipo === 'receta').map((p, idx) => renderCard(p, idx)).join('');
     }
 
-    // Publicación
+    async function loadPosts() {
+      let posts = [...defaultPosts];
+
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await res.json();
+        
+        if (data && data.length > 1) {
+          const uniqueTitles = new Set(defaultPosts.map(p => p.titulo));
+          const fetchedPosts = [];
+          for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            const title = row[3] || '';
+            if (title && !uniqueTitles.has(title)) {
+              uniqueTitles.add(title);
+              fetchedPosts.push({
+                fecha: row[0] || '11/09/2026',
+                autor: row[1] || 'Val',
+                tipo: row[2] || 'nota',
+                titulo: title,
+                contenido: row[4] || ''
+              });
+            }
+          }
+          posts = [...fetchedPosts.reverse(), ...defaultPosts];
+        }
+      } catch (e) { console.log('Cargando respaldo local...', e); }
+
+      window.allPosts = posts;
+      renderAllFeeds(posts);
+    }
+
+    // PUBLICAR
     document.getElementById('publishForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const key = document.getElementById('pubKey').value;
@@ -1010,7 +1022,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
         });
-        alert('✨ ¡Publicado con éxito! Actualizando...');
+        alert('✨ ¡Publicado con éxito!');
         closeModal();
         document.getElementById('publishForm').reset();
         setTimeout(loadPosts, 1200);
@@ -1154,7 +1166,7 @@
     }
     initHangman();
 
-    // TRES EN RAYA
+    // GATO
     let tttBoard = ['', '', '', '', '', '', '', '', ''];
     let tttTurn = '❌';
 
@@ -1172,7 +1184,7 @@
       document.querySelectorAll('.ttt-cell').forEach(c => c.textContent = '');
     }
 
-    // Contadores
+    // CONTADORES DE DÍAS
     function calculateDays() {
       const now = new Date();
       document.getElementById('daysTalking').textContent = Math.max(0, Math.floor((now - new Date('2014-03-01')) / (1000 * 60 * 60 * 24)));
@@ -1181,7 +1193,7 @@
     }
     calculateDays();
 
-    // Clima
+    // CLIMA
     async function fetchWeather() {
       try {
         const resNat = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-51.7269&longitude=-72.5062&current_weather=true');
@@ -1195,7 +1207,7 @@
     }
     fetchWeather();
 
-    // MSN
+    // MSN GUIÑO
     document.getElementById('msnTrigger').addEventListener('click', () => {
       document.body.classList.add('shake-screen');
       const overlay = document.getElementById('msnWinkOverlay');
@@ -1204,16 +1216,16 @@
       setTimeout(() => overlay.style.display = 'none', 2500);
     });
 
-    // Te Extraño
+    // TE EXTRAÑO
     const btnMissYou = document.getElementById('btnMissYou');
     const missCounter = document.getElementById('missCounter');
-    let count = parseInt(localStorage.getItem('missYouCount_persistent')) || 0;
-    missCounter.textContent = `Veces extrañada: ${count}`;
+    let missCount = parseInt(localStorage.getItem('missYouCount_persistent')) || 0;
+    missCounter.textContent = `Veces extrañada: ${missCount}`;
 
     btnMissYou.addEventListener('click', () => {
-      count++;
-      localStorage.setItem('missYouCount_persistent', count);
-      missCounter.textContent = `Veces extrañada: ${count}`;
+      missCount++;
+      localStorage.setItem('missYouCount_persistent', missCount);
+      missCounter.textContent = `Veces extrañada: ${missCount}`;
 
       const emojis = ['🐧', '🧡', '✨'];
       for (let i = 0; i < 15; i++) {
