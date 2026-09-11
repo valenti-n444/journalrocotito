@@ -225,6 +225,7 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
+    /* LIBRETA POESÍA */
     .notebook-card {
       grid-column: 1 / -1;
       position: relative;
@@ -253,13 +254,51 @@
     .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
 
-    .media-card {
-      position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
-      transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
+    /* HOJA DE LIBRO PARA RECETAS (EN FEED Y SECCIÓN RECETARIO) */
+    .recipe-book-card {
+      position: relative;
+      background: #fdfbf7;
+      border: 2px double #b45309;
+      border-radius: 8px;
+      padding: 25px 20px;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
+      font-family: 'Caveat', cursive;
+      background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0px, transparent 15px);
     }
-    .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; object-fit: cover; }
 
-    /* ESTILO LIBRO DE RECETARIO CON PASO DE PÁGINAS */
+    /* POLAROID MEJORADA SIN CORTE DE IMÁGENES */
+    .media-card {
+      position: relative;
+      background: #fff;
+      padding: 15px 15px 25px 15px;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.18);
+      transform: rotate(-0.8deg);
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .polaroid-img-container {
+      width: 100%;
+      background: #111;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      max-height: 450px;
+    }
+
+    .polaroid-img-container img {
+      width: 100%;
+      height: auto;
+      max-height: 450px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; }
+
+    /* RECETARIO EN PÁGINAS */
     .recipe-book-wrapper {
       position: relative;
       background: #fdfbf7;
@@ -273,11 +312,7 @@
       min-height: 320px;
     }
 
-    .recipe-page {
-      display: none;
-      animation: fadeInPage 0.4s ease-in-out;
-    }
-
+    .recipe-page { display: none; animation: fadeInPage 0.4s ease-in-out; }
     .recipe-page.active { display: block; }
 
     @keyframes fadeInPage {
@@ -696,7 +731,6 @@
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
 
-  <!-- SECCIÓN RECETARIO ESTILO LIBRO INTERACTIVO -->
   <section id="recetario" class="tab-content">
     <div class="recipe-book-wrapper" id="recipeBook">
       <div id="recipePagesContainer"></div>
@@ -812,20 +846,6 @@
       {
         fecha: '11/09/2026',
         autor: 'Val',
-        tipo: 'poesia',
-        titulo: 'Poema 19 — Pablo Neruda',
-        contenido: 'Puedo escribir los versos más tristes esta noche.\nEscribir, por ejemplo: "La noche está estrellada, y titilan, azules, los astros, a lo lejos".\nEl viento de la noche gira en el cielo y canta...\n\n3.100 km nos separan entre Puerto Natales y Viña del Mar, pero la distancia no le quita la luz a lo que sentimos 🧡'
-      },
-      {
-        fecha: '11/09/2026',
-        autor: 'Val',
-        tipo: 'nota',
-        titulo: '3100 km pero te llevo conmigo...',
-        contenido: 'No importa la distancia ni el viento del sur, cada día te pienso un poquito más.'
-      },
-      {
-        fecha: '11/09/2026',
-        autor: 'Val',
         tipo: 'receta',
         titulo: 'Rolls Dragon Nikkei 🍣',
         contenido: 'Ingredientes: Arroz de sushi, alga nori, palta, salmón y salsa unagi.\n\nPasos:\n1. Preparar el arroz con vinagre de arroz.\n2. Extender sobre el nori con relleno de salmón y palta.\n3. Enrollar firmemente y cubrir con láminas suaves de palta por fuera.'
@@ -911,7 +931,9 @@
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">📸 ${post.titulo}</h3>
-            <img class="media-embed" src="${post.contenido}" alt="Foto Polaroid" />
+            <div class="polaroid-img-container">
+              <img src="${post.contenido}" alt="Foto Polaroid" />
+            </div>
           </div>
         `;
       } else if (post.tipo === 'poesia') {
@@ -925,6 +947,16 @@
             </div>
             <h3 style="font-family:'Special Elite', cursive; margin-top:0;">${post.titulo}</h3>
             <div>${post.contenido}</div>
+          </article>
+        `;
+      } else if (post.tipo === 'receta') {
+        mediaHtml = `
+          <article class="recipe-book-card">
+            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            <span class="author-badge">${post.autor}</span>
+            <span class="entry-date">${post.fecha}</span>
+            <h3 style="font-size:2rem; color:#9f1239; margin-top:0;">📖 ${post.titulo}</h3>
+            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${post.contenido}</div>
           </article>
         `;
       } else {
@@ -990,7 +1022,7 @@
       input.value = '';
     }
 
-    // LÓGICA DEL RECETARIO EN LIBRO
+    // LÓGICA DEL RECETARIO EN LIBRO DE PÁGINAS
     let currentRecipePage = 0;
     let recipePostsList = [];
 
@@ -998,7 +1030,7 @@
       recipePostsList = recipes;
       const container = document.getElementById('recipePagesContainer');
       if (recipes.length === 0) {
-        container.innerHTML = `<div class="recipe-page active"><h2 style="text-align:center;">📖 Recetario Vacio</h2><p style="text-align:center;">Agrega tu primera receta con la clave 1308 ✨</p></div>`;
+        container.innerHTML = `<div class="recipe-page active"><h2 style="text-align:center;">📖 Recetario Vacío</h2><p style="text-align:center;">Agrega tu primera receta con la clave 1308 ✨</p></div>`;
         return;
       }
 
@@ -1125,16 +1157,26 @@
       } catch (err) { alert('Error al publicar: ' + err); }
     }
 
+    // SCORESHEET & AUTOMATIZACIÓN EN JUEGOS
     function loadScores() {
       document.getElementById('scoreVal').textContent = localStorage.getItem('scoreVal') || 0;
       document.getElementById('scoreRocio').textContent = localStorage.getItem('scoreRocio') || 0;
     }
+
     function updateScore(user, delta) {
-      const key = user === 'val' ? 'scoreVal' : 'scoreRocio';
+      const key = user.toLowerCase() === 'val' ? 'scoreVal' : 'scoreRocio';
       let current = parseInt(localStorage.getItem(key)) || 0;
       current = Math.max(0, current + delta);
       localStorage.setItem(key, current);
       loadScores();
+    }
+
+    function awardWinner() {
+      const winner = prompt('🏆 ¡Juego terminado! ¿Quién ganó este punto? (Escribe Val o Rocío):');
+      if (winner && (winner.toLowerCase() === 'val' || winner.toLowerCase() === 'rocío' || winner.toLowerCase() === 'rocio')) {
+        updateScore(winner, 1);
+        alert(`🎉 ¡Punto otorgado a ${winner}! ScoreSheet actualizado.`);
+      }
     }
     loadScores();
 
@@ -1195,7 +1237,10 @@
           matchedPairs++;
           flippedCards = [];
           if (matchedPairs === memoryEmojis.length) {
-            setTimeout(() => alert('🎉 ¡Ganaron! Encontraron todas las parejas 💕'), 300);
+            setTimeout(() => {
+              alert('🎉 ¡Ganaron la memoria!');
+              awardWinner();
+            }, 300);
           }
         } else {
           setTimeout(() => {
@@ -1231,6 +1276,7 @@
 
       if (!wordDisplay.includes('_')) {
         document.getElementById('hangmanStatus').textContent = '🎉 ¡Adivinaron la frase completa!';
+        setTimeout(awardWinner, 400);
       } else if (hangmanAttempts <= 0) {
         document.getElementById('hangmanStatus').textContent = `❌ ¡Game Over! La palabra era: ${selectedWord}`;
       }
@@ -1266,7 +1312,20 @@
       tttBoard[index] = tttTurn;
       const cells = document.querySelectorAll('.ttt-cell');
       cells[index].textContent = tttTurn;
+      
+      if (checkTTTWinner()) {
+        setTimeout(() => {
+          alert(`🎉 ¡Gato Terminado!`);
+          awardWinner();
+        }, 200);
+        return;
+      }
       tttTurn = tttTurn === '❌' ? '⭕' : '❌';
+    }
+
+    function checkTTTWinner() {
+      const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return wins.some(w => tttBoard[w[0]] && tttBoard[w[0]] === tttBoard[w[1]] && tttBoard[w[0]] === tttBoard[w[2]]);
     }
 
     function resetTTT() {
