@@ -39,7 +39,7 @@
       background-size: 18px 18px, 100% 4px;
       color: #292524;
       margin: 0;
-      padding: 20px 12px 140px 12px;
+      padding: 20px 12px 160px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -144,7 +144,6 @@
       user-select: none;
     }
 
-    /* CANDADO VINTAGE BOTÓN */
     .lock-btn-right {
       cursor: pointer;
       display: flex;
@@ -213,7 +212,10 @@
       cursor: pointer; overflow: hidden; z-index: 5;
     }
 
-    .author-badge { font-family: 'Special Elite', cursive; font-size: 0.68rem; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; float: right; }
+    .author-badge { font-family: 'Special Elite', cursive; font-size: 0.68rem; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; float: right; margin-left: 5px; }
+    .delete-btn { float: right; cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: opacity 0.2s; }
+    .delete-btn:hover { opacity: 1; color: #e11d48; }
+
     .note-number { font-family: 'Special Elite', cursive; font-size: 0.8rem; font-weight: bold; color: #b45309; background: #fef08a; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
     .entry-date { font-family: 'Special Elite', cursive; font-size: 0.7rem; color: #78716c; text-transform: uppercase; display: block; margin-bottom: 8px; }
 
@@ -229,30 +231,41 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
-    /* LIBRETA POESÍA */
+    /* LIBRETA POESÍA / HOJAS AMPLIAS Y COMPLETAS */
     .notebook-card {
-      grid-column: span 1; position: relative; background: #faf8f5;
-      background-image: linear-gradient(#cbd5e1 1px, transparent 1px); background-size: 100% 28px;
-      padding: 22px 18px; box-shadow: 4px 8px 18px rgba(0,0,0,0.18); transform: rotate(0.8deg);
-      font-family: 'Special Elite', cursive; font-size: 0.88rem; line-height: 28px; color: #334155;
-      border: 1px solid #e2e8f0; border-top: none; margin-top: 15px; box-sizing: border-box;
+      grid-column: 1 / -1;
+      position: relative;
+      background: #faf8f5;
+      background-image: linear-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 100% 32px;
+      padding: 30px 25px;
+      box-shadow: 4px 8px 20px rgba(0,0,0,0.18);
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      line-height: 32px;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      border-top: none;
+      margin-top: 15px;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
     .notebook-card::before {
       content: ""; position: absolute; top: -18px; left: -1px; right: -1px; height: 18px;
       background-color: #faf8f5; background-image: radial-gradient(circle at 10px -2px, transparent 7px, #faf8f5 8px);
       background-size: 20px 18px; background-repeat: repeat-x;
     }
-    @media (min-width: 640px) { .notebook-card { grid-column: span 2; } }
 
-    .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: #64748b; margin-bottom: 12px; border-bottom: 1px solid #94a3b8; padding-bottom: 2px; }
+    .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
 
-    /* FOTO POLAROID Y MEDIA EMBED */
+    /* POLAROID CON FOTO SUBIDA */
     .media-card {
       position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
       transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
     }
-    .media-embed { width: 100%; height: 210px; border: none; border-radius: 4px; }
+    .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; object-fit: cover; }
 
     /* REACCIONES Y COMENTARIOS VINTAGE */
     .post-actions {
@@ -329,6 +342,189 @@
       cursor: pointer;
     }
 
+    /* MINI JUEGOS Y SCORESHEET */
+    .games-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      background: #fefcf8;
+      padding: 25px;
+      border: 2px dashed #b45309;
+      border-radius: 8px;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .game-section {
+      background: #fffdfa;
+      padding: 15px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .game-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      margin: 0 0 10px 0;
+      color: #9f1239;
+    }
+
+    .scoresheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+    }
+
+    .scoresheet-table th, .scoresheet-table td {
+      border: 1px dashed #d97706;
+      padding: 10px;
+    }
+
+    .scoresheet-btn {
+      background: #e11d48;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* GATO */
+    .tic-tac-toe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 260px;
+      margin: 15px auto;
+    }
+
+    .ttt-cell {
+      width: 80px;
+      height: 80px;
+      background: #fff9c4;
+      border: 2px dashed #b45309;
+      font-family: 'Permanent Marker', cursive;
+      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* RULETA */
+    .roulette-container {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 15px auto;
+    }
+
+    .roulette-wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 6px solid #b45309;
+      box-sizing: border-box;
+      transition: transform 3s cubic-bezier(0.15, 0.9, 0.15, 1);
+      background: conic-gradient(
+        #fef08a 0deg 60deg,
+        #ffe4e6 60deg 120deg,
+        #dcfce7 120deg 180deg,
+        #fed7aa 180deg 240deg,
+        #e0e7ff 240deg 300deg,
+        #fbcfe8 300deg 360deg
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .roulette-pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 22px solid #e11d48;
+      z-index: 30;
+    }
+
+    .roulette-result {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #9f1239;
+      margin-top: 12px;
+      min-height: 40px;
+    }
+
+    /* JUEGO DE MEMORIA */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-width: 320px;
+      margin: 15px auto;
+    }
+
+    .memory-card {
+      height: 70px;
+      background: #fde047;
+      border: 2px dashed #b45309;
+      border-radius: 6px;
+      font-size: 1.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .memory-card.flipped {
+      background: #fffefb;
+      border-style: solid;
+    }
+
+    /* AHORCADO */
+    .word-display {
+      font-family: 'Special Elite', cursive;
+      font-size: 1.8rem;
+      letter-spacing: 6px;
+      margin: 15px 0;
+      color: #1e293b;
+    }
+
+    .keyboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .key-btn {
+      background: #fef3c7;
+      border: 1px solid #d97706;
+      padding: 6px 10px;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .key-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
     /* BOTÓN TE EXTRAÑO */
     .miss-you-container { position: fixed; bottom: 15px; left: 15px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
     .btn-miss-you { background: #f97316; color: white; border: 2px solid #c2410c; padding: 9px 15px; border-radius: 25px; font-family: 'Special Elite', cursive; font-size: 0.88rem; box-shadow: 0 4px 12px rgba(0,0,0,0.25); cursor: pointer; }
@@ -337,16 +533,16 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* SPOTIFY COMPACTO */
-    .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 240px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); border-radius: 12px; overflow: hidden; background: #000; }
-    .spotify-mini-widget iframe { border: none; width: 100%; height: 80px; display: block; }
+    /* REPRODUCTOR SPOTIFY COMPACTO RESTAURADO */
+    .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 300px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; background: #000; }
+    .spotify-mini-widget iframe { border: none; width: 100%; height: 152px; display: block; }
 
     @media (max-width: 600px) {
       .spotify-mini-widget { position: relative; bottom: auto; right: auto; width: 100%; max-width: 320px; margin-top: 35px; }
       header { flex-direction: column; gap: 10px; }
     }
 
-    /* MODAL PUBLICAR */
+    /* MODAL PUBLICAR CON SUBIDA DE ARCHIVOS */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 10000; justify-content: center; align-items: center; }
     .modal-box { background: #fffefb; border: 2px dashed #b45309; border-radius: 12px; padding: 25px; max-width: 420px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; }
     .modal-title { font-family: 'Caveat', cursive; font-size: 2rem; color: #9f1239; margin: 0 0 15px 0; text-align: center; }
@@ -373,7 +569,7 @@
     </div>
   </div>
 
-  <!-- MODAL PUBLICAR -->
+  <!-- MODAL PUBLICAR CON SELECTOR DE FOTOS -->
   <div class="modal-overlay" id="publishModal">
     <div class="modal-box">
       <button class="btn-close" onclick="closeModal()">✕</button>
@@ -390,12 +586,12 @@
 
         <div class="form-group">
           <label>Clave secreta:</label>
-          <input type="password" id="pubKey" placeholder="Ingresa la fecha especial (DDMM)" required>
+          <input type="password" id="pubKey" placeholder="Ingresa la fecha especial (1308)" required>
         </div>
 
         <div class="form-group">
           <label>Tipo de entrada:</label>
-          <select id="pubType" required>
+          <select id="pubType" onchange="toggleFileInput()" required>
             <option value="nota">💌 Nota corta (Air Mail)</option>
             <option value="poesia">📖 Poesía / Hoja de libreta</option>
             <option value="foto">📸 Foto Polaroid</option>
@@ -406,12 +602,17 @@
 
         <div class="form-group">
           <label>Título / Mensaje corto:</label>
-          <input type="text" id="pubTitle" placeholder="Ej: Pensándote en Viña / Mira este tema..." required>
+          <input type="text" id="pubTitle" placeholder="Ej: Pensándote en Viña / Foto del día..." required>
         </div>
 
-        <div class="form-group">
-          <label>Contenido (Texto o Link de YouTube/Spotify/Foto):</label>
-          <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje o pega el enlace..." required></textarea>
+        <div class="form-group" id="fileGroup" style="display:none;">
+          <label>📷 Seleccionar foto desde Galería/PC:</label>
+          <input type="file" id="pubFile" accept="image/*">
+        </div>
+
+        <div class="form-group" id="textGroup">
+          <label>Contenido (Texto o Link de YouTube/Spotify):</label>
+          <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje o pega el enlace..."></textarea>
         </div>
 
         <button type="submit" class="btn-submit">✨ Publicar en Vivo</button>
@@ -464,30 +665,105 @@
     <button class="tab-btn active" onclick="openTab('portada', this)">🏠 Portada (Feed)</button>
     <button class="tab-btn" onclick="openTab('literatura', this)">💌 Post & Literatura</button>
     <button class="tab-btn" onclick="openTab('fotos', this)">📸 Álbum de Fotos</button>
-    <button class="tab-btn" onclick="openTab('juegos', this)">🎮 Mini Juegos</button>
+    <button class="tab-btn" onclick="openTab('juegos', this)">🎮 Mini Juegos & Score</button>
     <button class="tab-btn" onclick="openTab('musica', this)">🎵 Rincón Musical</button>
     <button class="tab-btn" onclick="openTab('recetario', this)">🍳 Recetario</button>
   </nav>
 
-  <!-- SECCIÓN PORTADA (FEED DE LOS 10 MÁS RECIENTES - DINÁMICO) -->
-  <section id="portada" class="tab-content active">
-    <main class="journal-grid" id="mainFeed">
-      <!-- Se llena dinámicamente con las entradas de la Google Sheet -->
-    </main>
-  </section>
-
-  <!-- SECCIÓN RINCÓN MUSICAL -->
-  <section id="musica" class="tab-content">
-    <div class="journal-grid" id="musicaFeed"></div>
-  </section>
-
-  <!-- OTRAS PESTAÑAS -->
+  <!-- SECCIONES DE CONTENIDO -->
+  <section id="portada" class="tab-content active"><main class="journal-grid" id="mainFeed"></main></section>
+  <section id="musica" class="tab-content"><div class="journal-grid" id="musicaFeed"></div></section>
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
-  <section id="juegos" class="tab-content"><p style="text-align:center;">Minijuegos & Tablón de Puntos 🎮</p></section>
   <section id="recetario" class="tab-content"><div class="journal-grid" id="recetarioFeed"></div></section>
 
-  <!-- REPRODUCTOR SPOTIFY COMPACTO -->
+  <!-- SECCIÓN MINI JUEGOS COMPLETA -->
+  <section id="juegos" class="tab-content">
+    <div class="games-wrapper">
+      
+      <!-- 1. TABLÓN DE PUNTOS -->
+      <div class="game-section">
+        <h2 class="game-title">🏆 Tablón de Puntos (ScoreSheet)</h2>
+        <table class="scoresheet-table">
+          <thead>
+            <tr>
+              <th>Val 👑</th>
+              <th>Rocío 🌸</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <button class="scoresheet-btn" onclick="updateScore('val', -1)">-</button>
+                <span id="scoreVal" style="margin: 0 15px; font-weight:bold;">0</span>
+                <button class="scoresheet-btn" onclick="updateScore('val', 1)">+</button>
+              </td>
+              <td>
+                <button class="scoresheet-btn" onclick="updateScore('rocio', -1)">-</button>
+                <span id="scoreRocio" style="margin: 0 15px; font-weight:bold;">0</span>
+                <button class="scoresheet-btn" onclick="updateScore('rocio', 1)">+</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. RULETA DE DECISIONES -->
+      <div class="game-section">
+        <h2 class="game-title">🔮 Ruleta de Citas & Decisiones</h2>
+        <p style="font-size:0.8rem; color:#64748b; margin:0;">¿Indecisas? ¡Giren la ruleta para decidir!</p>
+
+        <div class="roulette-container">
+          <div class="roulette-pointer"></div>
+          <div class="roulette-wheel" id="rouletteWheel">✨</div>
+        </div>
+
+        <button class="btn-submit" onclick="spinRoulette()" style="max-width:220px; margin: 0 auto;">🎲 Girar Ruleta</button>
+        <div class="roulette-result" id="rouletteResult"></div>
+
+        <div style="margin-top: 15px;">
+          <input type="text" id="customOptionsInput" placeholder="Opciones separadas por coma (ej: Sushi, Pizza, Pasta)" style="width: 85%; padding: 6px; font-size: 0.8rem; border: 1px solid #cbd5e1; border-radius:4px;">
+        </div>
+      </div>
+
+      <!-- 3. JUEGO DE MEMORIA -->
+      <div class="game-section">
+        <h2 class="game-title">🧠 Juego de Memoria de Parejas</h2>
+        <p style="font-size:0.8rem; color:#64748b; margin:0;">Encuentra los 6 pares iguales</p>
+        <div class="memory-grid" id="memoryBoard"></div>
+        <button class="btn-submit" onclick="resetMemoryGame()" style="max-width:200px; margin: 10px auto 0 auto;">🔄 Reiniciar Memoria</button>
+      </div>
+
+      <!-- 4. AHORCADO DE FRASES -->
+      <div class="game-section">
+        <h2 class="game-title">🔤 Ahorcado de Frases Especiales</h2>
+        <div class="word-display" id="hangmanWord">_ _ _ _ _</div>
+        <p style="font-size:0.8rem; color:#64748b;" id="hangmanStatus">Intentos restantes: 6</p>
+        <div class="keyboard" id="hangmanKeyboard"></div>
+        <button class="btn-submit" onclick="initHangman()" style="max-width:200px; margin: 15px auto 0 auto;">✨ Siguiente Frase</button>
+      </div>
+
+      <!-- 5. TRES EN RAYA -->
+      <div class="game-section">
+        <h2 class="game-title">🎮 Tres en Raya (Gato)</h2>
+        <div class="tic-tac-toe-grid" id="tttGrid">
+          <div class="ttt-cell" onclick="makeTTTMove(0)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(1)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(2)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(3)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(4)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(5)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(6)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(7)"></div>
+          <div class="ttt-cell" onclick="makeTTTMove(8)"></div>
+        </div>
+        <button class="btn-submit" onclick="resetTTT()" style="max-width:200px; margin: 0 auto;">🔄 Reiniciar Gato</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REPRODUCTOR SPOTIFY RESTAURADO -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
@@ -503,7 +779,6 @@
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
 
-    // Muestra por defecto la canción de Best Part
     const defaultPosts = [
       {
         fecha: '11/09/2026',
@@ -512,22 +787,6 @@
         titulo: 'Best Part — Daniel Caesar ft. H.E.R.',
         contenido: 'https://youtu.be/vBy7FaapGRo?si=V-h_kRIaC0Grk1SX\n\npara nunca olvidar bailar en la cocina 🧡',
         id: 'default_1'
-      },
-      {
-        fecha: '10/09/2026',
-        autor: 'Val',
-        tipo: 'nota',
-        titulo: 'Pensándote desde el sur...',
-        contenido: 'Los kms entre Viña del Mar y Puerto Natales son 3.100, pero yo te llevo siempre en mi mente y en mi corazón...',
-        id: 'default_2'
-      },
-      {
-        fecha: '10/09/2026',
-        autor: 'Val',
-        tipo: 'poesia',
-        titulo: 'Poema 19 — Pablo Neruda',
-        contenido: 'Aquí te amo.\nEn los oscuros pinos se desenreda el viento.\nFosforece la luna sobre las aguas errantes...',
-        id: 'default_3'
       }
     ];
 
@@ -541,7 +800,11 @@
     function openModal() { document.getElementById('publishModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('publishModal').style.display = 'none'; }
 
-    // Función para obtener ID de YouTube limpio
+    function toggleFileInput() {
+      const type = document.getElementById('pubType').value;
+      document.getElementById('fileGroup').style.display = (type === 'foto') ? 'flex' : 'none';
+    }
+
     function getYouTubeEmbedUrl(url) {
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       const match = url.match(regExp);
@@ -551,7 +814,24 @@
       return url;
     }
 
-    // Renderizado HTML de cada tarjeta
+    async function deletePost(titulo, autor) {
+      const key = prompt('🔑 Ingresa la clave secreta (1308) para eliminar este post:');
+      if (key !== '1308') { alert('❌ Clave incorrecta.'); return; }
+
+      if (confirm(`¿Segura que quieres eliminar "${titulo}"?`)) {
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'delete', titulo: titulo, autor: autor })
+          });
+          alert('✨ Post eliminado. Actualizando...');
+          setTimeout(loadPosts, 1000);
+        } catch (e) { alert('Error al borrar: ' + e); }
+      }
+    }
+
     function renderCard(post, index) {
       const likes = parseInt(localStorage.getItem('likes_' + (post.id || index))) || 0;
       const comments = JSON.parse(localStorage.getItem('comments_' + (post.id || index))) || [];
@@ -564,6 +844,7 @@
         mediaHtml = `
           <div class="media-card">
             <div class="washi washi-flowers" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
+            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">🎵 ${post.titulo}</h3>
@@ -571,16 +852,28 @@
             ${noteText ? `<p style="font-family:'Caveat', cursive; font-size:1.3rem; color:#57534e; margin-top:8px;">"${noteText}"</p>` : ''}
           </div>
         `;
+      } else if (post.tipo === 'foto') {
+        mediaHtml = `
+          <div class="media-card">
+            <div class="washi washi-leaves" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
+            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
+            <span class="author-badge">${post.autor}</span>
+            <span class="entry-date">${post.fecha}</span>
+            <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">📸 ${post.titulo}</h3>
+            <img class="media-embed" src="${post.contenido}" alt="Foto Polaroid" />
+          </div>
+        `;
       } else if (post.tipo === 'poesia') {
         mediaHtml = `
           <article class="notebook-card">
             <div class="pin"></div>
+            <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
             <div class="notebook-date-header">
               <span>De: ${post.autor}</span>
               <span><u>${post.fecha}</u></span>
             </div>
-            <h3>${post.titulo}</h3>
-            <p>${post.contenido}</p>
+            <h3 style="font-family:'Special Elite', cursive; margin-top:0;">${post.titulo}</h3>
+            <div>${post.contenido}</div>
           </article>
         `;
       } else {
@@ -588,6 +881,7 @@
           <div class="postit-wrapper">
             <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
             <article class="postit-card" tabindex="0">
+              <span class="delete-btn" onclick="deletePost('${post.titulo}', '${post.autor}')">🗑️</span>
               <span class="author-badge">${post.autor}</span>
               <span class="note-number">Post #${index + 1}</span>
               <span class="entry-date">${post.fecha}</span>
@@ -601,8 +895,7 @@
         `;
       }
 
-      // Añadir la barra de likes y comentarios
-      const actionsHtml = `
+      return `
         <div style="width: 100%;">
           ${mediaHtml}
           <div class="post-actions">
@@ -621,11 +914,8 @@
           </div>
         </div>
       `;
-
-      return actionsHtml;
     }
 
-    // Likes y Comentarios
     function addLike(id) {
       let count = parseInt(localStorage.getItem('likes_' + id)) || 0;
       count++;
@@ -647,59 +937,67 @@
       input.value = '';
     }
 
-    // Cargar posts desde la Google Sheet
     async function loadPosts() {
-      let posts = [...defaultPosts];
+      let posts = [];
 
       try {
         const res = await fetch(GOOGLE_SCRIPT_URL);
         const data = await res.json();
         
-        // Convertir filas de Google Sheet en objetos si existen
         if (data && data.length > 1) {
-          const sheetPosts = [];
+          const uniqueTitles = new Set();
           for (let i = 1; i < data.length; i++) {
             const row = data[i];
-            sheetPosts.push({
-              fecha: row[0] || '11/09/2026',
-              autor: row[1] || 'Val',
-              tipo: row[2] || 'nota',
-              titulo: row[3] || '',
-              contenido: row[4] || '',
-              id: 'sheet_' + i
-            });
+            const title = row[3] || '';
+            if (title && !uniqueTitles.has(title)) {
+              uniqueTitles.add(title);
+              posts.push({
+                fecha: row[0] || '11/09/2026',
+                autor: row[1] || 'Val',
+                tipo: row[2] || 'nota',
+                titulo: title,
+                contenido: row[4] || '',
+                id: 'sheet_' + i
+              });
+            }
           }
-          posts = [...sheetPosts.reverse(), ...defaultPosts];
+          posts.reverse();
         }
-      } catch (e) {
-        console.log('Cargando posts predeterminados...', e);
-      }
+      } catch (e) { console.log('Cargando respaldo...', e); }
 
-      // Renderizar Portada (Top 10 más recientes de todo tipo)
-      const mainFeed = document.getElementById('mainFeed');
-      mainFeed.innerHTML = posts.slice(0, 10).map((p, idx) => renderCard(p, idx)).join('');
+      if (posts.length === 0) { posts = defaultPosts; }
 
-      // Renderizar Pestaña Música
-      const musicaFeed = document.getElementById('musicaFeed');
-      musicaFeed.innerHTML = posts.filter(p => p.tipo === 'musica').map((p, idx) => renderCard(p, idx)).join('');
-
-      // Renderizar Pestaña Post & Literatura
-      const literaturaFeed = document.getElementById('literaturaFeed');
-      literaturaFeed.innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('mainFeed').innerHTML = posts.slice(0, 10).map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('musicaFeed').innerHTML = posts.filter(p => p.tipo === 'musica').map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('fotosFeed').innerHTML = posts.filter(p => p.tipo === 'foto').map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('recetarioFeed').innerHTML = posts.filter(p => p.tipo === 'receta').map((p, idx) => renderCard(p, idx)).join('');
     }
 
     // Publicación
     document.getElementById('publishForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const key = document.getElementById('pubKey').value;
-      if (key !== '1308') {
-        alert('❌ Clave incorrecta. Recuerda que es la fecha especial (1308).');
-        return;
-      }
+      if (key !== '1308') { alert('❌ Clave incorrecta. Recuerda que es 1308.'); return; }
 
       const type = document.getElementById('pubType').value;
       let content = document.getElementById('pubContent').value;
+      const fileInput = document.getElementById('pubFile');
 
+      if (type === 'foto' && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+          content = e.target.result;
+          await sendPostData(type, content);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await sendPostData(type, content);
+      }
+    });
+
+    async function sendPostData(type, content) {
       const postData = {
         fecha: new Date().toLocaleDateString('es-CL'),
         autor: document.getElementById('pubAuthor').value,
@@ -716,14 +1014,167 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
         });
-        alert('✨ ¡Publicado en vivo! Actualizando el diario...');
+        alert('✨ ¡Publicado con éxito! Actualizando...');
         closeModal();
         document.getElementById('publishForm').reset();
-        setTimeout(loadPosts, 1000);
-      } catch (err) {
-        alert('Error al publicar: ' + err);
+        setTimeout(loadPosts, 1200);
+      } catch (err) { alert('Error al publicar: ' + err); }
+    }
+
+    // --- SCORESHEET ---
+    function loadScores() {
+      document.getElementById('scoreVal').textContent = localStorage.getItem('scoreVal') || 0;
+      document.getElementById('scoreRocio').textContent = localStorage.getItem('scoreRocio') || 0;
+    }
+    function updateScore(user, delta) {
+      const key = user === 'val' ? 'scoreVal' : 'scoreRocio';
+      let current = parseInt(localStorage.getItem(key)) || 0;
+      current = Math.max(0, current + delta);
+      localStorage.setItem(key, current);
+      loadScores();
+    }
+    loadScores();
+
+    // --- RULETA ---
+    let currentRotation = 0;
+    function spinRoulette() {
+      const customInput = document.getElementById('customOptionsInput').value;
+      let options = ["Ver película WatchParty", "Pedir sushi / comida", "Llamada con vino 🍷", "Planear próximo viaje ✈️", "Noche de masajes 💆‍♀️", "Cocinar la misma receta 🍳"];
+
+      if (customInput.trim() !== '') {
+        options = customInput.split(',').map(s => s.trim()).filter(s => s.length > 0);
       }
-    });
+
+      const selectedIndex = Math.floor(Math.random() * options.length);
+      const extraDegrees = 360 * 4 + (360 - (selectedIndex * (360 / options.length)));
+      currentRotation += extraDegrees;
+
+      const wheel = document.getElementById('rouletteWheel');
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+      document.getElementById('rouletteResult').textContent = '🎲 Girando...';
+      setTimeout(() => {
+        document.getElementById('rouletteResult').textContent = '✨ Salió: ' + options[selectedIndex];
+      }, 3000);
+    }
+
+    // --- JUEGO DE MEMORIA ---
+    const memoryEmojis = ['🐧', '🧡', '🍷', '🍕', '✈️', '🎵'];
+    let memoryCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    function resetMemoryGame() {
+      const board = document.getElementById('memoryBoard');
+      board.innerHTML = '';
+      memoryCards = [...memoryEmojis, ...memoryEmojis].sort(() => 0.5 - Math.random());
+      flippedCards = [];
+      matchedPairs = 0;
+
+      memoryCards.forEach((emoji, index) => {
+        const card = document.createElement('div');
+        card.classList.add('memory-card');
+        card.dataset.index = index;
+        card.dataset.emoji = emoji;
+        card.textContent = '❓';
+        card.onclick = () => flipMemoryCard(card);
+        board.appendChild(card);
+      });
+    }
+
+    function flipMemoryCard(card) {
+      if (flippedCards.length >= 2 || card.classList.contains('flipped')) return;
+
+      card.textContent = card.dataset.emoji;
+      card.classList.add('flipped');
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+          matchedPairs++;
+          flippedCards = [];
+          if (matchedPairs === memoryEmojis.length) {
+            setTimeout(() => alert('🎉 ¡Ganaron! Encontraron todas las parejas 💕'), 300);
+          }
+        } else {
+          setTimeout(() => {
+            flippedCards.forEach(c => { c.textContent = '❓'; c.classList.remove('flipped'); });
+            flippedCards = [];
+          }, 900);
+        }
+      }
+    }
+    resetMemoryGame();
+
+    // --- AHORCADO ---
+    const hangmanWords = ["BEST PART", "PATAGONIA", "NOVIAS", "NUESTROS DIAS", "POLOLEO"];
+    let selectedWord = "";
+    let guessedLetters = [];
+    let hangmanAttempts = 6;
+
+    function initHangman() {
+      selectedWord = hangmanWords[Math.floor(Math.random() * hangmanWords.length)];
+      guessedLetters = [];
+      hangmanAttempts = 6;
+      updateHangmanDisplay();
+      createHangmanKeyboard();
+    }
+
+    function updateHangmanDisplay() {
+      const wordDisplay = selectedWord.split('').map(letter => {
+        if (letter === ' ') return '  ';
+        return guessedLetters.includes(letter) ? letter : '_';
+      }).join(' ');
+
+      document.getElementById('hangmanWord').textContent = wordDisplay;
+      document.getElementById('hangmanStatus').textContent = `Intentos restantes: ${hangmanAttempts}`;
+
+      if (!wordDisplay.includes('_')) {
+        document.getElementById('hangmanStatus').textContent = '🎉 ¡Adivinaron la frase completa!';
+      } else if (hangmanAttempts <= 0) {
+        document.getElementById('hangmanStatus').textContent = `❌ ¡Game Over! La palabra era: ${selectedWord}`;
+      }
+    }
+
+    function createHangmanKeyboard() {
+      const keyboard = document.getElementById('hangmanKeyboard');
+      keyboard.innerHTML = '';
+      const letters = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+
+      letters.forEach(letter => {
+        const btn = document.createElement('button');
+        btn.classList.add('key-btn');
+        btn.textContent = letter;
+        btn.onclick = () => {
+          btn.disabled = true;
+          guessedLetters.push(letter);
+          if (!selectedWord.includes(letter)) {
+            hangmanAttempts--;
+          }
+          updateHangmanDisplay();
+        };
+        keyboard.appendChild(btn);
+      });
+    }
+    initHangman();
+
+    // --- TRES EN RAYA (GATO) ---
+    let tttBoard = ['', '', '', '', '', '', '', '', ''];
+    let tttTurn = '❌';
+
+    function makeTTTMove(index) {
+      if (tttBoard[index] !== '') return;
+      tttBoard[index] = tttTurn;
+      const cells = document.querySelectorAll('.ttt-cell');
+      cells[index].textContent = tttTurn;
+      tttTurn = tttTurn === '❌' ? '⭕' : '❌';
+    }
+
+    function resetTTT() {
+      tttBoard = ['', '', '', '', '', '', '', '', ''];
+      tttTurn = '❌';
+      document.querySelectorAll('.ttt-cell').forEach(c => c.textContent = '');
+    }
 
     // Contadores
     function calculateDays() {
@@ -782,7 +1233,6 @@
       }
     });
 
-    // Cargar todo al iniciar
     loadPosts();
   </script>
 
