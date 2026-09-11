@@ -207,8 +207,10 @@
     }
 
     .author-badge { font-family: 'Special Elite', cursive; font-size: 0.68rem; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; float: right; margin-left: 5px; }
-    .delete-btn { float: right; cursor: pointer; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.2s; margin-left: 8px; }
-    .delete-btn:hover { opacity: 1; color: #e11d48; }
+    
+    .action-btn-group { float: right; margin-left: 8px; display: flex; gap: 4px; }
+    .action-btn { cursor: pointer; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.2s; }
+    .action-btn:hover { opacity: 1; }
 
     .note-number { font-family: 'Special Elite', cursive; font-size: 0.8rem; font-weight: bold; color: #b45309; background: #fef08a; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
     .entry-date { font-family: 'Special Elite', cursive; font-size: 0.7rem; color: #78716c; text-transform: uppercase; display: block; margin-bottom: 8px; }
@@ -264,7 +266,6 @@
       background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0px, transparent 15px);
     }
 
-    /* POLAROID DINÁMICA FLUIDA */
     .polaroid-card {
       position: relative;
       background: #ffffff;
@@ -299,7 +300,6 @@
     }
     .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; }
 
-    /* ESTILO CINE / TICKET VINTAGE */
     .cinema-ticket-card {
       position: relative;
       background: #1c1917;
@@ -317,7 +317,6 @@
       margin: 6px 0;
     }
 
-    /* HIGHLIGHT CINE TOP */
     .cinema-top-highlight {
       background: #292524;
       border: 2px double #eab308;
@@ -327,7 +326,6 @@
       color: #fff;
     }
 
-    /* BOARDING PASS / WISHLIST */
     .boarding-pass-card {
       position: relative;
       background: #f0fdf4;
@@ -714,9 +712,11 @@
   <div class="modal-overlay" id="publishModal">
     <div class="modal-box">
       <button class="btn-close" onclick="closeModal()">✕</button>
-      <h2 class="modal-title">🔐 Publicar en Our Love Journal</h2>
+      <h2 class="modal-title" id="modalHeaderTitle">🔐 Publicar en Our Love Journal</h2>
       
       <form id="publishForm">
+        <input type="hidden" id="editingPostTitle" value="">
+        
         <div class="form-group">
           <label>¿Quién eres?</label>
           <select id="pubAuthor" required>
@@ -760,16 +760,16 @@
         </div>
 
         <div class="form-group" id="fileGroup" style="display:none;">
-          <label>📷 Seleccionar foto/poster desde Galería/PC:</label>
+          <label>📷 Seleccionar foto/poster (JPG, PNG, WEBP, etc.):</label>
           <input type="file" id="pubFile" accept="image/*">
         </div>
 
         <div class="form-group" id="textGroup">
-          <label>Contenido / Reseña / Link de Tráiler:</label>
-          <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje o pega el enlace..."></textarea>
+          <label>Contenido / Reseña / Link de Tráiler o Foto:</label>
+          <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje, pega una URL de foto o link de YouTube..."></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">✨ Publicar en Vivo</button>
+        <button type="submit" class="btn-submit" id="btnSubmitForm">✨ Publicar en Vivo</button>
       </form>
     </div>
   </div>
@@ -828,7 +828,6 @@
   <section id="literatura" class="tab-content"><div class="journal-grid" id="literaturaFeed"></div></section>
   <section id="fotos" class="tab-content"><div class="journal-grid" id="fotosFeed"></div></section>
 
-  <!-- CARTELERA DE CINE -->
   <section id="cartelera" class="tab-content">
     <div class="cinema-top-highlight" id="cinemaHighlight">
       <h3 style="font-family:'Caveat', cursive; font-size:2rem; margin:0 0 6px 0; color:#eab308; text-align:center;">🌟 Favoritas de la Cartelera (5/5)</h3>
@@ -837,7 +836,6 @@
     <div class="journal-grid" id="carteleraFeed"></div>
   </section>
 
-  <!-- WISHLIST -->
   <section id="wishlist" class="tab-content">
     <div class="wishlist-sections-grid">
       <div>
@@ -972,7 +970,15 @@
       element.classList.add('active');
     }
 
-    function openModal() { document.getElementById('publishModal').style.display = 'flex'; }
+    function openModal() {
+      document.getElementById('modalHeaderTitle').textContent = '🔐 Publicar en Our Love Journal';
+      document.getElementById('btnSubmitForm').textContent = '✨ Publicar en Vivo';
+      document.getElementById('editingPostTitle').value = '';
+      document.getElementById('publishForm').reset();
+      toggleFileInput();
+      document.getElementById('publishModal').style.display = 'flex';
+    }
+
     function closeModal() { document.getElementById('publishModal').style.display = 'none'; }
 
     function toggleFileInput() {
@@ -982,6 +988,7 @@
     }
 
     function getYouTubeEmbedUrl(url) {
+      if (!url) return '';
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
       const match = url.match(regExp);
       if (match && match[2].length === 11) {
@@ -1013,6 +1020,27 @@
       }
     }
 
+    function editPost(titulo) {
+      const key = prompt('🔑 Ingresa la clave secreta (1308) para editar este post:');
+      if (key !== '1308') { alert('❌ Clave incorrecta.'); return; }
+
+      const post = window.allPosts.find(p => p.titulo === titulo);
+      if (!post) return;
+
+      document.getElementById('modalHeaderTitle').textContent = '✏️ Editar Entrada';
+      document.getElementById('btnSubmitForm').textContent = '💾 Guardar Cambios';
+      document.getElementById('editingPostTitle').value = post.titulo;
+      
+      document.getElementById('pubAuthor').value = post.autor;
+      document.getElementById('pubType').value = post.tipo;
+      document.getElementById('pubTitle').value = post.titulo;
+      document.getElementById('pubContent').value = post.contenido;
+      document.getElementById('pubRating').value = post.rating || '5';
+
+      toggleFileInput();
+      document.getElementById('publishModal').style.display = 'flex';
+    }
+
     function toggleWishlistStatus(postKey) {
       let status = localStorage.getItem('wishlist_done_' + postKey) === 'true';
       localStorage.setItem('wishlist_done_' + postKey, !status);
@@ -1037,6 +1065,13 @@
       let mediaHtml = '';
       const safeTitle = post.titulo.replace(/'/g, "\\'");
 
+      const actionButtons = `
+        <div class="action-btn-group">
+          <span class="action-btn" onclick="editPost('${safeTitle}')" title="Editar">✏️</span>
+          <span class="action-btn" onclick="deletePost('${safeTitle}', '${post.autor}')" title="Eliminar">🗑️</span>
+        </div>
+      `;
+
       if (post.tipo === 'musica') {
         const embedUrl = getYouTubeEmbedUrl(post.contenido);
         const parts = post.contenido.split('\n\n');
@@ -1044,7 +1079,7 @@
         mediaHtml = `
           <div class="media-card">
             <div class="washi washi-flowers" style="top: -10px; left: 20%; transform: rotate(-2deg); height: 18px; width: 60px;"></div>
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-family:'Caveat', cursive; font-size:1.6rem; margin:0 0 10px 0;">🎵 ${post.titulo}</h3>
@@ -1055,7 +1090,7 @@
       } else if (post.tipo === 'foto') {
         mediaHtml = `
           <div class="polaroid-card">
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <div class="polaroid-img-wrapper">
               <img src="${post.contenido}" alt="Foto Polaroid" />
             </div>
@@ -1067,7 +1102,7 @@
         mediaHtml = `
           <article class="notebook-card">
             <div class="pin"></div>
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <div class="notebook-date-header">
               <span>De: ${post.autor}</span>
               <span><u>${post.fecha}</u></span>
@@ -1079,7 +1114,7 @@
       } else if (post.tipo === 'receta') {
         mediaHtml = `
           <article class="recipe-book-card">
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2rem; color:#9f1239; margin-top:0;">📖 ${post.titulo}</h3>
@@ -1089,23 +1124,24 @@
       } else if (post.tipo === 'cartelera') {
         const ratingStars = '⭐'.repeat(parseInt(post.rating || 5));
         const isTrailer = post.contenido.includes('youtu');
+        const isImage = post.contenido.startsWith('data:image') || post.contenido.match(/\.(jpeg|jpg|gif|png|webp)$/i);
         mediaHtml = `
           <article class="cinema-ticket-card">
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2.2rem; margin:0; color:#fef08a;">🎟️ ${post.titulo}</h3>
             <div class="cinema-stars">${ratingStars}</div>
             ${isTrailer ? `<iframe class="media-embed" src="${getYouTubeEmbedUrl(post.contenido)}" allowfullscreen></iframe>` : ''}
-            ${!isTrailer && post.contenido.startsWith('data:image') ? `<img src="${post.contenido}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
-            <p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>
+            ${isImage ? `<img src="${post.contenido}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
+            ${!isTrailer && !isImage ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
           </article>
         `;
       } else if (post.tipo === 'wishlist') {
         const isDone = localStorage.getItem('wishlist_done_' + postKey) === 'true';
         mediaHtml = `
           <article class="boarding-pass-card ${isDone ? 'completed' : ''}">
-            <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+            ${actionButtons}
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span style="font-size:0.75rem; color:#15803d; font-weight:bold;">BOARDING PASS</span>
               <button onclick="toggleWishlistStatus('${postKey}')" style="background:#16a34a; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:0.7rem; cursor:pointer;">
@@ -1121,7 +1157,7 @@
           <div class="postit-wrapper">
             <div class="washi washi-leaves" style="top: -12px; left: 15px; transform: rotate(-3deg);"></div>
             <article class="postit-card" tabindex="0">
-              <span class="delete-btn" onclick="deletePost('${safeTitle}', '${post.autor}')">🗑️</span>
+              ${actionButtons}
               <span class="author-badge">${post.autor}</span>
               <span class="note-number">Post #${index + 1}</span>
               <span class="entry-date">${post.fecha}</span>
@@ -1297,9 +1333,14 @@
       const key = document.getElementById('pubKey').value;
       if (key !== '1308') { alert('❌ Clave incorrecta. Recuerda que es 1308.'); return; }
 
+      const oldTitle = document.getElementById('editingPostTitle').value;
       const type = document.getElementById('pubType').value;
       let content = document.getElementById('pubContent').value;
       const fileInput = document.getElementById('pubFile');
+
+      if (oldTitle) {
+        window.allPosts = window.allPosts.filter(p => p.titulo !== oldTitle);
+      }
 
       if ((type === 'foto' || type === 'cartelera') && fileInput.files.length > 0) {
         const file = fileInput.files[0];
@@ -1332,7 +1373,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(postData)
         });
-        alert('✨ ¡Publicado con éxito!');
+        alert('✨ ¡Publicado/Modificado con éxito!');
         closeModal();
         document.getElementById('publishForm').reset();
         setTimeout(loadPosts, 1200);
