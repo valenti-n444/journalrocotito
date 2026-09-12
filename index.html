@@ -197,9 +197,28 @@
     .tab-content { display: none; width: 100%; max-width: 850px; }
     .tab-content.active { display: block; }
 
-    .journal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; align-items: start; }
+    /* LAYOUT MASONRY (MURO SIN ESPACIOS VACÍOS) */
+    .journal-grid {
+      column-count: 2;
+      column-gap: 20px;
+      width: 100%;
+    }
 
-    .postit-wrapper { position: relative; min-height: 200px; }
+    @media (max-width: 650px) {
+      .journal-grid {
+        column-count: 1;
+      }
+    }
+
+    .journal-item-block {
+      break-inside: avoid;
+      margin-bottom: 25px;
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .postit-wrapper { position: relative; min-height: 180px; }
     .postit-card {
       position: relative; background: #fef9c3; padding: 20px 18px 15px 18px; border-radius: 2px;
       box-shadow: 4px 6px 12px rgba(0,0,0,0.15); transform: rotate(-1.5deg); transition: all 0.35s ease;
@@ -228,7 +247,6 @@
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
     .notebook-card {
-      grid-column: 1 / -1;
       position: relative;
       background: #faf8f5;
       background-image: linear-gradient(#cbd5e1 1px, transparent 1px);
@@ -241,7 +259,6 @@
       color: #1e293b;
       border: 1px solid #e2e8f0;
       border-top: none;
-      margin-top: 15px;
       box-sizing: border-box;
       white-space: pre-wrap;
       word-wrap: break-word;
@@ -273,9 +290,7 @@
       box-shadow: 4px 8px 18px rgba(0,0,0,0.18);
       transform: rotate(-0.5deg);
       border-radius: 4px;
-      width: fit-content;
-      max-width: 100%;
-      margin: 0 auto;
+      width: 100%;
       box-sizing: border-box;
     }
 
@@ -288,7 +303,6 @@
 
     .polaroid-img-wrapper img {
       width: 100%;
-      max-width: 500px;
       height: auto;
       display: block;
       object-fit: contain;
@@ -677,8 +691,9 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 300px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; background: #000; }
-    .spotify-mini-widget iframe { border: none; width: 100%; height: 152px; display: block; }
+    /* WIDGET DE SPOTIFY GRANDE CON ALEATORIO */
+    .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 330px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border-radius: 12px; overflow: hidden; background: #000; }
+    .spotify-mini-widget iframe { border: none; width: 100%; height: 352px; display: block; }
 
     @media (max-width: 600px) {
       .spotify-mini-widget { position: relative; bottom: auto; right: auto; width: 100%; max-width: 320px; margin-top: 35px; }
@@ -760,12 +775,12 @@
         </div>
 
         <div class="form-group" id="fileGroup" style="display:none;">
-          <label>📷 Seleccionar foto/poster (JPG, PNG, WEBP, etc.):</label>
+          <label>📷 Foto/Afiche (Opcional - Subir desde Galería/PC):</label>
           <input type="file" id="pubFile" accept="image/*">
         </div>
 
         <div class="form-group" id="textGroup">
-          <label>Contenido / Reseña / Link de Tráiler o Foto:</label>
+          <label>Contenido / Reseña / Link de Trailer o Imagen (Opcional):</label>
           <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje, pega una URL de foto o link de YouTube..."></textarea>
         </div>
 
@@ -939,6 +954,7 @@
     </div>
   </section>
 
+  <!-- WIDGET SPOTIFY AMPLIO (MODO PLAYLIST COMPLETA) -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
@@ -952,6 +968,46 @@
 
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
+
+    // GENERADOR DE AUDIO EN VIVO (WEB AUDIO API SYNTH)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playHarpGlissando() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50, 1318.51];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.6);
+        }, idx * 60);
+      });
+    }
+
+    function playSparkleSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200 + Math.random() * 1800, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.25);
+        }, i * 70);
+      }
+    }
 
     const defaultPosts = [
       {
@@ -1134,7 +1190,7 @@
             <div class="cinema-stars">${ratingStars}</div>
             ${isTrailer ? `<iframe class="media-embed" src="${getYouTubeEmbedUrl(post.contenido)}" allowfullscreen></iframe>` : ''}
             ${isImage ? `<img src="${post.contenido}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
-            ${!isTrailer && !isImage ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
+            ${!isTrailer && !isImage && post.contenido ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
           </article>
         `;
       } else if (post.tipo === 'wishlist') {
@@ -1172,7 +1228,7 @@
       }
 
       return `
-        <div style="width: 100%;">
+        <div class="journal-item-block">
           ${mediaHtml}
           <div class="post-actions">
             <button class="like-btn" onclick="addLike('${postKey}')">
@@ -1581,6 +1637,7 @@
       document.body.classList.add('shake-screen');
       const overlay = document.getElementById('msnWinkOverlay');
       overlay.style.display = 'flex';
+      playHarpGlissando();
       setTimeout(() => document.body.classList.remove('shake-screen'), 600);
       setTimeout(() => overlay.style.display = 'none', 2500);
     });
@@ -1594,6 +1651,8 @@
       missCount++;
       localStorage.setItem('missYouCount_persistent', missCount);
       missCounter.textContent = `Veces extrañada: ${missCount}`;
+
+      playSparkleSound();
 
       const emojis = ['🐧', '🔮', '✨'];
       for (let i = 0; i < 15; i++) {
