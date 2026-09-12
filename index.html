@@ -197,7 +197,6 @@
     .tab-content { display: none; width: 100%; max-width: 850px; }
     .tab-content.active { display: block; }
 
-    /* LAYOUT MASONRY GLOBAL EN TODAS LAS SECCIONES */
     .journal-grid {
       column-count: 2;
       column-gap: 20px;
@@ -366,6 +365,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       animation: fadeInPage 0.4s ease-in-out;
+      position: relative;
     }
 
     .recipe-double-page.active { display: grid; }
@@ -690,7 +690,6 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* REPRODUCTOR SPOTIFY COMPACTO CON BOTÓN DE SHUFFLE DIRECTO */
     .spotify-mini-widget {
       position: fixed;
       bottom: 15px;
@@ -950,7 +949,7 @@
 
       <div class="game-section">
         <h2 class="game-title">🧠 Juego de Memoria de Parejas</h2>
-        <p style="font-size:0.8rem; color:#64748b; margin:0;">Encuentra los 6 pares iguales</p>
+        <p style="font-size:0.8rem; color:#64748b;">Encuentra los 6 pares iguales</p>
         <div class="memory-grid" id="memoryBoard"></div>
         <button class="btn-submit" onclick="resetMemoryGame()" style="max-width:200px; margin: 10px auto 0 auto;">🔄 Reiniciar Memoria</button>
       </div>
@@ -982,7 +981,6 @@
     </div>
   </section>
 
-  <!-- WIDGET SPOTIFY CON BOTÓN DE ALEATORIO DIRECTO -->
   <div class="spotify-mini-widget">
     <button class="spotify-shuffle-btn" onclick="window.open('https://open.spotify.com/playlist/2L3j5IWob51VmtJyS1qdoz?play=true&shuffle=true', '_blank')">
       🔀 Activar Aleatorio en Spotify
@@ -1333,19 +1331,24 @@
         return;
       }
 
-      container.innerHTML = recipes.map((recipe, idx) => `
+      container.innerHTML = recipes.map((recipe, idx) => {
+        const safeTitle = recipe.titulo.replace(/'/g, "\\'");
+        return `
         <div class="recipe-double-page ${idx === 0 ? 'active' : ''}">
           <div class="recipe-page-left">
             ${recipe.photo ? `<img src="${recipe.photo}" alt="Foto de ${recipe.titulo}" />` : '<div style="background:#e2e8f0; width:100%; height:220px; display:flex; justify-content:center; align-items:center; border-radius:6px; color:#64748b;">📷 Sin Foto de Platillo</div>'}
           </div>
           <div class="recipe-page-right">
-            <span class="delete-btn" onclick="deletePost('${recipe.titulo.replace(/'/g, "\\'")}', '${recipe.autor}')">🗑️</span>
+            <div class="action-btn-group">
+              <span class="action-btn" onclick="editPost('${safeTitle}')" title="Editar">✏️</span>
+              <span class="action-btn" onclick="deletePost('${safeTitle}', '${recipe.autor}')" title="Eliminar">🗑️</span>
+            </div>
             <h2 style="font-size:2rem; color:#9f1239; margin-top:0;">🍳 ${recipe.titulo}</h2>
             <p style="font-size:0.85rem; color:#78716c;"><b>De:</b> ${recipe.autor} | <b>Fecha:</b> ${recipe.fecha}</p>
             <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipe.contenido}</div>
           </div>
         </div>
-      `).join('');
+      `}).join('');
 
       currentRecipePage = 0;
       updateRecipeControls();
@@ -1455,6 +1458,10 @@
         };
         reader.readAsDataURL(file);
       } else {
+        const existingPost = window.allPosts.find(p => p.titulo === oldTitle);
+        if (existingPost && existingPost.photo) {
+          photoData = existingPost.photo;
+        }
         await sendPostData(type, content, videoUrl, photoData);
       }
     });
