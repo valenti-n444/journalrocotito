@@ -197,7 +197,7 @@
     .tab-content { display: none; width: 100%; max-width: 850px; }
     .tab-content.active { display: block; }
 
-    /* LAYOUT MASONRY (MURO SIN ESPACIOS VACÍOS) */
+    /* LAYOUT MASONRY GLOBAL EN TODAS LAS SECCIONES */
     .journal-grid {
       column-count: 2;
       column-gap: 20px;
@@ -271,17 +271,6 @@
 
     .notebook-date-header { display: flex; justify-content: space-between; align-items: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: #64748b; margin-bottom: 15px; border-bottom: 1px solid #94a3b8; padding-bottom: 4px; }
     .pin { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; background: radial-gradient(circle at 30% 30%, #f87171, #991b1b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.35); z-index: 25; }
-
-    .recipe-book-card {
-      position: relative;
-      background: #fdfbf7;
-      border: 2px double #b45309;
-      border-radius: 8px;
-      padding: 25px 20px;
-      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
-      font-family: 'Caveat', cursive;
-      background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0px, transparent 15px);
-    }
 
     .polaroid-card {
       position: relative;
@@ -359,41 +348,52 @@
       opacity: 0.75;
     }
 
-    .wishlist-sections-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      width: 100%;
-    }
-
-    .wishlist-column-title {
-      font-family: 'Caveat', cursive;
-      font-size: 2rem;
-      color: #9f1239;
-      border-bottom: 2px dashed #b45309;
-      padding-bottom: 5px;
-      margin-bottom: 15px;
-    }
-
+    /* LIBRO RECETARIO EN DOS PÁGINAS ABIERTAS */
     .recipe-book-wrapper {
       position: relative;
       background: #fdfbf7;
       border: 3px double #b45309;
       border-radius: 12px;
-      padding: 30px 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-width: 650px;
+      padding: 25px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      max-width: 800px;
       margin: 0 auto;
       font-family: 'Caveat', cursive;
-      min-height: 320px;
+      min-height: 380px;
     }
 
-    .recipe-page { display: none; animation: fadeInPage 0.4s ease-in-out; }
-    .recipe-page.active { display: block; }
+    .recipe-double-page {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      animation: fadeInPage 0.4s ease-in-out;
+    }
 
-    @keyframes fadeInPage {
-      from { opacity: 0; transform: translateX(15px); }
-      to { opacity: 1; transform: translateX(0); }
+    .recipe-double-page.active { display: grid; }
+
+    @media (max-width: 650px) {
+      .recipe-double-page { grid-template-columns: 1fr; }
+    }
+
+    .recipe-page-left {
+      border-right: 2px dashed #d97706;
+      padding-right: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .recipe-page-left img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .recipe-page-right {
+      padding-left: 10px;
     }
 
     .recipe-nav-btns {
@@ -691,9 +691,9 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* WIDGET DE SPOTIFY GRANDE CON ALEATORIO */
+    /* WIDGET SPOTIFY CON MODO PLAYLIST / SHUFFLE VISIBLE */
     .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 330px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border-radius: 12px; overflow: hidden; background: #000; }
-    .spotify-mini-widget iframe { border: none; width: 100%; height: 352px; display: block; }
+    .spotify-mini-widget iframe { border: none; width: 100%; height: 380px; display: block; }
 
     @media (max-width: 600px) {
       .spotify-mini-widget { position: relative; bottom: auto; right: auto; width: 100%; max-width: 320px; margin-top: 35px; }
@@ -758,13 +758,14 @@
           </select>
         </div>
 
+        <!-- FORMULARIO RESTRUCTURADO DE CARTELERA & DÁS ENTRADAS -->
         <div class="form-group">
-          <label>Título / Nombre del plan o peli:</label>
-          <input type="text" id="pubTitle" placeholder="Ej: Película para el finde / Viaje a las Torres..." required>
+          <label id="lblTitle">1. Título / Nombre:</label>
+          <input type="text" id="pubTitle" placeholder="Nombre de la película, plato, foto o plan..." required>
         </div>
 
         <div class="form-group" id="ratingGroup" style="display:none;">
-          <label>Calificación (Estrellas 1 al 5):</label>
+          <label>2. Calificación (Estrellas 1 al 5):</label>
           <select id="pubRating">
             <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
             <option value="4">⭐⭐⭐⭐ (4/5)</option>
@@ -775,13 +776,18 @@
         </div>
 
         <div class="form-group" id="fileGroup" style="display:none;">
-          <label>📷 Foto/Afiche (Opcional - Subir desde Galería/PC):</label>
+          <label id="lblFile">3. Seleccionar Foto / Poster / Platillo desde Galería/PC (Opcional):</label>
           <input type="file" id="pubFile" accept="image/*">
         </div>
 
+        <div class="form-group" id="videoLinkGroup" style="display:none;">
+          <label>4. Link de Video / Tráiler de YouTube (Opcional):</label>
+          <input type="text" id="pubVideoUrl" placeholder="https://youtu.be/...">
+        </div>
+
         <div class="form-group" id="textGroup">
-          <label>Contenido / Reseña / Link de Trailer o Imagen (Opcional):</label>
-          <textarea id="pubContent" rows="3" placeholder="Escribe tu mensaje, pega una URL de foto o link de YouTube..."></textarea>
+          <label id="lblContent">5. Reseña o Contenido escrito (Opcional):</label>
+          <textarea id="pubContent" rows="3" placeholder="Escribe tu reseña, mensaje o preparación..."></textarea>
         </div>
 
         <button type="submit" class="btn-submit" id="btnSubmitForm">✨ Publicar en Vivo</button>
@@ -852,18 +858,10 @@
   </section>
 
   <section id="wishlist" class="tab-content">
-    <div class="wishlist-sections-grid">
-      <div>
-        <div class="wishlist-column-title">✈️ Pendientes por hacer</div>
-        <div id="wishlistPendingList" style="display:flex; flex-direction:column; gap:15px;"></div>
-      </div>
-      <div>
-        <div class="wishlist-column-title">✅ ¡Sueños Cumplidos!</div>
-        <div id="wishlistCompletedList" style="display:flex; flex-direction:column; gap:15px;"></div>
-      </div>
-    </div>
+    <div class="journal-grid" id="wishlistFeed"></div>
   </section>
 
+  <!-- RECETARIO TIPO LIBRO ABIERTO DOS PÁGINAS -->
   <section id="recetario" class="tab-content">
     <div class="recipe-book-wrapper" id="recipeBook">
       <div id="recipePagesContainer"></div>
@@ -954,7 +952,7 @@
     </div>
   </section>
 
-  <!-- WIDGET SPOTIFY AMPLIO (MODO PLAYLIST COMPLETA) -->
+  <!-- WIDGET SPOTIFY EMBED COMPLETO PARA SHUFFLE -->
   <div class="spotify-mini-widget">
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
@@ -969,7 +967,6 @@
   <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
 
-    // GENERADOR DE AUDIO EN VIVO (WEB AUDIO API SYNTH)
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function playHarpGlissando() {
@@ -1039,8 +1036,9 @@
 
     function toggleFileInput() {
       const type = document.getElementById('pubType').value;
-      document.getElementById('fileGroup').style.display = (type === 'foto' || type === 'cartelera') ? 'flex' : 'none';
+      document.getElementById('fileGroup').style.display = (type === 'foto' || type === 'cartelera' || type === 'receta') ? 'flex' : 'none';
       document.getElementById('ratingGroup').style.display = (type === 'cartelera') ? 'flex' : 'none';
+      document.getElementById('videoLinkGroup').style.display = (type === 'cartelera') ? 'flex' : 'none';
     }
 
     function getYouTubeEmbedUrl(url) {
@@ -1092,6 +1090,9 @@
       document.getElementById('pubTitle').value = post.titulo;
       document.getElementById('pubContent').value = post.contenido;
       document.getElementById('pubRating').value = post.rating || '5';
+      if (document.getElementById('pubVideoUrl')) {
+        document.getElementById('pubVideoUrl').value = post.videoUrl || '';
+      }
 
       toggleFileInput();
       document.getElementById('publishModal').style.display = 'flex';
@@ -1174,13 +1175,13 @@
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2rem; color:#9f1239; margin-top:0;">📖 ${post.titulo}</h3>
+            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
             <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${post.contenido}</div>
           </article>
         `;
       } else if (post.tipo === 'cartelera') {
         const ratingStars = '⭐'.repeat(parseInt(post.rating || 5));
-        const isTrailer = post.contenido.includes('youtu');
-        const isImage = post.contenido.startsWith('data:image') || post.contenido.match(/\.(jpeg|jpg|gif|png|webp)$/i);
+        const videoEmbed = post.videoUrl ? getYouTubeEmbedUrl(post.videoUrl) : '';
         mediaHtml = `
           <article class="cinema-ticket-card">
             ${actionButtons}
@@ -1188,9 +1189,9 @@
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2.2rem; margin:0; color:#fef08a;">🎟️ ${post.titulo}</h3>
             <div class="cinema-stars">${ratingStars}</div>
-            ${isTrailer ? `<iframe class="media-embed" src="${getYouTubeEmbedUrl(post.contenido)}" allowfullscreen></iframe>` : ''}
-            ${isImage ? `<img src="${post.contenido}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
-            ${!isTrailer && !isImage && post.contenido ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
+            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
+            ${videoEmbed ? `<iframe class="media-embed" src="${videoEmbed}" allowfullscreen style="margin:8px 0;"></iframe>` : ''}
+            ${post.contenido ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
           </article>
         `;
       } else if (post.tipo === 'wishlist') {
@@ -1287,16 +1288,21 @@
       recipePostsList = recipes;
       const container = document.getElementById('recipePagesContainer');
       if (recipes.length === 0) {
-        container.innerHTML = `<div class="recipe-page active"><h2 style="text-align:center;">📖 Recetario Vacío</h2><p style="text-align:center;">Agrega tu primera receta con la clave 1308 ✨</p></div>`;
+        container.innerHTML = `<div class="recipe-double-page active"><div class="recipe-page-left">📷 Sin Foto</div><div class="recipe-page-right"><h2 style="text-align:center;">📖 Recetario Vacío</h2><p style="text-align:center;">Agrega tu primera receta con la clave 1308 ✨</p></div></div>`;
         return;
       }
 
       container.innerHTML = recipes.map((recipe, idx) => `
-        <div class="recipe-page ${idx === 0 ? 'active' : ''}">
-          <span class="delete-btn" onclick="deletePost('${recipe.titulo.replace(/'/g, "\\'")}', '${recipe.autor}')">🗑️</span>
-          <h2 style="font-size:2.2rem; color:#9f1239; margin-top:0;">🍳 ${recipe.titulo}</h2>
-          <p style="font-size:0.9rem; color:#78716c;"><b>De:</b> ${recipe.autor} | <b>Fecha:</b> ${recipe.fecha}</p>
-          <div style="font-size:1.45rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipe.contenido}</div>
+        <div class="recipe-double-page ${idx === 0 ? 'active' : ''}">
+          <div class="recipe-page-left">
+            ${recipe.photo ? `<img src="${recipe.photo}" alt="Foto de ${recipe.titulo}" />` : '<div style="background:#e2e8f0; width:100%; height:220px; display:flex; justify-content:center; align-items:center; border-radius:6px; color:#64748b;">📷 Sin Foto de Platillo</div>'}
+          </div>
+          <div class="recipe-page-right">
+            <span class="delete-btn" onclick="deletePost('${recipe.titulo.replace(/'/g, "\\'")}', '${recipe.autor}')">🗑️</span>
+            <h2 style="font-size:2rem; color:#9f1239; margin-top:0;">🍳 ${recipe.titulo}</h2>
+            <p style="font-size:0.85rem; color:#78716c;"><b>De:</b> ${recipe.autor} | <b>Fecha:</b> ${recipe.fecha}</p>
+            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipe.contenido}</div>
+          </div>
         </div>
       `).join('');
 
@@ -1306,7 +1312,7 @@
 
     function changeRecipePage(delta) {
       if (recipePostsList.length === 0) return;
-      const pages = document.querySelectorAll('.recipe-page');
+      const pages = document.querySelectorAll('.recipe-double-page');
       pages[currentRecipePage].classList.remove('active');
 
       currentRecipePage += delta;
@@ -1341,11 +1347,7 @@
         : 'Aún no hay películas puntuadas con 5 estrellas.';
 
       const wishlistPosts = posts.filter(p => p.tipo === 'wishlist');
-      const pending = wishlistPosts.filter(p => localStorage.getItem('wishlist_done_' + generateKey(p.titulo)) !== 'true');
-      const completed = wishlistPosts.filter(p => localStorage.getItem('wishlist_done_' + generateKey(p.titulo)) === 'true');
-
-      document.getElementById('wishlistPendingList').innerHTML = pending.map((p, idx) => renderCard(p, idx)).join('');
-      document.getElementById('wishlistCompletedList').innerHTML = completed.map((p, idx) => renderCard(p, idx)).join('');
+      document.getElementById('wishlistFeed').innerHTML = wishlistPosts.map((p, idx) => renderCard(p, idx)).join('');
 
       const recipes = posts.filter(p => p.tipo === 'receta');
       renderRecipeBook(recipes);
@@ -1372,7 +1374,9 @@
                 tipo: row[2] || 'nota',
                 titulo: title,
                 contenido: row[4] || '',
-                rating: row[5] || '5'
+                rating: row[5] || '5',
+                videoUrl: row[6] || '',
+                photo: row[7] || ''
               });
             }
           }
@@ -1392,26 +1396,29 @@
       const oldTitle = document.getElementById('editingPostTitle').value;
       const type = document.getElementById('pubType').value;
       let content = document.getElementById('pubContent').value;
+      let videoUrl = document.getElementById('pubVideoUrl') ? document.getElementById('pubVideoUrl').value : '';
       const fileInput = document.getElementById('pubFile');
 
       if (oldTitle) {
         window.allPosts = window.allPosts.filter(p => p.titulo !== oldTitle);
       }
 
-      if ((type === 'foto' || type === 'cartelera') && fileInput.files.length > 0) {
+      let photoData = '';
+      if ((type === 'foto' || type === 'cartelera' || type === 'receta') && fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const reader = new FileReader();
         reader.onload = async function(e) {
-          content = e.target.result;
-          await sendPostData(type, content);
+          photoData = e.target.result;
+          if (type === 'foto') content = photoData;
+          await sendPostData(type, content, videoUrl, photoData);
         };
         reader.readAsDataURL(file);
       } else {
-        await sendPostData(type, content);
+        await sendPostData(type, content, videoUrl, photoData);
       }
     });
 
-    async function sendPostData(type, content) {
+    async function sendPostData(type, content, videoUrl, photoData) {
       const postData = {
         fecha: new Date().toLocaleDateString('es-CL'),
         autor: document.getElementById('pubAuthor').value,
@@ -1419,6 +1426,8 @@
         titulo: document.getElementById('pubTitle').value,
         contenido: content,
         rating: document.getElementById('pubRating').value || '5',
+        videoUrl: videoUrl,
+        photo: photoData,
         numeroNota: Math.floor(Math.random() * 90) + 10
       };
 
@@ -1654,8 +1663,9 @@
 
       playSparkleSound();
 
-      const emojis = ['🐧', '🔮', '✨'];
-      for (let i = 0; i < 15; i++) {
+      // LLUVIA DE EMOJIS CON CORAZÓN NARANJO Y CORAZÓN MORADO
+      const emojis = ['🐧', '🔮', '✨', '🧡', '💜'];
+      for (let i = 0; i < 18; i++) {
         setTimeout(() => {
           const emoji = document.createElement('div');
           emoji.classList.add('falling-emoji');
@@ -1664,7 +1674,7 @@
           emoji.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
           document.body.appendChild(emoji);
           setTimeout(() => emoji.remove(), 3500);
-        }, i * 120);
+        }, i * 110);
       }
     });
 
