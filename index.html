@@ -302,6 +302,19 @@
     }
     .media-embed { width: 100%; height: 200px; border: none; border-radius: 4px; display: block; margin-top: 8px; }
 
+    /* TARJETA RECETARIO FEED CON DISEÑO DE HOJA DE LIBRO ANTIGUO */
+    .recipe-book-card {
+      position: relative;
+      background: #fcfbf7;
+      border: 2px dashed #b45309;
+      border-radius: 6px;
+      padding: 20px;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15);
+      font-family: 'Caveat', cursive;
+      background-image: radial-gradient(#d97706 0.5px, transparent 0.5px);
+      background-size: 16px 16px;
+    }
+
     .cinema-ticket-card {
       position: relative;
       background: #1c1917;
@@ -1180,7 +1193,7 @@
           <div class="polaroid-card">
             ${actionButtons}
             <div class="polaroid-img-wrapper">
-              <img src="${post.contenido}" alt="Foto Polaroid" />
+              <img src="${post.photo || post.contenido}" alt="Foto Polaroid" />
             </div>
             <p style="font-family:'Caveat', cursive; font-size:1.4rem; color:#1c1917; margin:10px 0 0 0; text-align:center;">📸 ${post.titulo}</p>
             <span class="entry-date" style="text-align:center; margin-top:4px;">${post.fecha} | De: ${post.autor}</span>
@@ -1200,19 +1213,23 @@
           </article>
         `;
       } else if (post.tipo === 'receta') {
+        // RESTAURADO FONDO DE HOJA DE LIBRO EN EL FEED PRINCIPAL
+        const recipeImg = post.photo || (post.contenido.startsWith('data:image') ? post.contenido : '');
         mediaHtml = `
           <article class="recipe-book-card">
             ${actionButtons}
             <span class="author-badge">${post.autor}</span>
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2rem; color:#9f1239; margin-top:0;">📖 ${post.titulo}</h3>
-            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
-            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${post.contenido}</div>
+            ${recipeImg ? `<img src="${recipeImg}" style="width:100%; border-radius:6px; margin:8px 0; max-height:260px; object-fit:cover;" />` : ''}
+            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipeImg ? '' : post.contenido}</div>
           </article>
         `;
       } else if (post.tipo === 'cartelera') {
         const starCount = Math.min(5, Math.max(1, parseInt(post.rating) || 5));
         const ratingStars = '⭐'.repeat(starCount);
+        
+        const cinemaImg = post.photo || (post.contenido.startsWith('data:image') ? post.contenido : '');
         
         let videoEmbed = '';
         if (post.videoUrl) {
@@ -1228,9 +1245,9 @@
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2.2rem; margin:0; color:#fef08a;">🎟️ ${post.titulo}</h3>
             <div class="cinema-stars">${ratingStars}</div>
-            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0; max-height:280px; object-fit:cover;" />` : ''}
+            ${cinemaImg ? `<img src="${cinemaImg}" style="width:100%; border-radius:6px; margin:8px 0; max-height:280px; object-fit:cover;" />` : ''}
             ${videoEmbed ? `<iframe class="media-embed" src="${videoEmbed}" allowfullscreen></iframe>` : ''}
-            ${post.contenido && !post.contenido.includes('youtu') ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
+            ${post.contenido && !post.contenido.includes('youtu') && !post.contenido.startsWith('data:image') ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
           </article>
         `;
       } else if (post.tipo === 'wishlist') {
@@ -1333,10 +1350,11 @@
 
       container.innerHTML = recipes.map((recipe, idx) => {
         const safeTitle = recipe.titulo.replace(/'/g, "\\'");
+        const recipeImg = recipe.photo || (recipe.contenido.startsWith('data:image') ? recipe.contenido : '');
         return `
         <div class="recipe-double-page ${idx === 0 ? 'active' : ''}">
           <div class="recipe-page-left">
-            ${recipe.photo ? `<img src="${recipe.photo}" alt="Foto de ${recipe.titulo}" />` : '<div style="background:#e2e8f0; width:100%; height:220px; display:flex; justify-content:center; align-items:center; border-radius:6px; color:#64748b;">📷 Sin Foto de Platillo</div>'}
+            ${recipeImg ? `<img src="${recipeImg}" alt="Foto de ${recipe.titulo}" />` : '<div style="background:#e2e8f0; width:100%; height:220px; display:flex; justify-content:center; align-items:center; border-radius:6px; color:#64748b;">📷 Sin Foto de Platillo</div>'}
           </div>
           <div class="recipe-page-right">
             <div class="action-btn-group">
@@ -1345,7 +1363,7 @@
             </div>
             <h2 style="font-size:2rem; color:#9f1239; margin-top:0;">🍳 ${recipe.titulo}</h2>
             <p style="font-size:0.85rem; color:#78716c;"><b>De:</b> ${recipe.autor} | <b>Fecha:</b> ${recipe.fecha}</p>
-            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipe.contenido}</div>
+            <div style="font-size:1.35rem; line-height:1.4; color:#1c1917; white-space:pre-wrap;">${recipeImg && recipe.contenido.startsWith('data:image') ? '' : recipe.contenido}</div>
           </div>
         </div>
       `}).join('');
