@@ -301,7 +301,7 @@
       position: relative; background: #fff; padding: 15px; box-shadow: 4px 8px 15px rgba(0,0,0,0.18);
       transform: rotate(-0.8deg); text-align: center; border-radius: 4px;
     }
-    .media-embed { width: 100%; height: 240px; border: none; border-radius: 4px; }
+    .media-embed { width: 100%; height: 200px; border: none; border-radius: 4px; display: block; margin-top: 8px; }
 
     .cinema-ticket-card {
       position: relative;
@@ -317,7 +317,7 @@
     .cinema-stars {
       color: #f59e0b;
       font-size: 1.4rem;
-      margin: 6px 0;
+      margin: 4px 0;
     }
 
     .cinema-top-highlight {
@@ -348,7 +348,6 @@
       opacity: 0.75;
     }
 
-    /* LIBRO RECETARIO EN DOS PÁGINAS ABIERTAS */
     .recipe-book-wrapper {
       position: relative;
       background: #fdfbf7;
@@ -691,9 +690,42 @@
     .falling-emoji { position: fixed; top: -50px; font-size: 26px; z-index: 9999; pointer-events: none; animation: fallDown 3s linear forwards; }
     @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
 
-    /* WIDGET SPOTIFY CON MODO PLAYLIST / SHUFFLE VISIBLE */
-    .spotify-mini-widget { position: fixed; bottom: 15px; right: 15px; z-index: 999; width: 330px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border-radius: 12px; overflow: hidden; background: #000; }
-    .spotify-mini-widget iframe { border: none; width: 100%; height: 380px; display: block; }
+    /* REPRODUCTOR SPOTIFY COMPACTO CON BOTÓN DE SHUFFLE DIRECTO */
+    .spotify-mini-widget {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      z-index: 999;
+      width: 290px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #121212;
+      border: 1px solid #1db954;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    .spotify-shuffle-btn {
+      background: #1db954;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 6px;
+      border-radius: 8px;
+      font-family: 'Special Elite', cursive;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      transition: background 0.2s;
+    }
+    .spotify-shuffle-btn:hover { background: #1ed760; }
+
+    .spotify-mini-widget iframe { border: none; width: 100%; height: 152px; display: block; border-radius: 8px; }
 
     @media (max-width: 600px) {
       .spotify-mini-widget { position: relative; bottom: auto; right: auto; width: 100%; max-width: 320px; margin-top: 35px; }
@@ -758,7 +790,6 @@
           </select>
         </div>
 
-        <!-- FORMULARIO RESTRUCTURADO DE CARTELERA & DÁS ENTRADAS -->
         <div class="form-group">
           <label id="lblTitle">1. Título / Nombre:</label>
           <input type="text" id="pubTitle" placeholder="Nombre de la película, plato, foto o plan..." required>
@@ -861,7 +892,6 @@
     <div class="journal-grid" id="wishlistFeed"></div>
   </section>
 
-  <!-- RECETARIO TIPO LIBRO ABIERTO DOS PÁGINAS -->
   <section id="recetario" class="tab-content">
     <div class="recipe-book-wrapper" id="recipeBook">
       <div id="recipePagesContainer"></div>
@@ -952,8 +982,11 @@
     </div>
   </section>
 
-  <!-- WIDGET SPOTIFY EMBED COMPLETO PARA SHUFFLE -->
+  <!-- WIDGET SPOTIFY CON BOTÓN DE ALEATORIO DIRECTO -->
   <div class="spotify-mini-widget">
+    <button class="spotify-shuffle-btn" onclick="window.open('https://open.spotify.com/playlist/2L3j5IWob51VmtJyS1qdoz?play=true&shuffle=true', '_blank')">
+      🔀 Activar Aleatorio en Spotify
+    </button>
     <iframe src="https://open.spotify.com/embed/playlist/2L3j5IWob51VmtJyS1qdoz?utm_source=generator&theme=0" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
     </iframe>
@@ -1180,8 +1213,16 @@
           </article>
         `;
       } else if (post.tipo === 'cartelera') {
-        const ratingStars = '⭐'.repeat(parseInt(post.rating || 5));
-        const videoEmbed = post.videoUrl ? getYouTubeEmbedUrl(post.videoUrl) : '';
+        const starCount = Math.min(5, Math.max(1, parseInt(post.rating) || 5));
+        const ratingStars = '⭐'.repeat(starCount);
+        
+        let videoEmbed = '';
+        if (post.videoUrl) {
+          videoEmbed = getYouTubeEmbedUrl(post.videoUrl);
+        } else if (post.contenido && post.contenido.includes('youtu')) {
+          videoEmbed = getYouTubeEmbedUrl(post.contenido);
+        }
+
         mediaHtml = `
           <article class="cinema-ticket-card">
             ${actionButtons}
@@ -1189,9 +1230,9 @@
             <span class="entry-date">${post.fecha}</span>
             <h3 style="font-size:2.2rem; margin:0; color:#fef08a;">🎟️ ${post.titulo}</h3>
             <div class="cinema-stars">${ratingStars}</div>
-            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0;" />` : ''}
-            ${videoEmbed ? `<iframe class="media-embed" src="${videoEmbed}" allowfullscreen style="margin:8px 0;"></iframe>` : ''}
-            ${post.contenido ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
+            ${post.photo ? `<img src="${post.photo}" style="width:100%; border-radius:6px; margin:8px 0; max-height:280px; object-fit:cover;" />` : ''}
+            ${videoEmbed ? `<iframe class="media-embed" src="${videoEmbed}" allowfullscreen></iframe>` : ''}
+            ${post.contenido && !post.contenido.includes('youtu') ? `<p style="font-size:1.3rem; margin-top:8px; line-height:1.3;">${post.contenido}</p>` : ''}
           </article>
         `;
       } else if (post.tipo === 'wishlist') {
@@ -1663,7 +1704,6 @@
 
       playSparkleSound();
 
-      // LLUVIA DE EMOJIS CON CORAZÓN NARANJO Y CORAZÓN MORADO
       const emojis = ['🐧', '🔮', '✨', '🧡', '💜'];
       for (let i = 0; i < 18; i++) {
         setTimeout(() => {
