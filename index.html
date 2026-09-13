@@ -190,11 +190,24 @@
       padding: 18px; box-shadow: 4px 8px 18px rgba(0,0,0,0.15); font-family: 'Caveat', cursive;
     }
 
+    /* ESTRUCTURA WISHLIST (DOS COLUMNAS: POR HACER Y CUMPLIDOS) */
+    .wishlist-split-container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%;
+    }
+    @media (max-width: 650px) { .wishlist-split-container { grid-template-columns: 1fr; } }
+
+    .wishlist-column {
+      background: rgba(255, 255, 255, 0.4); border: 2px dashed #b45309; border-radius: 10px; padding: 15px; min-height: 300px;
+    }
+    .wishlist-col-title {
+      font-family: 'Caveat', cursive; font-size: 1.8rem; text-align: center; margin: 0 0 15px 0; color: #9f1239; border-bottom: 2px dashed #f43f5e; padding-bottom: 5px;
+    }
+
     .boarding-pass-card {
       position: relative; background: #f0fdf4; border: 2px solid #16a34a; border-left: 8px solid #15803d;
-      border-radius: 8px; padding: 18px; box-shadow: 4px 8px 16px rgba(0,0,0,0.12); font-family: 'Special Elite', cursive;
+      border-radius: 8px; padding: 15px; box-shadow: 4px 8px 16px rgba(0,0,0,0.12); font-family: 'Special Elite', cursive; margin-bottom: 15px;
     }
-    .boarding-pass-card.completed { background: #f1f5f9; border-color: #94a3b8; border-left-color: #64748b; text-decoration: line-through; opacity: 0.75; }
+    .boarding-pass-card.completed { background: #f1f5f9; border-color: #94a3b8; border-left-color: #64748b; text-decoration: line-through; opacity: 0.8; }
 
     .recipe-book-wrapper {
       position: relative; background: #fdfbf7; border: 3px double #b45309; border-radius: 12px;
@@ -436,7 +449,19 @@
     <div class="journal-grid" id="carteleraFeed"></div>
   </section>
 
-  <section id="wishlist" class="tab-content"><div class="journal-grid" id="wishlistFeed"></div></section>
+  <!-- SECCIÓN WISHLIST DIVIDIDA EN DOS COLUMNAS -->
+  <section id="wishlist" class="tab-content">
+    <div class="wishlist-split-container">
+      <div class="wishlist-column">
+        <h3 class="wishlist-col-title">🛫 Planes por Hacer</h3>
+        <div id="wishlistPendingList"></div>
+      </div>
+      <div class="wishlist-column">
+        <h3 class="wishlist-col-title">✨ Sueños Cumplidos</h3>
+        <div id="wishlistDoneList"></div>
+      </div>
+    </div>
+  </section>
 
   <section id="recetario" class="tab-content">
     <div class="recipe-book-wrapper" id="recipeBook">
@@ -575,7 +600,6 @@
       }
     }
 
-    // COMPRESIÓN DE IMÁGENES AUTOMÁTICA
     function compressImage(file, maxWidth = 800, quality = 0.7) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -811,13 +835,13 @@
           <article class="boarding-pass-card ${isDone ? 'completed' : ''}">
             ${actionButtons}
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:0.75rem; color:#15803d; font-weight:bold;">BOARDING PASS</span>
-              <button onclick="toggleWishlistStatus('${postKey}')" style="background:#16a34a; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:0.7rem; cursor:pointer;">
-                ${isDone ? 'Marcar Pendiente' : '✓ Completado'}
+              <span style="font-size:0.75rem; color:${isDone ? '#64748b' : '#15803d'}; font-weight:bold;">BOARDING PASS</span>
+              <button onclick="toggleWishlistStatus('${postKey}')" style="background:${isDone ? '#64748b' : '#16a34a'}; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:0.7rem; cursor:pointer;">
+                ${isDone ? '↩️ Desmarcar' : '✓ Marcar Completado'}
               </button>
             </div>
-            <h3 style="font-size:1.5rem; margin:8px 0 4px 0; color:#14532d;">🛫 ${post.titulo}</h3>
-            <p style="font-size:1.1rem; margin:0; color:#374151;">${post.contenido}</p>
+            <h3 style="font-size:1.4rem; margin:8px 0 4px 0; color:${isDone ? '#475569' : '#14532d'};">🛫 ${post.titulo}</h3>
+            <p style="font-size:1rem; margin:0; color:${isDone ? '#64748b' : '#374151'};">${post.contenido}</p>
           </article>
         `;
       } else {
@@ -958,17 +982,39 @@
       document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('fotosFeed').innerHTML = posts.filter(p => p.tipo === 'foto').map((p, idx) => renderCard(p, idx)).join('');
       
+      // CARTELERA Y HIGHLIGHT AUTOMÁTICO (CORREGIDO A NÚMERO ENTERO)
       const cinemaPosts = posts.filter(p => p.tipo === 'cartelera');
       document.getElementById('carteleraFeed').innerHTML = cinemaPosts.map((p, idx) => renderCard(p, idx)).join('');
       
-      const topCinema = cinemaPosts.filter(p => (parseInt(p.rating) === 5 || p.rating == 5));
+      const topCinema = cinemaPosts.filter(p => parseInt(p.rating) === 5);
       document.getElementById('cinemaTopList').innerHTML = topCinema.length > 0 
         ? topCinema.map(m => `🎬 <b>${m.titulo}</b> (${m.autor})`).join(' — ')
         : 'Aún no hay películas puntuadas con 5 estrellas.';
 
+      // WISHLIST SEPARADA EN DOS COLUMNAS (PENDIENTES vs CUMPLIDOS)
       const wishlistPosts = posts.filter(p => p.tipo === 'wishlist');
-      document.getElementById('wishlistFeed').innerHTML = wishlistPosts.map((p, idx) => renderCard(p, idx)).join('');
+      const pendingWishlist = [];
+      const doneWishlist = [];
 
+      wishlistPosts.forEach((p, idx) => {
+        const postKey = generateKey(p.titulo);
+        const isDone = localStorage.getItem('wishlist_done_' + postKey) === 'true';
+        if (isDone) {
+          doneWishlist.push(renderCard(p, idx));
+        } else {
+          pendingWishlist.push(renderCard(p, idx));
+        }
+      });
+
+      document.getElementById('wishlistPendingList').innerHTML = pendingWishlist.length > 0 
+        ? pendingWishlist.join('') 
+        : '<p style="text-align:center; color:#78716c; font-size:1.1rem;">¡No hay planes pendientes!</p>';
+
+      document.getElementById('wishlistDoneList').innerHTML = doneWishlist.length > 0 
+        ? doneWishlist.join('') 
+        : '<p style="text-align:center; color:#78716c; font-size:1.1rem;">Aún no completan su primer sueño ✨</p>';
+
+      // RECETARIO
       const recipes = posts.filter(p => p.tipo === 'receta');
       renderRecipeBook(recipes);
     }
