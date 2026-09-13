@@ -117,27 +117,41 @@
     .tab-content { display: none; width: 100%; max-width: 1200px; box-sizing: border-box; }
     .tab-content.active { display: block; }
 
-    /* REGLA DEFINITIVA PARA 3 COLUMNAS REALES EN WEB Y 1 EN MÓVIL */
+    /* ========================================================= */
+    /* LAYOUT PINTEREST (MASONRY REAL) EN 3 COLUMNAS PARA WEB    */
+    /* ========================================================= */
     .journal-grid { 
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      align-items: start;
-      width: 100%; 
+      column-count: 3;
+      column-gap: 24px;
+      width: 100%;
       box-sizing: border-box;
     }
+
     @media (max-width: 900px) { 
-      .journal-grid { grid-template-columns: repeat(2, 1fr); } 
+      .journal-grid { 
+        column-count: 2; 
+        column-gap: 18px;
+      } 
     }
+
+    /* EN CELULARES: 1 SOLA COLUMNA CONTINUA SIN SUPERPOSICIONES */
     @media (max-width: 650px) { 
-      .journal-grid { grid-template-columns: 1fr; } 
+      .journal-grid { 
+        column-count: 1; 
+        column-gap: 0;
+      } 
     }
 
     .journal-item-block { 
-      display: block; 
-      width: 100%; 
-      box-sizing: border-box; 
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 24px;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
     }
+    /* ========================================================= */
 
     /* AIRMAIL POST-IT */
     .postit-wrapper { position: relative; min-height: 140px; }
