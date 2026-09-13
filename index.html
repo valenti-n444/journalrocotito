@@ -185,12 +185,6 @@
       background: #292524; border: 2px double #eab308; border-radius: 10px; padding: 15px; margin-bottom: 25px; color: #fff;
     }
 
-    .recipe-book-card {
-      position: relative; background: #fcfbf7; border: 2px dashed #b45309; border-radius: 6px;
-      padding: 18px; box-shadow: 4px 8px 18px rgba(0,0,0,0.15); font-family: 'Caveat', cursive;
-    }
-
-    /* ESTRUCTURA WISHLIST (DOS COLUMNAS: POR HACER Y CUMPLIDOS) */
     .wishlist-split-container {
       display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%;
     }
@@ -449,7 +443,6 @@
     <div class="journal-grid" id="carteleraFeed"></div>
   </section>
 
-  <!-- SECCIÓN WISHLIST DIVIDIDA EN DOS COLUMNAS -->
   <section id="wishlist" class="tab-content">
     <div class="wishlist-split-container">
       <div class="wishlist-column">
@@ -559,7 +552,7 @@
   </div>
 
   <script>
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXRLnEby4pu9p5gpysVM2urYjH9Lp30VoEtfFGBoZnqMMZEAO8ImsxvRfWcluoH9FXhw/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzBpl3GoY876Ed_7w-qIqudKP6ySn_5ucxRfJKmONkb9FDssHc-I4g3I6jMBeLTZpjuJw/exec";
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -600,7 +593,7 @@
       }
     }
 
-    function compressImage(file, maxWidth = 800, quality = 0.7) {
+    function compressImage(file, maxWidth = 600, quality = 0.6) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -689,7 +682,7 @@
           fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify({ action: 'delete', titulo: titulo, autor: autor })
           });
           alert('✨ Post eliminado completamente.');
@@ -982,7 +975,6 @@
       document.getElementById('literaturaFeed').innerHTML = posts.filter(p => p.tipo === 'nota' || p.tipo === 'poesia').map((p, idx) => renderCard(p, idx)).join('');
       document.getElementById('fotosFeed').innerHTML = posts.filter(p => p.tipo === 'foto').map((p, idx) => renderCard(p, idx)).join('');
       
-      // CARTELERA Y HIGHLIGHT AUTOMÁTICO (CORREGIDO A NÚMERO ENTERO)
       const cinemaPosts = posts.filter(p => p.tipo === 'cartelera');
       document.getElementById('carteleraFeed').innerHTML = cinemaPosts.map((p, idx) => renderCard(p, idx)).join('');
       
@@ -991,7 +983,6 @@
         ? topCinema.map(m => `🎬 <b>${m.titulo}</b> (${m.autor})`).join(' — ')
         : 'Aún no hay películas puntuadas con 5 estrellas.';
 
-      // WISHLIST SEPARADA EN DOS COLUMNAS (PENDIENTES vs CUMPLIDOS)
       const wishlistPosts = posts.filter(p => p.tipo === 'wishlist');
       const pendingWishlist = [];
       const doneWishlist = [];
@@ -1014,7 +1005,6 @@
         ? doneWishlist.join('') 
         : '<p style="text-align:center; color:#78716c; font-size:1.1rem;">Aún no completan su primer sueño ✨</p>';
 
-      // RECETARIO
       const recipes = posts.filter(p => p.tipo === 'receta');
       renderRecipeBook(recipes);
     }
@@ -1027,13 +1017,11 @@
         const data = await res.json();
         
         if (data && data.length > 1) {
-          const uniqueTitles = new Set(defaultPosts.map(p => p.titulo));
           const fetchedPosts = [];
           for (let i = 1; i < data.length; i++) {
             const row = data[i];
             const title = row[3] || '';
-            if (title && !uniqueTitles.has(title)) {
-              uniqueTitles.add(title);
+            if (title) {
               fetchedPosts.push({
                 fecha: row[0] || '11/09/2026',
                 autor: row[1] || 'Val 🔮',
@@ -1061,7 +1049,7 @@
 
       const btnSubmit = document.getElementById('btnSubmitForm');
       btnSubmit.disabled = true;
-      btnSubmit.textContent = '⏳ Procesando e Imagen...';
+      btnSubmit.textContent = '⏳ Guardando en la Base de Datos...';
 
       const oldTitle = document.getElementById('editingPostTitle').value;
       const type = document.getElementById('pubType').value;
@@ -1069,31 +1057,27 @@
       let videoUrl = document.getElementById('pubVideoUrl') ? document.getElementById('pubVideoUrl').value : '';
       const fileInput = document.getElementById('pubFile');
 
-      if (oldTitle) {
-        window.allPosts = window.allPosts.filter(p => p.titulo !== oldTitle);
-      }
-
       let photoData = '';
       try {
         if ((type === 'foto' || type === 'cartelera' || type === 'receta') && fileInput.files.length > 0) {
-          photoData = await compressImage(fileInput.files[0], 800, 0.7);
+          photoData = await compressImage(fileInput.files[0], 600, 0.6);
           if (type === 'foto') content = photoData;
         } else {
-          const existingPost = window.allPosts.find(p => p.titulo === oldTitle);
+          const existingPost = window.allPosts ? window.allPosts.find(p => p.titulo === oldTitle) : null;
           if (existingPost && existingPost.photo) {
             photoData = existingPost.photo;
           }
         }
         await sendPostData(type, content, videoUrl, photoData);
       } catch (err) {
-        alert('Error procesando imagen: ' + err);
+        alert('Error procesando el post: ' + err);
         btnSubmit.disabled = false;
         btnSubmit.textContent = '✨ Publicar en Vivo';
       }
     });
 
     async function sendPostData(type, content, videoUrl, photoData) {
-      const postData = {
+      const postObj = {
         fecha: new Date().toLocaleDateString('es-CL'),
         autor: document.getElementById('pubAuthor').value,
         tipo: type,
@@ -1101,23 +1085,28 @@
         contenido: content,
         rating: document.getElementById('pubRating').value || '5',
         videoUrl: videoUrl,
-        photo: photoData,
-        numeroNota: Math.floor(Math.random() * 90) + 10
+        photo: photoData
       };
 
       try {
         await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(postData)
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(postObj)
         });
-        alert('✨ ¡Publicado/Modificado con éxito!');
+
+        if (!window.allPosts) window.allPosts = [];
+        window.allPosts.unshift(postObj);
+        renderAllFeeds(window.allPosts);
+
+        alert('✨ ¡Publicado con éxito!');
         closeModal();
         document.getElementById('publishForm').reset();
-        setTimeout(loadPosts, 1200);
+        
+        setTimeout(loadPosts, 1500);
       } catch (err) {
-        alert('Error al publicar: ' + err);
+        alert('Error al enviar a la base de datos: ' + err);
       } finally {
         const btnSubmit = document.getElementById('btnSubmitForm');
         btnSubmit.disabled = false;
