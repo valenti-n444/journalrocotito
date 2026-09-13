@@ -114,28 +114,27 @@
       background: #fffefb; color: #9f1239; border-color: #f43f5e; transform: translateY(-3px); font-weight: bold;
     }
 
-    /* CONTENEDORES AMPLIADOS A 1200PX PARA DAR ESPACIO A LAS 3 COLUMNAS */
     .tab-content { display: none; width: 100%; max-width: 1200px; box-sizing: border-box; }
     .tab-content.active { display: block; }
 
-    /* LAYOUT PINTEREST (3 COLUMNAS EN WEB, 1 EN MÓVIL) */
+    /* REGLA DEFINITIVA PARA 3 COLUMNAS REALES EN WEB Y 1 EN MÓVIL */
     .journal-grid { 
-      column-count: 3; 
-      column-gap: 24px; 
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
       width: 100%; 
+      box-sizing: border-box;
     }
     @media (max-width: 900px) { 
-      .journal-grid { column-count: 2; } 
+      .journal-grid { grid-template-columns: repeat(2, 1fr); } 
     }
     @media (max-width: 650px) { 
-      .journal-grid { column-count: 1; } 
+      .journal-grid { grid-template-columns: 1fr; } 
     }
 
     .journal-item-block { 
-      break-inside: avoid; 
-      page-break-inside: avoid; 
-      margin-bottom: 25px; 
-      display: inline-block; 
+      display: block; 
       width: 100%; 
       box-sizing: border-box; 
     }
@@ -217,7 +216,7 @@
       padding: 18px; box-shadow: 4px 8px 18px rgba(0,0,0,0.18); font-family: 'Caveat', cursive; box-sizing: border-box;
     }
 
-    /* RECETARIO PESTAÑA ESPECIAL (DOBLE PÁGINA) */
+    /* EXCEPCIÓN 1: RECETARIO PESTAÑA ESPECIAL (LIBRO DOBLE PÁGINA) */
     .recipe-book-wrapper {
       position: relative; background: #fdfbf7; border: 3px double #b45309; border-radius: 12px;
       padding: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.25); max-width: 900px; margin: 0 auto;
@@ -247,7 +246,7 @@
     .recipe-nav-btns { display: flex; justify-content: space-between; margin-top: 20px; border-top: 1px dashed #d97706; padding-top: 10px; }
     .recipe-btn { background: #f59e0b; color: white; border: none; padding: 6px 14px; font-family: 'Special Elite', cursive; border-radius: 6px; cursor: pointer; }
 
-    /* WISHLIST (2 COLUMNAS DIVIDIDAS) */
+    /* EXCEPCIÓN 2: WISHLIST (2 COLUMNAS DIVIDIDAS) */
     .wishlist-split-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
     @media (max-width: 650px) { .wishlist-split-container { grid-template-columns: 1fr; } }
 
@@ -1103,7 +1102,6 @@
           }
         }
 
-        // Elimina post original si se está modificando
         if (oldTitle) {
           fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
@@ -1274,7 +1272,7 @@
       }).join(' ');
 
       document.getElementById('hangmanWord').textContent = wordDisplay;
-      document.getElementById('hangmanStatus').textContent = `Intentos restantes: ${hangmanAttempts}`;
+      document.getElementById('hangmanStatus').textContent = `Intentos restantes: 6`;
 
       if (!wordDisplay.includes('_')) {
         document.getElementById('hangmanStatus').textContent = '🎉 ¡Adivinaron la frase completa!';
