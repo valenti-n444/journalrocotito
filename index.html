@@ -70,7 +70,7 @@
 
     header {
       position: relative; background: #fcfbf7; padding: 20px 15px; border: 1px dashed #a8a29e;
-      box-shadow: 4px 8px 18px rgba(0,0,0,0.15); max-width: 850px; width: 100%; display: flex;
+      box-shadow: 4px 8px 18px rgba(0,0,0,0.15); max-width: 900px; width: 100%; display: flex;
       justify-content: space-between; align-items: center; transform: rotate(-0.5deg); margin-bottom: 25px; box-sizing: border-box;
     }
 
@@ -91,7 +91,7 @@
 
     .counter-widget {
       position: relative; background: #fefcf8; border: 1px dashed #b45309; padding: 12px 18px;
-      box-shadow: 3px 6px 12px rgba(0,0,0,0.12); border-radius: 4px; max-width: 850px; width: 100%;
+      box-shadow: 3px 6px 12px rgba(0,0,0,0.12); border-radius: 4px; max-width: 900px; width: 100%;
       margin-bottom: 25px; box-sizing: border-box; transform: rotate(0.5deg);
     }
 
@@ -104,7 +104,7 @@
     .counter-item { font-family: 'Caveat', cursive; font-size: 1.45rem; color: #9f1239; line-height: 1.1; }
     .counter-item span { display: block; font-family: 'Special Elite', cursive; font-size: 0.68rem; color: #57534e; }
 
-    .tabs-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 850px; width: 100%; margin-bottom: 25px; }
+    .tabs-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 900px; width: 100%; margin-bottom: 25px; }
     .tab-btn {
       background: #fef3c7; color: #78350f; border: 1px dashed #d97706; border-bottom: none;
       padding: 8px 14px; font-family: 'Special Elite', cursive; font-size: 0.82rem;
@@ -114,16 +114,33 @@
       background: #fffefb; color: #9f1239; border-color: #f43f5e; transform: translateY(-3px); font-weight: bold;
     }
 
-    .tab-content { display: none; width: 100%; max-width: 850px; }
+    .tab-content { display: none; width: 100%; max-width: 900px; }
     .tab-content.active { display: block; }
 
-    .journal-grid { column-count: 2; column-gap: 20px; width: 100%; }
-    @media (max-width: 650px) { .journal-grid { column-count: 1; } }
+    /* LAYOUT PINTEREST EN WEB (3 COLUMNAS MASONRY) Y 1 COLUMNA EN MÓVIL */
+    .journal-grid { 
+      column-count: 3; 
+      column-gap: 20px; 
+      width: 100%; 
+    }
+    @media (max-width: 850px) { 
+      .journal-grid { column-count: 2; } 
+    }
+    @media (max-width: 650px) { 
+      .journal-grid { column-count: 1; } 
+    }
 
-    .journal-item-block { break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; box-sizing: border-box; }
+    .journal-item-block { 
+      break-inside: avoid; 
+      page-break-inside: avoid; 
+      margin-bottom: 25px; 
+      display: inline-block; 
+      width: 100%; 
+      box-sizing: border-box; 
+    }
 
     /* AIRMAIL POST-IT */
-    .postit-wrapper { position: relative; min-height: 150px; }
+    .postit-wrapper { position: relative; min-height: 140px; }
     .postit-card {
       position: relative; background: #fef9c3; padding: 20px 18px 15px 18px; border-radius: 2px;
       box-shadow: 4px 6px 12px rgba(0,0,0,0.15); transform: rotate(-1.5deg); transition: all 0.35s ease;
@@ -148,7 +165,7 @@
     .postit-wrapper:hover .postit-preview { display: none; }
     .postit-wrapper:hover .airmail-full-content { display: block; }
 
-    /* CORRECCIÓN LITERATURA / HOJA LIBRETA */
+    /* CORRECCIÓN LITERATURA / HOJA LIBRETA AUTO-AJUSTABLE */
     .notebook-card {
       position: relative; background: #faf8f5; 
       background-image: linear-gradient(rgba(203, 213, 225, 0.6) 1px, transparent 1px);
@@ -175,7 +192,7 @@
     .media-embed { width: 100%; height: 210px; border: none; border-radius: 6px; display: block; margin-top: 8px; }
 
     /* TICKETS CARTELERA INTERACTIVOS (ESTILO AIRMAIL) */
-    .cinema-ticket-wrapper { position: relative; min-height: 140px; }
+    .cinema-ticket-wrapper { position: relative; min-height: 130px; }
     .cinema-ticket-card {
       position: relative; background: #1c1917; color: #fef3c7; border: 2px dashed #eab308;
       border-radius: 10px; padding: 16px; box-shadow: 4px 6px 16px rgba(0,0,0,0.3); font-family: 'Caveat', cursive;
@@ -209,7 +226,7 @@
     .recipe-double-page.active { display: grid; }
     @media (max-width: 650px) { .recipe-double-page { grid-template-columns: 1fr; } }
 
-    /* HOJA IZQUIERDA: FOTO COMPLETA SIN MARGENES */
+    /* HOJA IZQUIERDA RECETARIO: FOTO 100% COMPLETA */
     .recipe-page-left {
       border-right: 2px dashed #d97706; padding-right: 15px; display: flex; flex-direction: column;
       justify-content: center; align-items: center; height: 380px; width: 100%; box-sizing: border-box; overflow: hidden;
